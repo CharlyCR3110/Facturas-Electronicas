@@ -28,5 +28,10 @@ public class ProveedorService {
             }
         }
     }
+
+    // para hacer login
+    public ProveedorEntity loginProveedor(String correo, String contrasena) {
+        return proveedorRepository.findByCorreoAndContrasena(correo, contrasena).orElse(null);
+    }
 }
 
