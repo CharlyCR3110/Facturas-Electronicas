@@ -9,4 +9,9 @@ public class ProveedorController {
     public String getRegisterProveedorPage() {
         return "register";
     }
+
+    @GetMapping("/login")
+    public String getLoginProveedorPage() {
+        return "login";
+    }
 }
