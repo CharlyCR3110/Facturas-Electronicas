@@ -14,5 +14,19 @@ public class ProveedorService {
     public ProveedorService(ProveedorRepository proveedorRepository) {
         this.proveedorRepository = proveedorRepository;
     }
+
+    public ProveedorEntity registerProveedor(ProveedorEntity proveedor) {
+        try {
+            return proveedorRepository.save(proveedor);
+        } catch (DataIntegrityViolationException e) {
+            if (e.getMessage().contains("correo")) {
+                throw new IllegalArgumentException("Correo already exists");
+            } else if (e.getMessage().contains("chk_contrasena_complexity")) {
+                throw new IllegalArgumentException("Contrasena does not meet complexity requirements");
+            } else {
+                throw new IllegalArgumentException("Invalid data provided");
+            }
+        }
+    }
 }
 
