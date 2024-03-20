@@ -131,6 +131,42 @@ a {
   z-index: 1;
 }
 
+.right-column .confirmation-message {
+  background-color: var(--primary-color);
+  color: #fff;
+  padding: 1rem;
+  border-radius: 0.4rem;
+  margin-bottom: 1rem;
+}
+
+.right-column .confirmation-message .btn.btn-secondary {
+  background: transparent;
+  border: 2px solid var(--neutral-light);
+  color: var(--neutral-light);
+  margin-bottom: 0;
+}
+
+.right-column .confirmation-message .btn.btn-secondary:hover {
+  border: 2px solid var(--neutral-dark);
+  outline: 0;
+}
+
+.right-column .confirmation-message .btn.btn-secondary:active,
+.right-column .confirmation-message .btn.btn-secondary:focus,
+.right-column .confirmation-message .btn.btn-secondary:target,
+.right-column .confirmation-message .btn.btn-secondary:active:focus {
+  box-shadow: 0 0 0 3px #fff, 0 0 0 5px var(--primary-background-color);
+  outline: none !important;
+}
+
+.right-column .confirmation-message a {
+  text-decoration: none;
+}
+
+.right-column .hidden {
+  display: none;
+}
+
 .right-column .form label {
   display: block;
   font-weight: 300;
