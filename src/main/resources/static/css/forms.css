@@ -175,6 +175,11 @@ a {
   display: none;
 }
 
+.right-column .form input:hover {
+  box-shadow: 0 0 0 3px #fff, 0 0 0 5px var(--primary-background-color);
+  outline: none !important;
+}
+
 .right-column .form input[type="text"],
 .right-column .form input[type="password"],
 .right-column .form input[type="tel"],
