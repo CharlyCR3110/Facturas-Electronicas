@@ -6,6 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
+import javax.swing.text.html.Option;
+import java.util.Optional;
+
 @Service
 public class ProveedorService {
 
@@ -29,7 +32,18 @@ public class ProveedorService {
 
     // para hacer login
     public ProveedorEntity loginProveedor(String correo, String contrasena) {
-        return proveedorRepository.findByCorreoAndContrasena(correo, contrasena).orElse(null);
+        Optional<ProveedorEntity> proveedorOptional = proveedorRepository.findByCorreo(correo);
+
+        if (proveedorOptional.isPresent()) {
+            ProveedorEntity proveedor = proveedorOptional.get();
+            if (proveedor.getContrasena().equals(contrasena)) {
+                return proveedor;
+            } else {
+                throw new IllegalArgumentException("La contraseña proporcionada no es válida.");
+            }
+        } else {
+            throw new IllegalArgumentException("No se encontró un proveedor con el correo electrónico proporcionado.");
+        }
     }
 }
 
