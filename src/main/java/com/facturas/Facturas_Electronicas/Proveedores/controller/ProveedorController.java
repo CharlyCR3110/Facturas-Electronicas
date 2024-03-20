@@ -36,14 +36,19 @@ public class ProveedorController {
         try {
             // se intenta registrar al proveedor
             ProveedorEntity registered = proveedorService.registerProveedor(proveedorEntity);
+
+            // Agrega un mensaje de confirmación al modelo
+            model.addAttribute("confirmation", "¡Registro exitoso! Ahora puedes iniciar sesión.");
         } catch (IllegalArgumentException e) {
-            // si falla el registro, se agregara un mensaje de error al modelo y luego devuelve al view de register con el mensaje (muestra el popup de error)
+            // si falla el registro, se agregará un mensaje de error al modelo y luego devuelve al view de register con el mensaje (muestra el popup de error)
             model.addAttribute("error", e.getMessage());
             return "proveedor_auth/register";
         }
 
-        return "redirect:/login";   // si el registro es exitoso, redirige al view de login
+        // Retorna al mismo formulario de registro con un mensaje de confirmación o error
+        return "proveedor_auth/register";
     }
+
 
     // loggear a un proveedor (inicio de sesion)
     @PostMapping("/login")
