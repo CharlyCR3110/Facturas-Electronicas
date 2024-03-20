@@ -10,13 +10,21 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class ProveedorController {
+    private final ProveedorService proveedorService;
+
+    public ProveedorController(ProveedorService proveedorService) {
+        this.proveedorService = proveedorService;
+    }
+
     @GetMapping("/register")
-    public String getRegisterProveedorPage() {
+    public String getRegisterProveedorPage(Model model) {
+        model.addAttribute("registerRequest", new ProveedorEntity());
         return "proveedor_auth/register";
     }
 
     @GetMapping("/login")
-    public String getLoginProveedorPage() {
+    public String getLoginProveedorPage(Model model) {
+        model.addAttribute("loginRequest", new ProveedorEntity());
         return "proveedor_auth/login";
     }
 }
