@@ -29,11 +29,12 @@ public class ProveedorController {
     }
 
     @PostMapping("/register")
-    public String registerProveedor(@ModelAttribute("registerRequest") ProveedorEntity proveedorEntity) {
+    public String registerProveedor(@ModelAttribute("registerRequest") ProveedorEntity proveedorEntity, Model model) {
         try {
             ProveedorEntity registered = proveedorService.registerProveedor(proveedorEntity);
         } catch (IllegalArgumentException e) {
-            return "proveedor_auth/error_page";
+            model.addAttribute("error", e.getMessage());
+            return "proveedor_auth/register";
         }
 
         return "redirect:/login";
