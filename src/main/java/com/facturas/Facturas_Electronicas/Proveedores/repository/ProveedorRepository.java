@@ -7,4 +7,6 @@ import java.util.Optional;
 
 public interface ProveedorRepository extends JpaRepository<ProveedorEntity, Integer> {
     Optional<ProveedorEntity> findByCorreoAndContrasena (String correo, String contrasena);
+
+    Optional<ProveedorEntity> findByCorreo(String correo);
 }
