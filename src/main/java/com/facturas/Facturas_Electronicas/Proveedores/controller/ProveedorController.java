@@ -34,8 +34,7 @@ public class ProveedorController {
     @PostMapping("/register")
     public String registerProveedor(@ModelAttribute("registerRequest") ProveedorEntity proveedorEntity, Model model) {
         try {
-            // se intenta registrar al proveedor
-            ProveedorEntity registered = proveedorService.registerProveedor(proveedorEntity);
+            proveedorService.registerProveedor(proveedorEntity);
 
             // Agrega un mensaje de confirmación al modelo
             model.addAttribute("confirmation", "¡Registro exitoso! Ahora puedes iniciar sesión.");
