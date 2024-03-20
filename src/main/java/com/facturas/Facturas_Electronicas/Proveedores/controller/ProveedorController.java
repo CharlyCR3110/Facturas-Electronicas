@@ -30,14 +30,9 @@ public class ProveedorController {
 
     @PostMapping("/register")
     public String registerProveedor(@ModelAttribute("registerRequest") ProveedorEntity proveedorEntity) {
-        // degug
-        System.out.println("registerProveedor: Register request: " + proveedorEntity);
-
         try {
             ProveedorEntity registered = proveedorService.registerProveedor(proveedorEntity);
         } catch (IllegalArgumentException e) {
-            // debug
-            System.out.println("registerProveedor: " + e.getMessage());
             return "proveedor_auth/error_page";
         }
 
