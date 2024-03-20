@@ -2,11 +2,9 @@ package com.facturas.Facturas_Electronicas.Proveedores.service;
 
 import com.facturas.Facturas_Electronicas.Proveedores.model.ProveedorEntity;
 import com.facturas.Facturas_Electronicas.Proveedores.repository.ProveedorRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
-import javax.swing.text.html.Option;
 import java.util.Optional;
 
 @Service
