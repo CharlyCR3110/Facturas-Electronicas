@@ -38,9 +38,20 @@ public class ProveedorController {
         } catch (IllegalArgumentException e) {
             // debug
             System.out.println("registerProveedor: " + e.getMessage());
-            return "redirect:/register?error";
+            return "proveedor_auth/error_page";
         }
 
         return "redirect:/login";
+    }
+
+    @PostMapping("/login")
+    public String loginProveedor(@ModelAttribute("loginRequest") ProveedorEntity proveedorEntity, Model model) {
+        ProveedorEntity logged = proveedorService.loginProveedor(proveedorEntity.getCorreo(), proveedorEntity.getContrasena());
+        if (logged == null) {
+            return "proveedor_auth/error_page";
+        }
+
+        model.addAttribute("userLogged", logged);
+        return "proveedor_auth/success_page";
     }
 }
