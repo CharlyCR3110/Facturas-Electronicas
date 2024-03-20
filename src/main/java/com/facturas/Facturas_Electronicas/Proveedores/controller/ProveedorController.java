@@ -27,4 +27,20 @@ public class ProveedorController {
         model.addAttribute("loginRequest", new ProveedorEntity());
         return "proveedor_auth/login";
     }
+
+    @PostMapping("/register")
+    public String registerProveedor(@ModelAttribute("registerRequest") ProveedorEntity proveedorEntity) {
+        // degug
+        System.out.println("registerProveedor: Register request: " + proveedorEntity);
+
+        try {
+            ProveedorEntity registered = proveedorService.registerProveedor(proveedorEntity);
+        } catch (IllegalArgumentException e) {
+            // debug
+            System.out.println("registerProveedor: " + e.getMessage());
+            return "redirect:/register?error";
+        }
+
+        return "redirect:/login";
+    }
 }
