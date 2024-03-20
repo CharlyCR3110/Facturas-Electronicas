@@ -24,7 +24,12 @@
 
 
     <div class="right-column">
-      <div class="form">
+      <div th:if="${confirmation}" class="confirmation-message">
+        <p th:text="${confirmation}"></p>
+        <a class="btn btn-secondary" href="/login">Iniciar Sesión</a>
+      </div>
+      
+      <div class="form" th:classappend="${confirmation} ? hidden : ''">
         <h2>Registro</h2>
         <form method="post" action="/register" th:object="${registerRequest}">
           <label for="name">Name</label>
@@ -47,12 +52,12 @@
 
           <input class="btn btn-primary" name="submit" type="submit" value="Registrarse">
         </form>
+      
+      <a class="btn btn-secondary" href="/login">Iniciar Sesión</a>
 
-        <a class="btn btn-secondary" href="/login">Iniciar Sesión</a>
-
-        <div class="copyright">
-          <p>Copyright &copy; 2024. Todos los derechos reservados.</p>
-        </div>
+      <div class="copyright">
+        <p>Copyright &copy; 2024. Todos los derechos reservados.</p>
+</div>
       </div>
 
       <input type="checkbox" id="errorToggle" class="error-toggle" th:checked="${error}">
