@@ -16,15 +16,15 @@
       <div class="hero">
         <p class="kicker">Acceso Seguro</p>
         <h1>
-    
+
           Inicia Sesión<br>para Gestionar tus Facturas<span class="dot">.</span>
         </h1>
-    
+
         <p>Ingresa a tu cuenta para administrar tus facturas electrónicas de forma rápida y segura.</p>
-    
+
       </div>
     </div>
-    
+
 
     <div class="right-column">
 
@@ -34,11 +34,11 @@
 
         <form method="post" action="/login" th:object="${loginRequest}">
           <label for="email">Email</label>
-          <input class="rounded" id="email" name="email" placeholder="email@example.com" type="email" value=""
+          <input class="rounded" id="email" name="correo" placeholder="email@example.com" type="email" value=""
             autocomplete="on">
 
           <label for="password">Password</label>
-          <input class="rounded" id="password" name="password" placeholder="Tu contraseña segura" type="password"
+          <input class="rounded" id="password" name="contrasena" placeholder="Tu contraseña segura" type="password"
             value="" autocomplete="off">
 
           <input class="btn btn-primary" name="submit" type="submit" value="Iniciar Sesión">
