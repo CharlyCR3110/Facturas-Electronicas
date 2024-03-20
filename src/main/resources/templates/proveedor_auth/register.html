@@ -21,26 +21,28 @@
         <p>Regístrate y forma parte de nuestra comunidad de facturación electrónica.</p>
       </div>
     </div>
-    
+
 
     <div class="right-column">
       <div class="form">
         <h2>Registro</h2>
         <form method="post" action="/register" th:object="${registerRequest}">
           <label for="name">Name</label>
-          <input class="rounded" id="name" name="name" placeholder="EPA" type="text" value="" required>
+          <input class="rounded" id="name" name="nombre" placeholder="EPA" type="text" value="" required>
 
           <label for="address">Address</label>
-          <input class="rounded" id="address" name="address" placeholder="C. 104, Heredia, Belén, 40703" type="text" value="" required>
+          <input class="rounded" id="address" name="direccion" placeholder="C. 104, Heredia, Belén, 40703" type="text"
+            value="" required>
 
           <label for="phone">Phone</label>
-          <input class="rounded" id="phone" name="phone" placeholder="800-372-8253" type="tel" value="" required>
+          <input class="rounded" id="phone" name="telefono" placeholder="800-372-8253" type="tel" value="" required>
 
           <label for="email">Email</label>
-          <input class="rounded" id="email" name="email" placeholder="email@example.com" type="email" value="" required>
+          <input class="rounded" id="email" name="correo" placeholder="email@example.com" type="email" value=""
+            required>
 
           <label for="password">Password</label>
-          <input class="rounded" id="password" name="password" placeholder="Your secure password" type="password"
+          <input class="rounded" id="password" name="contrasena" placeholder="Your secure password" type="password"
             value="" required>
 
           <input class="btn btn-primary" name="submit" type="submit" value="Registrarse">
