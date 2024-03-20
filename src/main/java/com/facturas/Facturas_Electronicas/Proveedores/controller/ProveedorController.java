@@ -42,12 +42,15 @@ public class ProveedorController {
 
     @PostMapping("/login")
     public String loginProveedor(@ModelAttribute("loginRequest") ProveedorEntity proveedorEntity, Model model) {
-        ProveedorEntity logged = proveedorService.loginProveedor(proveedorEntity.getCorreo(), proveedorEntity.getContrasena());
-        if (logged == null) {
-            return "proveedor_auth/error_page";
+        try {
+            ProveedorEntity logged = proveedorService.loginProveedor(proveedorEntity.getCorreo(), proveedorEntity.getContrasena());
+            model.addAttribute("userLogged", logged);
+        } catch (IllegalArgumentException e) {
+            model.addAttribute("error", e.getMessage());
+            return "proveedor_auth/login";
         }
 
-        model.addAttribute("userLogged", logged);
+
         return "proveedor_auth/success_page";
     }
 }
