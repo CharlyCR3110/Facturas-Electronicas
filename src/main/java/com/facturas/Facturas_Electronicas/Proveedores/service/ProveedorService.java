@@ -20,11 +20,9 @@ public class ProveedorService {
             return proveedorRepository.save(proveedor);
         } catch (DataIntegrityViolationException e) {
             if (e.getMessage().contains("correo")) {
-                throw new IllegalArgumentException("Correo already exists");
-            } else if (e.getMessage().contains("chk_contrasena_complexity")) {
-                throw new IllegalArgumentException("Contrasena does not meet complexity requirements");
+                throw new IllegalArgumentException("Parece que ya existe una cuenta con este correo.");
             } else {
-                throw new IllegalArgumentException("Invalid data provided");
+                throw new IllegalArgumentException("Hubo un error al registrar el proveedor. Intenta de nuevo.");
             }
         }
     }
