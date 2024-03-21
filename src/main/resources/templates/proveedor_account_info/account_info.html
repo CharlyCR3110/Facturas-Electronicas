@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Login</title>
+  <link rel="stylesheet" type="text/css" href="css/account_info.css">
+</head>
+
+<body>
+  <div class="wrap">
+    <div id="minimal-header">
+      <div class="right-header">
+        <a class="btn btn-secondary" href="/proveedor-account-info">Información de la Cuenta</a>
+      </div>
+    </div>
+
+    <ul class="nav">
+      <div class="left-side-nav-container">
+        <li>
+          <div class="side-nav-group-header-label">
+            <span>
+              <!-- svg -->
+              <svg width="16px" height="16px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M4 7L7 7M20 7L11 7" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round" />
+                <path d="M20 17H17M4 17L13 17" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round" />
+                <path d="M4 12H7L20 12" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round" />
+              </svg>
+            </span>
+            <p>Proveedor</p>
+          </div>
+          <ul class="menu-group-label">
+            <li>
+              <a href="/proveedor-account-info" class="active">Información de la Cuenta</a>
+            </li>
+            <li>
+              <a href="/proveedor-products">Clientes</a>
+            </li>
+            <li>
+              <a href="/proveedor-orders">Productos</a>
+            </li>
+            <li>
+              <a href="/proveedor-sales">Facturar</a>
+            </li>
+            <li>
+              <a href="/proveedor-logout">Cerrar Sesión</a>
+            </li>
+          </ul>
+        </li>
+      </div>
+    </ul>
+    <section class="account-info">
+      <h2>Información de la Cuenta</h2>
+      <!-- Cambiar el correo -->
+      <div class="account-info-form">
+        <h3>Correo</h3>
+        <form method="post" action="/change-email" th:object="${changeEmailRequest}">
+          <label for="email">Cambiar Correo</label>
+          <input class="rounded" id="email" name="correo" placeholder="" type="email" value="" required>
+          <input class="btn btn-primary" name="submit" type="submit" value="Guardar Cambios">
+        </form>
+      </div>
+      <!-- Cambiar la contrasena -->
+      <div class="account-info-form">
+        <h3>Contraseña</h3>
+        <form method="post" action="/change-password">
+          <label for="current-password">Contraseña Actual</label>
+          <input id="current-password" type="password" placeholder="Contrasena actual" name="currentPassword"
+            class="rounded" autocomplete="new-password" value="">
+
+          <label for="new-password">Nueva Contraseña</label>
+          <input id="new-password" type="password" placeholder="Contrasena nueva" name="newPassword" class="rounded"
+            autocomplete="new-password" value="">
+
+          <label for="confirm-password">Confirmar Contraseña</label>
+          <input id="confirm-password" type="password" placeholder="La misma que antes" name="confirmPassword"
+            class="rounded" autocomplete="new-password" value="">
+
+          <input class="btn btn-primary" name="submit" type="submit" value="Guardar Cambios">
+        </form>
+      </div>
+      <!-- Cambiar los datos del proveedor -->
+      <div class="account-info-form">
+        <h3>Datos del Proveedor</h3>
+        <form method="post" action="/change-provider-info" th:object="${changeProviderInfoRequest}">
+          <label for="nombre">Nombre</label>
+          <input class="rounded" id="nombre" name="nombre" placeholder="" type="text" value="" required>
+          <label for="direccion">Dirección</label>
+          <input class="rounded" id="direccion" name="direccion" placeholder="" type="text" value="" required>
+          <label for="telefono">Teléfono</label>
+          <input class="rounded" id="telefono" name="telefono" placeholder="" type="text" value="" required>
+          <input class="btn btn-primary" name="submit" type="submit" value="Guardar Cambios">
+        </form>
+    </section>
+  </div>
+</body>
+
+</html>
