@@ -59,7 +59,7 @@
         <h3>Correo</h3>
         <form method="post" action="/change-email" th:object="${changeEmailRequest}">
           <label for="email">Cambiar Correo</label>
-          <input class="rounded" id="email" name="correo" placeholder="" type="email" value="" required>
+          <input class="rounded" id="email" name="correo" th:placeholder="${session.userLogged.getCorreo()}" type="email" value="" required>
           <input class="btn btn-primary" name="submit" type="submit" value="Guardar Cambios">
         </form>
       </div>
@@ -87,11 +87,11 @@
         <h3>Datos del Proveedor</h3>
         <form method="post" action="/change-provider-info" th:object="${changeProviderInfoRequest}">
           <label for="nombre">Nombre</label>
-          <input class="rounded" id="nombre" name="nombre" placeholder="" type="text" value="" required>
+          <input class="rounded" id="nombre" name="nombre" th:placeholder="${session.userLogged.getNombre()}" type="text" value="" required>
           <label for="direccion">Dirección</label>
-          <input class="rounded" id="direccion" name="direccion" placeholder="" type="text" value="" required>
+          <input class="rounded" id="direccion" name="direccion" th:placeholder="${session.userLogged.getDireccion()}"type="text" value="" required>
           <label for="telefono">Teléfono</label>
-          <input class="rounded" id="telefono" name="telefono" placeholder="" type="text" value="" required>
+          <input class="rounded" id="telefono" name="telefono" th:placeholder="${session.userLogged.getTelefono()}" type="text" value="" required>
           <input class="btn btn-primary" name="submit" type="submit" value="Guardar Cambios">
         </form>
       </div>
