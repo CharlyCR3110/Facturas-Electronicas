@@ -64,5 +64,10 @@ public class ProveedorService {
         }
         return proveedor;
     }
+
+    public ProveedorEntity changePassword(ProveedorEntity userLogged, String newPassword) {
+        userLogged.setContrasena(newPassword);
+        return proveedorRepository.save(userLogged);
+    }
 }
 
