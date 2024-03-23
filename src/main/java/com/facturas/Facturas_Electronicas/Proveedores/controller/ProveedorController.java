@@ -83,6 +83,11 @@ public class ProveedorController {
 
         System.out.println(userLogged.getCorreo() + userLogged.getContrasena() + userLogged.getNombre());
 
+        // agregar el mensaje de confirmación al modelo (viene desde httpSession)
+        model.addAttribute("confirmation", httpSession.getAttribute("confirmation"));
+        // eliminar el mensaje de confirmación de la sesión
+        httpSession.removeAttribute("confirmation");
+        // agregar el proveedor loggeado al modelo
         model.addAttribute("userLogged", userLogged);
         return "proveedor_account_info/account_info";   // devuelve el view de account_info (templates/proveedor_auth/account_info.html)
     }
