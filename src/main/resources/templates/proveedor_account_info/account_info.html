@@ -102,13 +102,26 @@
     </section>
   </div>
 
-  <input type="checkbox" id="confirmationToggle" class="confirmation-toggle" th:checked="${confirmation}">
-  <div class="confirmation-overlay">
-    <div class="confirmation-popup">
-      <label for="confirmationToggle" class="close-btn">&times;</label>
-      <p class="confirmation-message" id="confirmationMessage" th:text="${confirmation}"></p>
+  <div class="confirmatino-popup-div" th:if="${confirmation}">
+    <input type="checkbox" id="confirmationToggle" class="toggle" th:checked="${confirmation}">
+    <div class="overlay">
+      <div class="popup confirmation">
+        <label for="confirmationToggle" class="close-btn">&times;</label>
+        <p class="message" id="confirmationMessage" th:text="${confirmation}"></p>
+      </div>
     </div>
   </div>
+
+  <div class="popup-div" th:if="${errorMessage}">
+    <input type="checkbox" id="errorToggle" class="toggle" th:checked="${errorMessage}">
+    <div class="overlay">
+      <div class="popup error">
+        <label for="errorToggle" class="close-btn">&times;</label>
+        <p class="message" id="errorMessage" th:text="${errorMessage}"></p>
+      </div>
+    </div>
+  </div>
+
 
 </body>
 
