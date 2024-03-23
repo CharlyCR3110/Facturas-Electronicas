@@ -150,4 +150,18 @@ public class ProveedorController {
             return "redirect:/error";
         }
     }
+
+    @PostMapping("/account_info/change-provider-info")
+    public String changeProviderInfo(@ModelAttribute("userLogged") ProveedorEntity proveedorEntity, Model model) {
+        ProveedorEntity userLogged = (ProveedorEntity) httpSession.getAttribute("userLogged");
+        try {
+            ProveedorEntity provedor = proveedorService.changeProviderInfo(userLogged, proveedorEntity);
+            httpSession.setAttribute("userLogged", provedor);
+            // enviar un mensaje de confirmación
+            httpSession.setAttribute("confirmation", "¡Información actualizada correctamente!");
+        } catch (IllegalArgumentException e) {
+            httpSession.setAttribute("errorMessage", e.getMessage());
+        }
+        return "redirect:/account_info";
+    }
 }
