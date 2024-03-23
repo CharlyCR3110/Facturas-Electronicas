@@ -73,7 +73,7 @@ p {
 
 a {
   &:focus {
-    border: 2px solid var(primary-background-color);
+    border: 2px solid var(--primary-background-color);
     box-shadow: 0px 0px 10px 0px rgba(29, 28, 59, 0.3);
     outline: none;
   }
