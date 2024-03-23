@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import java.lang.reflect.Array;
@@ -47,5 +48,25 @@ public class ProductoController {
         // agregar al model un identificador de la pagina actual (para el navbar)
         model.addAttribute("currentPage", "products");
         return "products/products";   // devuelve el view de products (templates/productos/products.html)
+    }
+
+    @PostMapping("/products/add")
+    public String addProduct(@ModelAttribute("currentProduct") ProductoEntity producto) {
+        // obtener el usuario loggeado (se obtiene de la sesion)
+        ProveedorEntity userLogged = (ProveedorEntity) httpSession.getAttribute("userLogged");
+        if (userLogged == null) {
+            return "redirect:/login";
+        }
+        // agregar el id del proveedor al producto
+        producto.setIdProveedor(userLogged.getIdProveedor());
+        // guardar el producto en la base de datos
+        try {
+            System.out.println("GUARDANDO PRODUCTO");
+            System.out.println(producto);
+            productoService.saveProduct(producto);
+        } catch (Exception e) {
+            System.out.println("ERROR AL GUARDAR UN PRODUCTO" + e.getMessage());
+        }
+        return "redirect:/products";  // redirigir a la pagina de productos
     }
 }
