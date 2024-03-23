@@ -1,0 +1,287 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap");
+
+
+:root {
+  --primary-color: #0C1A26;
+  --primary-color-dark: #071119;
+  --secondary-color: #C6BEA8;
+  --primary-background-color: #F2F2F2;
+  --accent-color: #BC6868;
+  --neutral-dark: #4E4E4E;
+  --neutral-light: #F2ECEB;
+  --neutral-color: #bdc3c7;
+  --success-color: #4CAF50;
+}
+
+html {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-size: 1rem;
+}
+
+body {
+  background: #fff;
+  font-family: "Inter", sans-serif;
+  font-weight: 300;
+  line-height: 1.5;
+  color: var(--neutral-dark);
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-size: 1rem;
+}
+
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+*:before,
+*:after {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 700;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+h1 {
+  font-size: 3.5rem;
+  line-height: 1.1;
+}
+
+h2 {
+  margin-bottom: 1.5rem;
+  font-size: 1.75rem;
+}
+
+p {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+a {
+  &:focus {
+    border: 2px solid var(primary-background-color);
+    box-shadow: 0px 0px 10px 0px rgba(29, 28, 59, 0.3);
+    outline: none;
+  }
+}
+
+#minimal-header {
+  background-color: var(--primary-color);
+  color: #fff;
+  padding: 10px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  z-index: 1000;
+}
+
+#minimal-header .right-header {
+  text-align: right;
+}
+
+.nav {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  width: 10%;
+  background-color: #f1f1f1;
+  height: 100%;
+  position: fixed;
+  overflow: auto;
+}
+
+.left-side-nav-container {
+  padding-top: 60px;
+}
+
+.left-side-nav-container .side-nav-group-header-label {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  padding: 16px 12px 8px;
+}
+
+.left-side-nav-container .side-nav-group-header-label span {
+  display: inline-flex;
+}
+
+.left-side-nav-container .side-nav-group-header-label p {
+  margin: 0 0 0 8px;
+  font-family: "Euclid Circular A", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  line-height: 20px;
+  letter-spacing: 0.4px;
+  color: inherit;
+}
+
+.menu-group-label {
+  padding-left: 0;
+}
+
+.menu-group-label a {
+  display: block;
+  color: black;
+  padding: 8px 16px;
+  text-decoration: none;
+}
+
+.menu-group-label a.active {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.account-info {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 4rem;
+  text-align: center;
+}
+
+.account-info-form {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.account-info-form h3 {
+  text-align: left;
+  margin-bottom: 20px;
+}
+
+.account-info-form label {
+  display: block;
+  text-align: left;
+  margin-bottom: 8px;
+}
+
+.account-info-form input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+
+.account-info-form {
+  position: relative;
+  padding-bottom: 50px;
+}
+
+.account-info-form .btn {
+  width: auto;
+  padding: 8px 16px;
+  position: absolute;
+  bottom: 0px;
+  right: 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: var(--primary-color);
+  color: #fff;
+  cursor: pointer;
+}
+
+
+.account-info-form .btn:hover {
+  background-color: var(--primary-color-dark);
+}
+
+li {
+  list-style-type: none;
+}
+
+/* Pop-up */
+.overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 9999;
+}
+
+.popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  color: white;
+  border-radius: 5px;
+  z-index: 10000;
+}
+
+.confirmation {
+  background-color: var(--success-color);
+}
+
+.error {
+  background-color: var(--accent-color);
+}
+
+.message {
+  margin: 0;
+}
+
+.toggle {
+  display: none;
+}
+
+.close-btn {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  cursor: pointer;
+}
+
+.toggle:checked + .overlay {
+  display: block;
+}
+
+
+@media (max-width: 767px) {
+  .nav {
+    width: 100%;
+    height: auto;
+    position: relative;
+  }
+
+  .nav li {
+    float: none;
+  }
+
+  .nav li a {
+    display: block;
+    text-align: left;
+  }
+
+  .account-info {
+    margin-left: 0;
+  }
+}

@@ -43,5 +43,44 @@ public class ProveedorService {
             throw new IllegalArgumentException("No se encontró un proveedor con el correo electrónico proporcionado.");
         }
     }
+
+    // changeEmail(ProveedorEntity userLogged, String correo)
+    public ProveedorEntity changeEmail(ProveedorEntity proveedor, String correo) {
+        // se intenta actualizar el correo del proveedor en la base de datos para el proveedor loggeado (se hace primero para evitar errores)
+        String correoAnterior = proveedor.getCorreo();
+        if (correo.equals(correoAnterior)) {
+            throw new IllegalArgumentException("El correo proporcionado es igual al actual.");
+        }
+        proveedor.setCorreo(correo);
+        try {
+            proveedorRepository.save(proveedor);
+        } catch (DataIntegrityViolationException e) {
+            proveedor.setCorreo(correoAnterior);
+            if (e.getMessage().contains("Duplicate")) {
+                throw new IllegalArgumentException("Parece que ya existe una cuenta con este correo.");
+            } else {
+                throw new IllegalArgumentException("Hubo un error al actualizar el correo. Intenta de nuevo.");
+            }
+        }
+        return proveedor;
+    }
+
+    public ProveedorEntity changePassword(ProveedorEntity userLogged, String newPassword) {
+        userLogged.setContrasena(newPassword);
+        return proveedorRepository.save(userLogged);
+    }
+
+    public ProveedorEntity changeProviderInfo(ProveedorEntity userLogged, ProveedorEntity proveedorEntity) {
+        if (proveedorEntity.getNombre().equals(userLogged.getNombre()) &&
+                proveedorEntity.getTelefono().equals(userLogged.getTelefono()) &&
+                proveedorEntity.getDireccion().equals(userLogged.getDireccion())) {
+            throw new IllegalArgumentException("No se realizaron cambios.");
+        }
+
+        userLogged.setNombre(proveedorEntity.getNombre());
+        userLogged.setTelefono(proveedorEntity.getTelefono());
+        userLogged.setDireccion(proveedorEntity.getDireccion());
+        return proveedorRepository.save(userLogged);
+    }
 }
 
