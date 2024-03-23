@@ -30,4 +30,13 @@ public class ProductoService {
         }
         return productoRepository.save(producto);
     }
+
+    // eliminar un producto por su 
+    public void deleteProductById(int idProducto) {
+        try {
+            productoRepository.deleteById(idProducto);
+        } catch (Exception e) {
+            throw new RuntimeException("No se pudo eliminar el producto");
+        }
+    }
 }
