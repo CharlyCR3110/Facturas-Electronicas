@@ -124,4 +124,30 @@ public class ProveedorController {
 
         return "redirect:/account_info";
     }
+
+    @PostMapping("/account_info/change-password")
+    public String changePassword(@RequestParam("currentPassword") String currentPassword,
+                                 @RequestParam("newPassword") String newPassword,
+                                 @RequestParam("confirmPassword") String confirmPassword,
+                                 @ModelAttribute("userLogged") ProveedorEntity proveedorEntity,
+                                 Model model) {
+        ProveedorEntity userLogged = (ProveedorEntity) httpSession.getAttribute("userLogged");
+        try {
+            if (!newPassword.equals(confirmPassword)) {
+                httpSession.setAttribute("errorMessage", "Las contraseñas no coinciden.");
+                return "redirect:/account_info";
+            }
+            if (!userLogged.getContrasena().equals(currentPassword)) {
+                httpSession.setAttribute("errorMessage", "La contraseña actual no es válida.");
+                return "redirect:/account_info";
+            }
+            ProveedorEntity provedor = proveedorService.changePassword(userLogged, newPassword);
+            httpSession.setAttribute("userLogged", provedor);
+            // enviar un mensaje de confirmación
+            httpSession.setAttribute("confirmation", "¡Contraseña actualizada correctamente!");
+            return "redirect:/account_info";
+        } catch (Exception e) {
+            return "redirect:/error";
+        }
+    }
 }
