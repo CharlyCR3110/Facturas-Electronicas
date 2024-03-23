@@ -48,7 +48,7 @@
   border-color: var(--primary-color);
 }
 
-.action-btn {
+.action-btn, .close-btn {
   color: #fff;
   background-color: var(--primary-color);
   display: inline-block;
@@ -56,7 +56,7 @@
   margin-bottom: 0;
   font-size: 14px;
   font-weight: 400;
-  line-height: 1.42857143;
+  line-height: 1.5rem;
   text-align: center;
   white-space: nowrap;
   vertical-align: middle;
@@ -76,6 +76,11 @@
 
 .action-btn:hover {
   background-color: var(--primary-color-hover);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.close-btn:hover {
+  background-color: var(--primary-color-dark);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
@@ -108,4 +113,91 @@
 
 .table a:hover {
   text-decoration: underline;
+}
+
+/* pop-up */
+
+/* ocultar el checkbox  */
+input[type="checkbox"] {
+  display: none;
+}
+
+/* Estilos para el pop-up */
+.popup {
+  display: none;
+  /* Por defecto, el popup estará oculto */
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 9999;
+}
+
+.popup-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.popup-header h2 {
+  margin: 0;
+}
+
+.popup-body {
+  margin-top: 20px;
+}
+
+.popup-body .form-group {
+  margin-bottom: 20px;
+}
+
+.popup-body input[type="text"],
+.popup-body input[type="number"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.popup-body input[type="text"]:focus,
+.popup-body input[type="number"]:focus {
+  border-color: var(--primary-color);
+}
+
+.popup-body .action-btn {
+  width: 100%;
+  margin-bottom: 0.5rem;
+}
+
+.popup-body .action-btn[type="submit"] {
+  background-color: var(--primary-color);
+  color: #fff;
+  border: none;
+}
+
+.popup-body .action-btn[type="submit"]:hover {
+  background-color: var(--primary-color-dark);
+}
+
+.popup-body .close-btn {
+  width: 100%;
+  background-color: #ccc;
+  color: #fff;
+  border: none;
+}
+
+.popup-body .close-btn:hover {
+  background-color: #999;
+}
+
+/* Mostrar el popup cuando el checkbox está marcado */
+.toggle-popup[type="checkbox"]:checked~.popup {
+  display: block;
 }
