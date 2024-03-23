@@ -13,3 +13,34 @@
 #minimal-header .right-header {
   text-align: right;
 }
+
+#minimal-header .right-header a {
+  text-decoration: none;
+}
+
+.btn {
+  padding: 0px;
+  margin: 0px;
+  display: inline-flex;
+  -webkit-box-align: stretch;
+  align-items: stretch;
+  transition: all 150ms ease-in-out 0s;
+  position: relative;
+  text-decoration: none;
+  cursor: pointer;
+  z-index: 0;
+  appearance: none;
+  height: 40px;
+  border-radius: 15px;
+  margin: 0px 10px;
+  background-color: rgb(255, 255, 255);
+  color: rgb(0, 30, 43);
+  border: 2px solid var(--neutral-color);
+  align-items: center;
+}
+
+.btn:hover {
+  color: rgb(0, 30, 43);
+  background-color: rgb(255, 255, 255);
+  box-shadow: var(--neutral-color) 0px 0px 0px 3px;
+}
