@@ -86,16 +86,16 @@
       <!-- Cambiar los datos del proveedor -->
       <div class="account-info-form">
         <h3>Datos del Proveedor</h3>
-        <form method="post" action="/change-provider-info" th:object="${changeProviderInfoRequest}">
+        <form method="post" action="/account_info/change-provider-info" th:object="${changeProviderInfoRequest}">
           <label for="nombre">Nombre</label>
           <input class="rounded" id="nombre" name="nombre" th:placeholder="${session.userLogged.getNombre()}"
-            type="text" value="" required>
+            type="text" th:value="${session.userLogged.getNombre()}" required>
           <label for="direccion">Dirección</label>
           <input class="rounded" id="direccion" name="direccion" th:placeholder="${session.userLogged.getDireccion()}"
-            type="text" value="" required>
+            type="text" th:value="${session.userLogged.getDireccion()}" required>
           <label for="telefono">Teléfono</label>
           <input class="rounded" id="telefono" name="telefono" th:placeholder="${session.userLogged.getTelefono()}"
-            type="text" value="" required>
+            type="text" th:value="${session.userLogged.getTelefono()}" required>
           <input class="btn btn-primary" name="submit" type="submit" value="Guardar Cambios">
         </form>
       </div>
