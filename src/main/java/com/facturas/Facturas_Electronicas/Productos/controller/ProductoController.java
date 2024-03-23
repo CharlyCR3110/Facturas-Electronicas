@@ -7,10 +7,7 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.*;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -69,6 +66,24 @@ public class ProductoController {
             System.out.println("GUARDANDO PRODUCTO");
             System.out.println(producto);
             productoService.saveProduct(producto);
+        } catch (Exception e) {
+            // si hay un error, guardar el mensaje en la sesion
+            httpSession.setAttribute("errorMessage", e.getMessage());
+        }
+        return "redirect:/products";  // redirigir a la pagina de productos
+    }
+
+    // Metodo para eliminar un producto
+    @GetMapping("/products/delete/{id}")
+    public String deleteProduct(@PathVariable("id") Integer productoId) {
+        // obtener el usuario loggeado (se obtiene de la sesion)
+        ProveedorEntity userLogged = (ProveedorEntity) httpSession.getAttribute("userLogged");
+        if (userLogged == null) {
+            return "redirect:/login";
+        }
+        // eliminar el producto de la base de datos
+        try {
+            productoService.deleteProductById(productoId);
         } catch (Exception e) {
             // si hay un error, guardar el mensaje en la sesion
             httpSession.setAttribute("errorMessage", e.getMessage());
