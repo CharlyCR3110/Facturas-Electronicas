@@ -77,4 +77,15 @@ public class ProductoEntity {
     public int hashCode() {
         return Objects.hash(idProducto, nombre, descripcion, precioUnitario, idProveedor);
     }
+
+    @Override
+    public String toString() {
+        return "ProductoEntity{" +
+                "idProducto=" + idProducto +
+                ", nombre='" + nombre + '\'' +
+                ", descripcion='" + descripcion + '\'' +
+                ", precioUnitario=" + precioUnitario +
+                ", idProveedor=" + idProveedor +
+                '}';
+    }
 }
