@@ -48,6 +48,9 @@ public class ProveedorService {
     public ProveedorEntity changeEmail(ProveedorEntity proveedor, String correo) {
         // se intenta actualizar el correo del proveedor en la base de datos para el proveedor loggeado (se hace primero para evitar errores)
         String correoAnterior = proveedor.getCorreo();
+        if (correo.equals(correoAnterior)) {
+            throw new IllegalArgumentException("El correo proporcionado es igual al actual.");
+        }
         proveedor.setCorreo(correo);
         try {
             proveedorRepository.save(proveedor);
