@@ -87,16 +87,28 @@
         <h3>Datos del Proveedor</h3>
         <form method="post" action="/change-provider-info" th:object="${changeProviderInfoRequest}">
           <label for="nombre">Nombre</label>
-          <input class="rounded" id="nombre" name="nombre" th:placeholder="${session.userLogged.getNombre()}" type="text" value="" required>
+          <input class="rounded" id="nombre" name="nombre" th:placeholder="${session.userLogged.getNombre()}"
+            type="text" value="" required>
           <label for="direccion">Dirección</label>
-          <input class="rounded" id="direccion" name="direccion" th:placeholder="${session.userLogged.getDireccion()}"type="text" value="" required>
+          <input class="rounded" id="direccion" name="direccion" th:placeholder="${session.userLogged.getDireccion()}"
+            type="text" value="" required>
           <label for="telefono">Teléfono</label>
-          <input class="rounded" id="telefono" name="telefono" th:placeholder="${session.userLogged.getTelefono()}" type="text" value="" required>
+          <input class="rounded" id="telefono" name="telefono" th:placeholder="${session.userLogged.getTelefono()}"
+            type="text" value="" required>
           <input class="btn btn-primary" name="submit" type="submit" value="Guardar Cambios">
         </form>
       </div>
     </section>
   </div>
+
+  <input type="checkbox" id="confirmationToggle" class="confirmation-toggle" th:checked="${confirmation}">
+  <div class="confirmation-overlay">
+    <div class="confirmation-popup">
+      <label for="confirmationToggle" class="close-btn">&times;</label>
+      <p class="confirmation-message" id="confirmationMessage" th:text="${confirmation}"></p>
+    </div>
+  </div>
+
 </body>
 
 </html>
