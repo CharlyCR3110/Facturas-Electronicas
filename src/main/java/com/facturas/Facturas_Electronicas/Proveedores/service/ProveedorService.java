@@ -46,8 +46,20 @@ public class ProveedorService {
 
     // changeEmail(ProveedorEntity userLogged, String correo)
     public ProveedorEntity changeEmail(ProveedorEntity proveedor, String correo) {
+        // se intenta actualizar el correo del proveedor en la base de datos para el proveedor loggeado (se hace primero para evitar errores)
+        String correoAnterior = proveedor.getCorreo();
         proveedor.setCorreo(correo);
-        return proveedorRepository.save(proveedor);
+        try {
+            proveedorRepository.save(proveedor);
+        } catch (DataIntegrityViolationException e) {
+            proveedor.setCorreo(correoAnterior);
+            if (e.getMessage().contains("Duplicate")) {
+                throw new IllegalArgumentException("Parece que ya existe una cuenta con este correo.");
+            } else {
+                throw new IllegalArgumentException("Hubo un error al actualizar el correo. Intenta de nuevo.");
+            }
+        }
+        return proveedor;
     }
 }
 
