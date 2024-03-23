@@ -45,6 +45,11 @@ public class ProductoController {
             model.addAttribute("currentProductList", productos);  // agregar al model la lista de productos
         }
 
+        // agregar el error al modelo (viene desde httpSession)
+        model.addAttribute("errorMessage", httpSession.getAttribute("errorMessage"));
+        // eliminar el error de la sesión
+        httpSession.removeAttribute("errorMessage");
+
         // agregar al model un identificador de la pagina actual (para el navbar)
         model.addAttribute("currentPage", "products");
         return "products/products";   // devuelve el view de products (templates/productos/products.html)
@@ -65,7 +70,8 @@ public class ProductoController {
             System.out.println(producto);
             productoService.saveProduct(producto);
         } catch (Exception e) {
-            System.out.println("ERROR AL GUARDAR UN PRODUCTO" + e.getMessage());
+            // si hay un error, guardar el mensaje en la sesion
+            httpSession.setAttribute("errorMessage", e.getMessage());
         }
         return "redirect:/products";  // redirigir a la pagina de productos
     }
