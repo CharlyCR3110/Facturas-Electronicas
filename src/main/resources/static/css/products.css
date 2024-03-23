@@ -25,7 +25,7 @@
   display: block;
   text-align: left;
   margin-bottom: 8px;
-} 
+}
 
 .form-inline {
   display: flex;
@@ -132,7 +132,6 @@ input[type="checkbox"] {
 /* Estilos para el pop-up */
 .popup {
   display: none;
-  /* Por defecto, el popup estará oculto */
   position: fixed;
   top: 50%;
   left: 50%;
@@ -142,6 +141,7 @@ input[type="checkbox"] {
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   z-index: 9999;
+  width: 400px;
 }
 
 .popup-header {
@@ -155,10 +155,6 @@ input[type="checkbox"] {
   margin: 0;
 }
 
-.popup-body {
-  margin-top: 20px;
-}
-
 .popup-body .form-group {
   margin-bottom: 20px;
 }
@@ -167,26 +163,18 @@ input[type="checkbox"] {
 .popup-body input[type="number"] {
   width: 100%;
   padding: 10px;
-  margin-bottom: 16px;
   border: 1px solid #ccc;
   border-radius: 4px;
   box-sizing: border-box;
 }
 
-.popup-body input[type="text"]:focus,
-.popup-body input[type="number"]:focus {
-  border-color: var(--primary-color);
-}
-
-.popup-body .action-btn {
+.popup-body .action-btn,
+.popup-body .close-btn {
   width: 100%;
+  padding: 10px;
+  border-radius: 4px;
+  cursor: pointer;
   margin-bottom: 0.5rem;
-}
-
-.popup-body .action-btn[type="submit"] {
-  background-color: var(--primary-color);
-  color: #fff;
-  border: none;
 }
 
 .popup-body .action-btn[type="submit"]:hover {
@@ -194,7 +182,6 @@ input[type="checkbox"] {
 }
 
 .popup-body .close-btn {
-  width: 100%;
   background-color: #ccc;
   color: #fff;
   border: none;
