@@ -86,4 +86,11 @@ public class ProveedorController {
         model.addAttribute("userLogged", userLogged);
         return "proveedor_account_info/account_info";   // devuelve el view de account_info (templates/proveedor_auth/account_info.html)
     }
+
+    // cerrar sesion
+    @GetMapping("/logout")
+    public String logout() {
+        httpSession.removeAttribute("userLogged");
+        return "redirect:/login";   // redirige al view de login
+    }
 }
