@@ -35,15 +35,16 @@
                 <form method="post" action="/products/add">
                   <div class="form-group">
                     <label for="nombre">Nombre</label>
-                    <input type="text" name="nombre" required>
+                    <input type="text" name="nombre" id="nombre" required>
                   </div>
                   <div class="form-group">
                     <label for="descripcion">Descripción</label>
-                    <input type="text" name="descripcion" required>
+                    <input type="text" name="descripcion" id="descripcion" required>
                   </div>
                   <div class="form-group">
                     <label for="precioUnitario">Precio Unitario</label>
-                    <input type="text" name="precioUnitario" pattern="[0-9]+([\.|,][0-9]+)?" title="Ingrese un número válido, puede incluir decimales" required>
+                    <input type="text" name="precioUnitario" id="precioUnitario" pattern="[0-9]+([\.|,][0-9]+)?"
+                      title="Ingrese un número válido, puede incluir decimales" required>
                   </div>
                   <button type="submit" class="action-btn">Agregar</button>
                   <label for="toggle-popup" class="close-btn">Cancelar</label>
@@ -82,6 +83,7 @@
         </tbody>
       </table>
     </div>
+  </div>
 </body>
 
 </html>
