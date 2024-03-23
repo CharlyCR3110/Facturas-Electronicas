@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Login</title>
+  <link rel="stylesheet" type="text/css" href="css/global.css">
+  <link rel="stylesheet" type="text/css" href="css/products.css">
+  <link rel="stylesheet" type="text/css" href="css/fragments/header.css">
+  <link rel="stylesheet" type="text/css" href="css/fragments/nav.css">
+</head>
+
+<body>
+  <!--  incluir el fragmento header-->
+  <div th:replace="~{fragments/header :: header}"></div>
+  <!--  incluir el fragmento nav-->
+  <div th:replace="~{fragments/nav :: nav}"></div>
+
+
+  <div class="container">
+    <h1>Productos</h1>
+    <div class="crud-table">
+      <div class="forms">
+        <div class="form-inline pull-left">
+          <button class="action-btn">
+            <a href="/products/add">Agregar Producto</a>
+          </button>
+        </div>
+        <div class="form-inline pull-right">
+          <form method="post" action="/products/search">
+            <input type="text" name="search" placeholder="Buscar producto">
+            <button class="action-btn" type="submit">Buscar</button>
+          </form>
+        </div>
+      </div>
+
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Descripción</th>
+            <th>Precio Unitario</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="product : ${currentProductList}">
+            <td th:text="${product.getNombre()}"></td>
+            <td th:text="${product.getDescripcion()}"></td>
+            <td th:text="${product.getPrecioUnitario()}"></td>
+            <td>
+              <a th:href="@{/products/edit/{id}(id=${product.getIdProducto()})}">Editar</a>
+              <a th:href="@{/products/delete/{id}(id=${product.getIdProducto()})}">Eliminar</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+
+</body>
+
+</html>
