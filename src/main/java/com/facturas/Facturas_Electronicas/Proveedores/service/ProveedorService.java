@@ -69,5 +69,18 @@ public class ProveedorService {
         userLogged.setContrasena(newPassword);
         return proveedorRepository.save(userLogged);
     }
+
+    public ProveedorEntity changeProviderInfo(ProveedorEntity userLogged, ProveedorEntity proveedorEntity) {
+        if (proveedorEntity.getNombre().equals(userLogged.getNombre()) &&
+                proveedorEntity.getTelefono().equals(userLogged.getTelefono()) &&
+                proveedorEntity.getDireccion().equals(userLogged.getDireccion())) {
+            throw new IllegalArgumentException("No se realizaron cambios.");
+        }
+
+        userLogged.setNombre(proveedorEntity.getNombre());
+        userLogged.setTelefono(proveedorEntity.getTelefono());
+        userLogged.setDireccion(proveedorEntity.getDireccion());
+        return proveedorRepository.save(userLogged);
+    }
 }
 
