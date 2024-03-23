@@ -69,16 +69,16 @@
         <h3>Contraseña</h3>
         <form method="post" action="/account_info/change-password">
           <label for="current-password">Contraseña Actual</label>
-          <input id="current-password" type="password" placeholder="Contrasena actual" name="currentPassword"
-            class="rounded" autocomplete="new-password" value="">
+          <input id="current-password" type="password" placeholder="Contraseña actual" name="currentPassword"
+            class="rounded" autocomplete="new-password" value="" required>
 
           <label for="new-password">Nueva Contraseña</label>
-          <input id="new-password" type="password" placeholder="Contrasena nueva" name="newPassword" class="rounded"
-            autocomplete="new-password" value="">
+          <input id="new-password" type="password" placeholder="Contraseña nueva" name="newPassword" class="rounded"
+            autocomplete="new-password" value="" required>
 
           <label for="confirm-password">Confirmar Contraseña</label>
-          <input id="confirm-password" type="password" placeholder="La misma que antes" name="confirmPassword"
-            class="rounded" autocomplete="new-password" value="">
+          <input id="confirm-password" type="password" placeholder="Confirmar contraseña" name="confirmPassword"
+            class="rounded" autocomplete="new-password" value="" required>
 
           <input class="btn btn-primary" name="submit" type="submit" value="Guardar Cambios">
         </form>
