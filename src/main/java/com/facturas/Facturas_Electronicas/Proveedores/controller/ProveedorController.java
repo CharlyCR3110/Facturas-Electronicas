@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class ProveedorController {
@@ -87,6 +88,13 @@ public class ProveedorController {
         model.addAttribute("confirmation", httpSession.getAttribute("confirmation"));
         // eliminar el mensaje de confirmación de la sesión
         httpSession.removeAttribute("confirmation");
+        // agregar el error al modelo (viene desde httpSession)
+        model.addAttribute("errorMessage", httpSession.getAttribute("errorMessage"));
+        System.out.println("Error message: " + httpSession.getAttribute("errorMessage"));
+        // eliminar el error de la sesión
+        httpSession.removeAttribute("errorMessage");
+
+
         // agregar el proveedor loggeado al modelo
         model.addAttribute("userLogged", userLogged);
         return "proveedor_account_info/account_info";   // devuelve el view de account_info (templates/proveedor_auth/account_info.html)
@@ -102,14 +110,18 @@ public class ProveedorController {
     @PostMapping("/account_info/change-email")
     public String changeEmail(@ModelAttribute("userLogged") ProveedorEntity proveedorEntity, Model model) {
         ProveedorEntity userLogged = (ProveedorEntity) httpSession.getAttribute("userLogged");
+        System.out.println("CHANGE_EMAIL:" + proveedorEntity.getCorreo());
+
         try {
             ProveedorEntity provedor = proveedorService.changeEmail(userLogged, proveedorEntity.getCorreo());
             httpSession.setAttribute("userLogged", provedor);
             // enviar un mensaje de confirmación
             httpSession.setAttribute("confirmation", "¡Correo actualizado correctamente!");
-            return "redirect:/account_info";
-        } catch (Exception e) {
-            return "redirect:/error";
+        } catch (IllegalArgumentException e) {
+            httpSession.setAttribute("errorMessage", e.getMessage());
+            System.out.println(e.getMessage());
         }
+
+        return "redirect:/account_info";
     }
 }
