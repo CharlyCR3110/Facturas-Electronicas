@@ -21,6 +21,12 @@
   padding: 1rem;
 }
 
+.form-group label {
+  display: block;
+  text-align: left;
+  margin-bottom: 8px;
+} 
+
 .form-inline {
   display: flex;
   justify-content: space-between;
@@ -48,7 +54,8 @@
   border-color: var(--primary-color);
 }
 
-.action-btn, .close-btn {
+.action-btn,
+.close-btn {
   color: #fff;
   background-color: var(--primary-color);
   display: inline-block;
