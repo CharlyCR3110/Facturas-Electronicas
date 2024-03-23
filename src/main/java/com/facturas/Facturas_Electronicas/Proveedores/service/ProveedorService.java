@@ -43,5 +43,11 @@ public class ProveedorService {
             throw new IllegalArgumentException("No se encontró un proveedor con el correo electrónico proporcionado.");
         }
     }
+
+    // changeEmail(ProveedorEntity userLogged, String correo)
+    public ProveedorEntity changeEmail(ProveedorEntity proveedor, String correo) {
+        proveedor.setCorreo(correo);
+        return proveedorRepository.save(proveedor);
+    }
 }
 
