@@ -57,9 +57,10 @@
       <!-- Cambiar el correo -->
       <div class="account-info-form">
         <h3>Correo</h3>
-        <form method="post" action="/change-email" th:object="${changeEmailRequest}">
+        <form method="post" action="/account_info/change-email" th:object="${changeEmailRequest}">
           <label for="email">Cambiar Correo</label>
-          <input class="rounded" id="email" name="correo" th:placeholder="${session.userLogged.getCorreo()}" type="email" value="" required>
+          <input class="rounded" id="email" name="correo" th:placeholder="${session.userLogged.getCorreo()}"
+            type="email" value="" required>
           <input class="btn btn-primary" name="submit" type="submit" value="Guardar Cambios">
         </form>
       </div>
