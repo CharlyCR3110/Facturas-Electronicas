@@ -18,4 +18,16 @@ public class ProductoService {
     public ArrayList<ProductoEntity> getProductosByProveedor(ProveedorEntity userLogged) {
         return productoRepository.findAllByIdProveedor(userLogged.getIdProveedor());
     }
+
+    // save a product
+    public ProductoEntity saveProduct(ProductoEntity producto) {
+        // verificar que el proveedor no tenga un producto con el mismo nombre
+        ArrayList<ProductoEntity> productos = productoRepository.findAllByIdProveedor(producto.getIdProveedor());
+        for (ProductoEntity p : productos) {
+            if (p.getNombre().equals(producto.getNombre())) {
+                throw new RuntimeException("Ya existe un producto con el mismo nombre");
+            }
+        }
+        return productoRepository.save(producto);
+    }
 }
