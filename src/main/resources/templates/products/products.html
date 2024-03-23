@@ -84,6 +84,17 @@
       </table>
     </div>
   </div>
+
+  <div class="popup-div" th:if="${errorMessage}">
+    <input type="checkbox" id="errorToggle" class="toggle" th:checked="${errorMessage}">
+    <div class="overlay">
+      <div class="error-popup error">
+        <label for="errorToggle" class="error-close-btn">&times;</label>
+        <p class="message" id="errorMessage" th:text="${errorMessage}"></p>
+      </div>
+    </div>
+  </div>
+
 </body>
 
 </html>
