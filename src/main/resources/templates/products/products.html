@@ -25,9 +25,33 @@
     <div class="crud-table">
       <div class="forms">
         <div class="form-inline pull-left">
-          <button class="action-btn">
-            <a href="/products/add">Agregar Producto</a>
-          </button>
+          <input type="checkbox" id="toggle-popup" class="toggle-popup">
+          <div class="popup">
+            <div class="popup-content">
+              <div class="popup-header">
+                <h2>Agregar Producto</h2>
+              </div>
+              <div class="popup-body">
+                <form method="post" action="/products/add">
+                  <div class="form-group">
+                    <label for="nombre">Nombre</label>
+                    <input type="text" name="nombre" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="descripcion">Descripción</label>
+                    <input type="text" name="descripcion" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="precioUnitario">Precio Unitario</label>
+                    <input type="number" name="precioUnitario" required>
+                  </div>
+                  <button type="submit" class="action-btn">Agregar</button>
+                  <label for="toggle-popup" class="close-btn">Cancelar</label>
+                </form>
+              </div>
+            </div>
+          </div>
+          <label for="toggle-popup" class="action-btn">Agregar Producto</label>
         </div>
         <div class="form-inline pull-right">
           <form method="post" action="/products/search">
@@ -58,9 +82,6 @@
         </tbody>
       </table>
     </div>
-  </div>
-
-
 </body>
 
 </html>
