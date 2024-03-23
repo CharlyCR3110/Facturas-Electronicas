@@ -90,7 +90,6 @@ public class ProveedorController {
         httpSession.removeAttribute("confirmation");
         // agregar el error al modelo (viene desde httpSession)
         model.addAttribute("errorMessage", httpSession.getAttribute("errorMessage"));
-        System.out.println("Error message: " + httpSession.getAttribute("errorMessage"));
         // eliminar el error de la sesión
         httpSession.removeAttribute("errorMessage");
 
@@ -110,7 +109,6 @@ public class ProveedorController {
     @PostMapping("/account_info/change-email")
     public String changeEmail(@ModelAttribute("userLogged") ProveedorEntity proveedorEntity, Model model) {
         ProveedorEntity userLogged = (ProveedorEntity) httpSession.getAttribute("userLogged");
-        System.out.println("CHANGE_EMAIL:" + proveedorEntity.getCorreo());
 
         try {
             ProveedorEntity provedor = proveedorService.changeEmail(userLogged, proveedorEntity.getCorreo());
@@ -119,7 +117,6 @@ public class ProveedorController {
             httpSession.setAttribute("confirmation", "¡Correo actualizado correctamente!");
         } catch (IllegalArgumentException e) {
             httpSession.setAttribute("errorMessage", e.getMessage());
-            System.out.println(e.getMessage());
         }
 
         return "redirect:/account_info";
