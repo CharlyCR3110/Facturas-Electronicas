@@ -96,6 +96,8 @@ public class ProveedorController {
 
         // agregar el proveedor loggeado al modelo
         model.addAttribute("userLogged", userLogged);
+        // agregar al model un identificador de la pagina actual (para el navbar)
+        model.addAttribute("currentPage", "account_info");
         return "proveedor_account_info/account_info";   // devuelve el view de account_info (templates/proveedor_auth/account_info.html)
     }
 
