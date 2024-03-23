@@ -93,4 +93,18 @@ public class ProveedorController {
         httpSession.removeAttribute("userLogged");
         return "redirect:/login";   // redirige al view de login
     }
+
+    @PostMapping("/account_info/change-email")
+    public String changeEmail(@ModelAttribute("userLogged") ProveedorEntity proveedorEntity, Model model) {
+        ProveedorEntity userLogged = (ProveedorEntity) httpSession.getAttribute("userLogged");
+        try {
+            ProveedorEntity provedor = proveedorService.changeEmail(userLogged, proveedorEntity.getCorreo());
+            httpSession.setAttribute("userLogged", provedor);
+            // enviar un mensaje de confirmación
+            httpSession.setAttribute("confirmation", "¡Correo actualizado correctamente!");
+            return "redirect:/account_info";
+        } catch (Exception e) {
+            return "redirect:/error";
+        }
+    }
 }
