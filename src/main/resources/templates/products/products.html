@@ -76,10 +76,6 @@
             <td th:text="${product.getDescripcion()}"></td>
             <td th:text="${product.getPrecioUnitario()}"></td>
             <td>
-              <a th:href="@{/products/edit/{id}(id=${product.getIdProducto()})}">Editar</a>
-              <a th:href="@{/products/delete/{id}(id=${product.getIdProducto()})}">Eliminar</a>
-            </td>
-            <td>
               <input type="checkbox" th:id="'toggle-edit-popup-' + ${product.getIdProducto()}" class="toggle-popup">
               <label th:for="'toggle-edit-popup-' + ${product.getIdProducto()}" class="action-btn"
                 th:id="'edit-btn-' + ${product.getIdProducto()}">Editar</label>
@@ -114,6 +110,7 @@
                   </div>
                 </div>
               </div>
+              <a th:href="@{/products/delete/{id}(id=${product.getIdProducto()})}" class="action-btn">Eliminar</a>
             </td>
 
 
