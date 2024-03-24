@@ -16,7 +16,6 @@ import java.util.ArrayList;
 @SessionAttributes({"userLogged", "currentPage", "currentProduct", "currentProductList"})
 public class ProductoController {
     @ModelAttribute("currentProduct") public ProductoEntity currentProduct() { return new ProductoEntity(); }
-    // definir los atributos que se van a compartir entre los metodos del controlador
 
     private final ProductoService productoService;
 
@@ -46,19 +45,16 @@ public class ProductoController {
         ArrayList<ProductoEntity> productos = ArrayList.class.cast(model.getAttribute("currentProductList"));
         model.addAttribute("currentProductList", productos);  // agregar al model la lista de productos
 
-        // agregar el error al modelo (viene desde httpSession)
         model.addAttribute("errorMessage", httpSession.getAttribute("errorMessage"));
         // eliminar el error de la sesión
         httpSession.removeAttribute("errorMessage");
 
-        // agregar al model un identificador de la pagina actual (para el navbar)
         model.addAttribute("currentPage", "products");
         return "products/products";   // devuelve el view de products (templates/productos/products.html)
     }
 
     @PostMapping("/products/add")
     public String addProduct(@ModelAttribute("currentProduct") ProductoEntity producto, Model model) {
-        // obtener el usuario loggeado (se obtiene de la sesion)
         ProveedorEntity userLogged = (ProveedorEntity) httpSession.getAttribute("userLogged");
         if (userLogged == null) {
             return "redirect:/login";
