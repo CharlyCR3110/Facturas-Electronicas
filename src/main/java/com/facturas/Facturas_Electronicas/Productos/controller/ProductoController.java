@@ -15,6 +15,7 @@ import java.util.ArrayList;
 @Controller
 @SessionAttributes({"userLogged", "currentPage", "currentProduct", "currentProductList"})
 public class ProductoController {
+    @ModelAttribute("currentProduct") public ProductoEntity currentProduct() { return new ProductoEntity(); }
     // definir los atributos que se van a compartir entre los metodos del controlador
 
     private final ProductoService productoService;
@@ -26,7 +27,7 @@ public class ProductoController {
         this.productoService = productoService;
     }
 
-    // Método para manejar las peticiones GET
+// Método para manejar las peticiones GET
     @GetMapping("/products")
     public String getProductsPage(Model model) {
         // Obtener el usuario loggeado (se obtiene de la sesión)
@@ -34,13 +35,13 @@ public class ProductoController {
         if (userLogged == null) {
             return "redirect:/login";
         }
-
+        
         // Verificar si la lista de productos ya está en la sesión
         ArrayList<ProductoEntity> currentProductList = (ArrayList<ProductoEntity>) httpSession.getAttribute("currentProductList");
         if (currentProductList == null) {
             // Si no está en la sesión, obtener la lista de productos del proveedor y guardarla en la sesión
             currentProductList = productoService.getProductosByProveedor(userLogged);
-            httpSession.setAttribute("currentProductList", currentProductList);
+httpSession.setAttribute("currentProductList", currentProductList);
         }
 
         // Agregar la lista de productos al modelo
@@ -53,7 +54,7 @@ public class ProductoController {
 
         // Agregar al modelo un identificador de la página actual (para el navbar)
         model.addAttribute("currentPage", "products");
-
+        
         return "products/products";   // Devuelve el view de products (templates/productos/products.html)
     }
 
