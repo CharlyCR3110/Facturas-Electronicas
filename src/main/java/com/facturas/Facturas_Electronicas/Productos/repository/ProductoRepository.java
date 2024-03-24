@@ -8,4 +8,6 @@ import java.util.ArrayList;
 public interface ProductoRepository  extends JpaRepository<ProductoEntity, Integer> {
     // metoodo para obtener la lista de productos de un proveedor
     ArrayList<ProductoEntity> findAllByIdProveedor(int idProveedor);
+
+    ArrayList<ProductoEntity> findAllByIdProveedorAndNombreContaining(int idProveedor, String searchName);
 }
