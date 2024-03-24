@@ -44,12 +44,12 @@
         </thead>
         <tbody>
           <tr th:each="factura : ${currentInvoicesList}">
-            <td th:text="${factura.fechaEmision}"></td>
-            <td th:text="${factura.idProveedor}"></td>
-            <td th:text="${factura.idCliente}"></td>
-            <td th:text="${factura.subtotal}"></td>
-            <td th:text="${factura.impuesto}"></td>
-            <td th:text="${factura.total}"></td>
+            <td th:text="${factura.getFactura().getFechaEmision()}"></td>
+            <td th:text="${factura.getFactura().getIdProveedor()}"></td>
+            <td th:text="${factura.getFactura().getIdCliente()}"></td>
+            <td th:text="${factura.getFactura().getSubtotal()}"></td>
+            <td th:text="${factura.getFactura().getSubtotal()}"></td>
+            <td th:text="${factura.getFactura().getTotal()}"></td>
             <td>
               <a class="action-btn">Expandir</a>
               <a class="action-btn">Eliminar</a>
