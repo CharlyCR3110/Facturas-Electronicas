@@ -16,8 +16,7 @@ import java.util.ArrayList;
 @SessionAttributes({"userLogged", "currentPage", "currentProduct", "currentProductList"})
 public class ProductoController {
     // definir los atributos que se van a compartir entre los metodos del controlador
-    @ModelAttribute("currentProduct") public ProductoEntity currentProduct() { return new ProductoEntity(); }
-    @ModelAttribute("currentProductList") public ArrayList<ProductoEntity> currentProductList() { return new ArrayList<>(); }
+
     private final ProductoService productoService;
 
     @Autowired
@@ -27,29 +26,35 @@ public class ProductoController {
         this.productoService = productoService;
     }
 
-    // Metodos para manejar las peticiones GET y POST
+    // Método para manejar las peticiones GET
     @GetMapping("/products")
     public String getProductsPage(Model model) {
-        // obtener el usuario loggeado (se obtiene de la sesion)
+        // Obtener el usuario loggeado (se obtiene de la sesión)
         ProveedorEntity userLogged = (ProveedorEntity) httpSession.getAttribute("userLogged");
         if (userLogged == null) {
             return "redirect:/login";
         }
 
-        if (httpSession.getAttribute("currentProductList") == null) {
-            ArrayList<ProductoEntity> productos = productoService.getProductosByProveedor(userLogged);
-            model.addAttribute("currentProductList", productos);  // agregar al model la lista de productos
-        } else {
-            model.addAttribute("currentProductList", httpSession.getAttribute("currentProductList"));
+        // Verificar si la lista de productos ya está en la sesión
+        ArrayList<ProductoEntity> currentProductList = (ArrayList<ProductoEntity>) httpSession.getAttribute("currentProductList");
+        if (currentProductList == null) {
+            // Si no está en la sesión, obtener la lista de productos del proveedor y guardarla en la sesión
+            currentProductList = productoService.getProductosByProveedor(userLogged);
+            httpSession.setAttribute("currentProductList", currentProductList);
         }
-        // agregar el error al modelo (viene desde httpSession)
+
+        // Agregar la lista de productos al modelo
+        model.addAttribute("currentProductList", currentProductList);
+
+        // Agregar el error al modelo (viene desde la sesión)
         model.addAttribute("errorMessage", httpSession.getAttribute("errorMessage"));
-        // eliminar el error de la sesión
+        // Eliminar el error de la sesión
         httpSession.removeAttribute("errorMessage");
 
-        // agregar al model un identificador de la pagina actual (para el navbar)
+        // Agregar al modelo un identificador de la página actual (para el navbar)
         model.addAttribute("currentPage", "products");
-        return "products/products";   // devuelve el view de products (templates/productos/products.html)
+
+        return "products/products";   // Devuelve el view de products (templates/productos/products.html)
     }
 
     @PostMapping("/products/add")
