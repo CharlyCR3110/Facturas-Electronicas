@@ -58,13 +58,17 @@ public class ProductoController {
         if (userLogged == null) {
             return "redirect:/login";
         }
+
+        ProductoEntity newProduct = new ProductoEntity(); // Crear nueva instancia de ProductoEntity para evitar errores
+        newProduct.copy(producto); // Copiar los atributos del producto recibido al nuevo producto
+
         // agregar el id del proveedor al producto
-        producto.setIdProveedor(userLogged.getIdProveedor());
+        newProduct.setIdProveedor(userLogged.getIdProveedor());
         // guardar el producto en la base de datos
         try {
             System.out.println("GUARDANDO PRODUCTO");
-            System.out.println(producto);
-            productoService.saveProduct(producto);
+            System.out.println(newProduct);
+            productoService.saveProduct(newProduct);
         } catch (Exception e) {
             // si hay un error, guardar el mensaje en la sesion
             httpSession.setAttribute("errorMessage", e.getMessage());
