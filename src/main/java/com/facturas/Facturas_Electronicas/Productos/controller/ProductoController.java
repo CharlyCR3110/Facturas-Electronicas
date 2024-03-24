@@ -34,12 +34,17 @@ public class ProductoController {
         if (userLogged == null) {
             return "redirect:/login";
         }
-        // obtener la lista de productos del proveedor loggeado
-        ArrayList<ProductoEntity> productos = productoService.getProductosByProveedor(userLogged);
 
-        if (productos != null) {
-            model.addAttribute("currentProductList", productos);  // agregar al model la lista de productos
+        if (model.getAttribute("currentProductList") == null) {
+            // obtener la lista de productos del proveedor loggeado
+            ArrayList<ProductoEntity> productos = productoService.getProductosByProveedor(userLogged);
+            if (productos != null) {
+                model.addAttribute("currentProductList", productos);  // agregar al model la lista de productos
+            }
         }
+
+        ArrayList<ProductoEntity> productos = ArrayList.class.cast(model.getAttribute("currentProductList"));
+        model.addAttribute("currentProductList", productos);  // agregar al model la lista de productos
 
         // agregar el error al modelo (viene desde httpSession)
         model.addAttribute("errorMessage", httpSession.getAttribute("errorMessage"));
@@ -52,7 +57,7 @@ public class ProductoController {
     }
 
     @PostMapping("/products/add")
-    public String addProduct(@ModelAttribute("currentProduct") ProductoEntity producto) {
+    public String addProduct(@ModelAttribute("currentProduct") ProductoEntity producto, Model model) {
         // obtener el usuario loggeado (se obtiene de la sesion)
         ProveedorEntity userLogged = (ProveedorEntity) httpSession.getAttribute("userLogged");
         if (userLogged == null) {
@@ -69,6 +74,9 @@ public class ProductoController {
             System.out.println("GUARDANDO PRODUCTO");
             System.out.println(newProduct);
             productoService.saveProduct(newProduct);
+            // Obtener la lista actualizada de productos
+            ArrayList<ProductoEntity> updatedProductos = productoService.getProductosByProveedor(userLogged);
+            model.addAttribute("currentProductList", updatedProductos);  // Actualizar la lista en el modelo
         } catch (Exception e) {
             // si hay un error, guardar el mensaje en la sesion
             httpSession.setAttribute("errorMessage", e.getMessage());
@@ -78,7 +86,7 @@ public class ProductoController {
 
     // Metodo para eliminar un producto
     @GetMapping("/products/delete/{id}")
-    public String deleteProduct(@PathVariable("id") Integer productoId) {
+    public String deleteProduct(@PathVariable("id") Integer productoId, Model model) {
         // obtener el usuario loggeado (se obtiene de la sesion)
         ProveedorEntity userLogged = (ProveedorEntity) httpSession.getAttribute("userLogged");
         if (userLogged == null) {
@@ -87,6 +95,9 @@ public class ProductoController {
         // eliminar el producto de la base de datos
         try {
             productoService.deleteProductById(productoId);
+            // Obtener la lista actualizada de productos
+            ArrayList<ProductoEntity> updatedProductos = productoService.getProductosByProveedor(userLogged);
+            model.addAttribute("currentProductList", updatedProductos);  // Actualizar la lista en el modelo
         } catch (Exception e) {
             // si hay un error, guardar el mensaje en la sesion
             httpSession.setAttribute("errorMessage", e.getMessage());
@@ -96,7 +107,7 @@ public class ProductoController {
 
     // metodo para editar un producto
     @PostMapping("/products/edit")
-    public String editProduct(@ModelAttribute("currentProduct") ProductoEntity producto) {
+    public String editProduct(@ModelAttribute("currentProduct") ProductoEntity producto, Model model) {
         // obtener el usuario loggeado (se obtiene de la sesion)
         ProveedorEntity userLogged = (ProveedorEntity) httpSession.getAttribute("userLogged");
         if (userLogged == null) {
@@ -108,6 +119,9 @@ public class ProductoController {
             producto.setIdProveedor(userLogged.getIdProveedor());
             // editar el producto en la base de datos
             productoService.editProduct(producto);
+            // Obtener la lista actualizada de productos
+            ArrayList<ProductoEntity> updatedProductos = productoService.getProductosByProveedor(userLogged);
+            model.addAttribute("currentProductList", updatedProductos);  // Actualizar la lista en el modelo
         } catch (Exception e) {
             // si hay un error, guardar el mensaje en la sesion
             httpSession.setAttribute("errorMessage", e.getMessage());
