@@ -50,4 +50,12 @@ public class ProductoService {
         }
         productoRepository.save(producto);
     }
+
+    public ArrayList<ProductoEntity> searchProductsByName(ProveedorEntity userLogged, String searchName) {
+        if (searchName == null || searchName.isEmpty()) {
+            return productoRepository.findAllByIdProveedor(userLogged.getIdProveedor());
+        }
+
+        return productoRepository.findAllByIdProveedorAndNombreContaining(userLogged.getIdProveedor(), searchName);
+    }
 }
