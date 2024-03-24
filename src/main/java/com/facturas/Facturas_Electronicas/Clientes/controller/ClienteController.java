@@ -24,6 +24,7 @@ public class ClienteController {
         this.clienteService = clienteService;
     }
 
+    @SuppressWarnings("unchecked")
     @GetMapping("/clients")
     public String getClientesPage(Model model) {
         // obtener el usuario loggeado (se obtiene de la sesion)
