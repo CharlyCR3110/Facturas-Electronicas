@@ -56,7 +56,7 @@
         </div>
         <div class="form-inline pull-right">
           <form method="post" action="/products/search">
-            <input type="text" name="search" placeholder="Buscar producto">
+            <input type="text" name="searchName" placeholder="Buscar producto">
             <button class="action-btn" type="submit">Buscar</button>
           </form>
         </div>
@@ -112,10 +112,6 @@
               </div>
               <a th:href="@{/products/delete/{id}(id=${product.getIdProducto()})}" class="action-btn">Eliminar</a>
             </td>
-
-
-
-
           </tr>
         </tbody>
       </table>
