@@ -79,6 +79,46 @@
               <a th:href="@{/products/edit/{id}(id=${product.getIdProducto()})}">Editar</a>
               <a th:href="@{/products/delete/{id}(id=${product.getIdProducto()})}">Eliminar</a>
             </td>
+            <td>
+              <input type="checkbox" th:id="'toggle-edit-popup-' + ${product.getIdProducto()}" class="toggle-popup">
+              <label th:for="'toggle-edit-popup-' + ${product.getIdProducto()}" class="action-btn"
+                th:id="'edit-btn-' + ${product.getIdProducto()}">Editar</label>
+              <div class="popup" th:id="'edit-popup-' + ${product.getIdProducto()}">
+                <div class="popup-content">
+                  <div class="popup-header">
+                    <h2>Editar Producto</h2>
+                  </div>
+                  <div class="popup-body">
+                    <!-- Formulario de edición -->
+                    <form method="post" action="/products/edit">
+                      <input type="hidden" name="idProducto" th:value="${product.getIdProducto()}">
+                      <div class="form-group">
+                        <label for="nombre-edit">Nombre</label>
+                        <input type="text" name="nombre" id="nombre-edit" th:value="${product.getNombre()}" required>
+                      </div>
+                      <div class="form-group">
+                        <label for="descripcion-edit">Descripción</label>
+                        <input type="text" name="descripcion" id="descripcion-edit"
+                          th:value="${product.getDescripcion()}" required>
+                      </div>
+                      <div class="form-group">
+                        <label for="precioUnitario-edit">Precio Unitario</label>
+                        <input type="text" name="precioUnitario" id="precioUnitario-edit"
+                          pattern="[0-9]+([\.|,][0-9]+)?" title="Ingrese un número válido, puede incluir decimales"
+                          th:value="${product.getPrecioUnitario()}" required>
+                      </div>
+                      <button type="submit" class="action-btn">Actualizar</button>
+                      <label th:for="'toggle-edit-popup-' + ${product.getIdProducto()}"
+                        class="close-btn">Cancelar</label>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </td>
+
+
+
+
           </tr>
         </tbody>
       </table>
