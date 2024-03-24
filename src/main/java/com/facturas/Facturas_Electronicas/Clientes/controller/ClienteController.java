@@ -7,10 +7,7 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 
@@ -82,6 +79,27 @@ public class ClienteController {
                 // Cuando el proveedor ya tiene un cliente con la misma identificación
                 httpSession.setAttribute("errorMessage", e.getMessage());
             }
+        }
+        return "redirect:/clients";  // redirigir a la pagina de clientes
+    }
+
+    // Metodo para eliminar un producto
+    @GetMapping("/clients/delete/{id}")
+    public String deleteClient(@PathVariable("id") Integer clienteId, Model model) {
+        // obtener el usuario loggeado (se obtiene de la sesion)
+        ProveedorEntity userLogged = (ProveedorEntity) httpSession.getAttribute("userLogged");
+        if (userLogged == null) {
+            return "redirect:/login";
+        }
+        // eliminar el cliente de la base de datos
+        try {
+            clienteService.deleteClientById(clienteId);
+            // Obtener la lista actualizada de clientes
+            ArrayList<ClienteEntity> updatedClients = clienteService.getClientesByProveedor(userLogged);
+            model.addAttribute("currentClientList", updatedClients);  // Actualizar la lista en el modelo
+        } catch (Exception e) {
+            // si hay un error, guardar el mensaje en la sesion
+            httpSession.setAttribute("errorMessage", e.getMessage());
         }
         return "redirect:/clients";  // redirigir a la pagina de clientes
     }
