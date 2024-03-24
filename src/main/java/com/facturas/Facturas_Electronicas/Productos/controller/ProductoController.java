@@ -35,13 +35,13 @@ public class ProductoController {
         if (userLogged == null) {
             return "redirect:/login";
         }
-        // obtener la lista de productos del proveedor loggeado
-        ArrayList<ProductoEntity> productos = productoService.getProductosByProveedor(userLogged);
 
-        if (productos != null) {
+        if (httpSession.getAttribute("currentProductList") == null) {
+            ArrayList<ProductoEntity> productos = productoService.getProductosByProveedor(userLogged);
             model.addAttribute("currentProductList", productos);  // agregar al model la lista de productos
+        } else {
+            model.addAttribute("currentProductList", httpSession.getAttribute("currentProductList"));
         }
-
         // agregar el error al modelo (viene desde httpSession)
         model.addAttribute("errorMessage", httpSession.getAttribute("errorMessage"));
         // eliminar el error de la sesión
@@ -115,5 +115,30 @@ public class ProductoController {
 
         return "redirect:/products";  // redirigir a la pagina de productos
     }
+
+    @PostMapping("/products/search")
+    public String searchProducts(@RequestParam("searchName") String searchName, Model model) {
+        // obtener el usuario loggeado (se obtiene de la sesion)
+        ProveedorEntity userLogged = (ProveedorEntity) httpSession.getAttribute("userLogged");
+        if (userLogged == null) {
+            return "redirect:/login";
+        }
+        // buscar productos por el término de búsqueda
+        ArrayList<ProductoEntity> productos = productoService.searchProductsByName(userLogged, searchName);
+
+        if (productos != null) {
+            model.addAttribute("currentProductList", productos);  // agregar al model la lista de productos
+        }
+
+        // agregar el error al modelo (viene desde httpSession)
+        model.addAttribute("errorMessage", httpSession.getAttribute("errorMessage"));
+        // eliminar el error de la sesión
+        httpSession.removeAttribute("errorMessage");
+
+        // agregar al model un identificador de la pagina actual (para el navbar)
+        model.addAttribute("currentPage", "products");
+        return "redirect:/products";  // redirigir a la pagina de productos
+    }
+
 
 }
