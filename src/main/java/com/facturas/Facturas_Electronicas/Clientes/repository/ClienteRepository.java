@@ -7,4 +7,6 @@ import java.util.ArrayList;
 
 public interface ClienteRepository extends JpaRepository<ClienteEntity, Integer> {
     ArrayList<ClienteEntity> findAllByIdProveedor(int idProveedor);
+
+    ArrayList<ClienteEntity> findAllByIdProveedorAndNombreContaining(int idProveedor, String searchName);
 }
