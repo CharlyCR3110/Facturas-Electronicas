@@ -113,13 +113,22 @@
 }
 
 .table a {
-  color: var(--primary-color);
   text-decoration: none;
   margin-right: 10px;
 }
 
-.table a:hover {
+.table .action-btn:hover {
   text-decoration: underline;
+}
+
+/* anchors dentro de la tabla que contengan la palabra "delete" en el atributo href */
+.table a[href*="delete" i] {
+  background-color: var(--danger-color);
+}
+
+/* labels dentro de la tabla que contengan la palabra "delete" en el atributo for */
+.table label[for*="edit" i] {
+  background-color: var(--edit-color);
 }
 
 /* pop-up */
