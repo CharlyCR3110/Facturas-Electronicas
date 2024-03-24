@@ -32,4 +32,12 @@ public class ClienteService {
 
         clienteRepository.save(newClient);
     }
+
+    public void deleteClientById(Integer clienteId) {
+        try {
+            clienteRepository.deleteById(clienteId);
+        } catch (Exception e) {
+            throw new RuntimeException("No se pudo eliminar el cliente");
+        }
+    }
 }
