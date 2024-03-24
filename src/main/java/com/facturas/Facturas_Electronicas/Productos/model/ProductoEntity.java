@@ -88,4 +88,10 @@ public class ProductoEntity {
                 ", idProveedor=" + idProveedor +
                 '}';
     }
+
+    public void copy(ProductoEntity producto) {
+        this.nombre = producto.getNombre();
+        this.descripcion = producto.getDescripcion();
+        this.precioUnitario = producto.getPrecioUnitario();
+    }
 }
