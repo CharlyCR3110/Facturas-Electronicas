@@ -255,3 +255,30 @@ input[type="checkbox"] {
 .toggle:checked+.overlay {
   display: block;
 }
+
+/* Estilos extra para la pagina del historial de facturas */
+.details-table {
+  margin-bottom: 20px;
+}
+
+.details-table th {
+  background-color: var(--primary-color);
+  color: white;
+  text-align: left;
+}
+
+.details-table tbody tr:nth-child(even) {
+  background-color: var(--primary-background-color);
+}
+
+.details-popup {
+  text-align: left;
+}
+
+.details-popup p {
+  font-weight: bold;
+}
+
+.details-popup span {
+  font-weight: normal;
+}
