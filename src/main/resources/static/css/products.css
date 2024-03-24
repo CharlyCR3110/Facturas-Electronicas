@@ -127,7 +127,7 @@
 }
 
 /* labels dentro de la tabla que contengan la palabra "delete" en el atributo for */
-.table td > label[for*="edit" i] {
+.table td>label[for*="edit" i] {
   background-color: var(--edit-color);
 }
 
@@ -175,6 +175,11 @@ input[type="checkbox"] {
   border: 1px solid #ccc;
   border-radius: 4px;
   box-sizing: border-box;
+}
+
+.popup-body input[type="text"]:hover,
+.popup-body input[type="number"]:hover {
+  border-color: var(--primary-color);
 }
 
 .popup-body .action-btn,
