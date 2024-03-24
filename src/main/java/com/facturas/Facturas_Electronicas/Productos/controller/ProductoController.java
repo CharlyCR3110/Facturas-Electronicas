@@ -27,35 +27,28 @@ public class ProductoController {
         this.productoService = productoService;
     }
 
-// Método para manejar las peticiones GET
     @GetMapping("/products")
     public String getProductsPage(Model model) {
-        // Obtener el usuario loggeado (se obtiene de la sesión)
+        // obtener el usuario loggeado (se obtiene de la sesion)
         ProveedorEntity userLogged = (ProveedorEntity) httpSession.getAttribute("userLogged");
         if (userLogged == null) {
             return "redirect:/login";
         }
-        
-        // Verificar si la lista de productos ya está en la sesión
-        ArrayList<ProductoEntity> currentProductList = (ArrayList<ProductoEntity>) httpSession.getAttribute("currentProductList");
-        if (currentProductList == null) {
-            // Si no está en la sesión, obtener la lista de productos del proveedor y guardarla en la sesión
-            currentProductList = productoService.getProductosByProveedor(userLogged);
-httpSession.setAttribute("currentProductList", currentProductList);
+        // obtener la lista de productos del proveedor loggeado
+        ArrayList<ProductoEntity> productos = productoService.getProductosByProveedor(userLogged);
+
+        if (productos != null) {
+            model.addAttribute("currentProductList", productos);  // agregar al model la lista de productos
         }
 
-        // Agregar la lista de productos al modelo
-        model.addAttribute("currentProductList", currentProductList);
-
-        // Agregar el error al modelo (viene desde la sesión)
+        // agregar el error al modelo (viene desde httpSession)
         model.addAttribute("errorMessage", httpSession.getAttribute("errorMessage"));
-        // Eliminar el error de la sesión
+        // eliminar el error de la sesión
         httpSession.removeAttribute("errorMessage");
 
-        // Agregar al modelo un identificador de la página actual (para el navbar)
+        // agregar al model un identificador de la pagina actual (para el navbar)
         model.addAttribute("currentPage", "products");
-        
-        return "products/products";   // Devuelve el view de products (templates/productos/products.html)
+        return "products/products";   // devuelve el view de products (templates/productos/products.html)
     }
 
     @PostMapping("/products/add")
