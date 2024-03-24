@@ -55,6 +55,7 @@
 
 .account-info-form .btn:hover {
   background-color: var(--primary-color-dark);
+  color: #fff;
 }
 
 li {

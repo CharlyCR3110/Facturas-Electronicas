@@ -16,7 +16,6 @@ import java.util.ArrayList;
 @SessionAttributes({"userLogged", "currentPage", "currentProduct", "currentProductList"})
 public class ProductoController {
     @ModelAttribute("currentProduct") public ProductoEntity currentProduct() { return new ProductoEntity(); }
-    // definir los atributos que se van a compartir entre los metodos del controlador
 
     private final ProductoService productoService;
 
@@ -34,26 +33,28 @@ public class ProductoController {
         if (userLogged == null) {
             return "redirect:/login";
         }
-        // obtener la lista de productos del proveedor loggeado
-        ArrayList<ProductoEntity> productos = productoService.getProductosByProveedor(userLogged);
 
-        if (productos != null) {
-            model.addAttribute("currentProductList", productos);  // agregar al model la lista de productos
+        if (model.getAttribute("currentProductList") == null) {
+            // obtener la lista de productos del proveedor loggeado
+            ArrayList<ProductoEntity> productos = productoService.getProductosByProveedor(userLogged);
+            if (productos != null) {
+                model.addAttribute("currentProductList", productos);  // agregar al model la lista de productos
+            }
         }
 
-        // agregar el error al modelo (viene desde httpSession)
+        ArrayList<ProductoEntity> productos = ArrayList.class.cast(model.getAttribute("currentProductList"));
+        model.addAttribute("currentProductList", productos);  // agregar al model la lista de productos
+
         model.addAttribute("errorMessage", httpSession.getAttribute("errorMessage"));
         // eliminar el error de la sesión
         httpSession.removeAttribute("errorMessage");
 
-        // agregar al model un identificador de la pagina actual (para el navbar)
         model.addAttribute("currentPage", "products");
         return "products/products";   // devuelve el view de products (templates/productos/products.html)
     }
 
     @PostMapping("/products/add")
-    public String addProduct(@ModelAttribute("currentProduct") ProductoEntity producto) {
-        // obtener el usuario loggeado (se obtiene de la sesion)
+    public String addProduct(@ModelAttribute("currentProduct") ProductoEntity producto, Model model) {
         ProveedorEntity userLogged = (ProveedorEntity) httpSession.getAttribute("userLogged");
         if (userLogged == null) {
             return "redirect:/login";
@@ -69,6 +70,9 @@ public class ProductoController {
             System.out.println("GUARDANDO PRODUCTO");
             System.out.println(newProduct);
             productoService.saveProduct(newProduct);
+            // Obtener la lista actualizada de productos
+            ArrayList<ProductoEntity> updatedProductos = productoService.getProductosByProveedor(userLogged);
+            model.addAttribute("currentProductList", updatedProductos);  // Actualizar la lista en el modelo
         } catch (Exception e) {
             // si hay un error, guardar el mensaje en la sesion
             httpSession.setAttribute("errorMessage", e.getMessage());
@@ -78,7 +82,7 @@ public class ProductoController {
 
     // Metodo para eliminar un producto
     @GetMapping("/products/delete/{id}")
-    public String deleteProduct(@PathVariable("id") Integer productoId) {
+    public String deleteProduct(@PathVariable("id") Integer productoId, Model model) {
         // obtener el usuario loggeado (se obtiene de la sesion)
         ProveedorEntity userLogged = (ProveedorEntity) httpSession.getAttribute("userLogged");
         if (userLogged == null) {
@@ -87,6 +91,9 @@ public class ProductoController {
         // eliminar el producto de la base de datos
         try {
             productoService.deleteProductById(productoId);
+            // Obtener la lista actualizada de productos
+            ArrayList<ProductoEntity> updatedProductos = productoService.getProductosByProveedor(userLogged);
+            model.addAttribute("currentProductList", updatedProductos);  // Actualizar la lista en el modelo
         } catch (Exception e) {
             // si hay un error, guardar el mensaje en la sesion
             httpSession.setAttribute("errorMessage", e.getMessage());
@@ -96,7 +103,7 @@ public class ProductoController {
 
     // metodo para editar un producto
     @PostMapping("/products/edit")
-    public String editProduct(@ModelAttribute("currentProduct") ProductoEntity producto) {
+    public String editProduct(@ModelAttribute("currentProduct") ProductoEntity producto, Model model) {
         // obtener el usuario loggeado (se obtiene de la sesion)
         ProveedorEntity userLogged = (ProveedorEntity) httpSession.getAttribute("userLogged");
         if (userLogged == null) {
@@ -108,6 +115,9 @@ public class ProductoController {
             producto.setIdProveedor(userLogged.getIdProveedor());
             // editar el producto en la base de datos
             productoService.editProduct(producto);
+            // Obtener la lista actualizada de productos
+            ArrayList<ProductoEntity> updatedProductos = productoService.getProductosByProveedor(userLogged);
+            model.addAttribute("currentProductList", updatedProductos);  // Actualizar la lista en el modelo
         } catch (Exception e) {
             // si hay un error, guardar el mensaje en la sesion
             httpSession.setAttribute("errorMessage", e.getMessage());
