@@ -127,7 +127,7 @@
 }
 
 /* labels dentro de la tabla que contengan la palabra "delete" en el atributo for */
-.table label[for*="edit" i] {
+.table td > label[for*="edit" i] {
   background-color: var(--edit-color);
 }
 
