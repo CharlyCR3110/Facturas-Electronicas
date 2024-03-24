@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import java.util.ArrayList;
@@ -54,5 +55,29 @@ public class FacturasController {
         model.addAttribute("currentPage", "invoicesHistory");
         // devuelve el view de invoices (templates/facturas/facturas.html)
         return "invoices/invoices";
+    }
+
+    // para elimitar una factura
+    @GetMapping("/invoices/delete/{id}")
+    public String deleteInvoice(@PathVariable("id") Integer id, Model model) {
+        // obtener el usuario loggeado (se obtiene de la sesion)
+        ProveedorEntity userLogged = (ProveedorEntity) httpSession.getAttribute("userLogged");
+        if (userLogged == null) {
+            return "redirect:/login";
+        }
+
+        // eliminar la factura
+        try {
+            facturaEntityService.deleteFactura(id);
+            // obtener la lista actualizada de facturas
+            ArrayList<FacturaConDetallesDTO> invoices = facturaEntityService.getFacturasByProveedor(userLogged);
+            if (invoices != null) {
+                model.addAttribute("currentInvoicesList", invoices);  // agregar al model la lista de facturas
+            }
+        } catch (Exception e) {
+            httpSession.setAttribute("errorMessage", "No se pudo eliminar la factura");
+        }
+
+        return "redirect:/invoices/history";
     }
 }
