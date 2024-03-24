@@ -104,4 +104,38 @@ public class ClienteController {
         return "redirect:/clients";  // redirigir a la pagina de clientes
     }
 
+
+    // metodo para editar un producto
+    @PostMapping("/clients/edit")
+    public String editClient(@ModelAttribute("currentClient") ClienteEntity cliente, Model model) {
+        // obtener el usuario loggeado (se obtiene de la sesion)
+        ProveedorEntity userLogged = (ProveedorEntity) httpSession.getAttribute("userLogged");
+        if (userLogged == null) {
+            return "redirect:/login";
+        }
+
+        try {
+            // agregar el id del proveedor al cliente
+            cliente.setIdProveedor(userLogged.getIdProveedor());
+            // editar el client en la base de datos
+            clienteService.editCliente(cliente);
+            // Obtener la lista actualizada de client
+            ArrayList<ClienteEntity> updatedClients = clienteService.getClientesByProveedor(userLogged);
+            model.addAttribute("currentClientList", updatedClients);  // Actualizar la lista en el modelo
+        } catch (Exception e) {
+            if (e.getMessage().contains("Duplicate entry")) {
+                // correo duplicado
+                httpSession.setAttribute("errorMessage", "Ya existe un cliente con el mismo correo");
+            } else {
+                // Cuando el proveedor ya tiene un cliente con la misma identificación
+                httpSession.setAttribute("errorMessage", e.getMessage());
+            }
+        }
+
+        System.out.println("EDITANDO CLIENTE...");
+        System.out.println(cliente);
+
+        return "redirect:/clients";  // redirigir a la pagina de clientes
+    }
+
 }
