@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import java.util.ArrayList;
@@ -51,6 +52,38 @@ public class ClienteController {
 
         model.addAttribute("currentPage", "clients");
         return "clients/clients";   // devuelve el view de clientes (templates/clientes/clientes.html)
+    }
+
+    @PostMapping("/clients/add")
+    public String addClient(@ModelAttribute("currentClient") ClienteEntity cliente, Model model) {
+        ProveedorEntity userLogged = (ProveedorEntity) httpSession.getAttribute("userLogged");
+        if (userLogged == null) {
+            return "redirect:/login";
+        }
+
+        ClienteEntity newClient = new ClienteEntity(); // Crear nueva instancia de ClienteEntity para evitar errores
+        newClient.copy(cliente); // Copiar los atributos del cliente recibido al nuevo cliente
+
+        // agregar el id del proveedor al cliente
+        newClient.setIdProveedor(userLogged.getIdProveedor());
+        // guardar el cliente en la base de datos
+        try {
+            System.out.println("GUARDANDO CLIENTE...");
+            System.out.println(newClient);
+            clienteService.saveClient(newClient);
+            // Obtener la lista actualizada de clientes
+            ArrayList<ClienteEntity> updatedClients = clienteService.getClientesByProveedor(userLogged);
+            model.addAttribute("currentClientList", updatedClients);  // Actualizar la lista en el modelo
+        } catch (Exception e) {
+            if (e.getMessage().contains("Duplicate entry")) {
+                // correo duplicado
+                httpSession.setAttribute("errorMessage", "Ya existe un cliente con el mismo correo");
+            } else {
+                // Cuando el proveedor ya tiene un cliente con la misma identificación
+                httpSession.setAttribute("errorMessage", e.getMessage());
+            }
+        }
+        return "redirect:/clients";  // redirigir a la pagina de clientes
     }
 
 }
