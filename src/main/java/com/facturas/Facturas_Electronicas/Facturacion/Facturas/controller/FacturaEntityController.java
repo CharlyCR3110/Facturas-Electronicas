@@ -51,7 +51,7 @@ public class FacturaEntityController {
         // eliminar el error de la sesión
         httpSession.removeAttribute("errorMessage");
 
-        model.addAttribute("currentPage", "invoices");
+        model.addAttribute("currentPage", "invoicesHistory");
         // devuelve el view de invoices (templates/facturas/facturas.html)
         return "invoices/invoices";
     }
