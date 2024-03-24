@@ -99,4 +99,11 @@ public class ClienteEntity {
                 ", idProveedor=" + idProveedor +
                 '}';
     }
+
+    public void copy(ClienteEntity cliente) {
+        this.nombre = cliente.nombre;
+        this.identificacion = cliente.identificacion;
+        this.telefono = cliente.telefono;
+        this.correo = cliente.correo;
+    }
 }
