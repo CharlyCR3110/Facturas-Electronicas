@@ -15,8 +15,8 @@ public class ClienteEntity {
     @Column(name = "nombre")
     private String nombre;
     @Basic
-    @Column(name = "direccion")
-    private String direccion;
+    @Column(name = "identificacion")
+    private String identificacion;
     @Basic
     @Column(name = "telefono")
     private String telefono;
@@ -43,12 +43,12 @@ public class ClienteEntity {
         this.nombre = nombre;
     }
 
-    public String getDireccion() {
-        return direccion;
+    public String getIdentificacion() {
+        return identificacion;
     }
 
-    public void setDireccion(String direccion) {
-        this.direccion = direccion;
+    public void setIdentificacion(String identificacion) {
+        this.identificacion = identificacion;
     }
 
     public String getTelefono() {
@@ -80,12 +80,12 @@ public class ClienteEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ClienteEntity that = (ClienteEntity) o;
-        return idCliente == that.idCliente && Objects.equals(nombre, that.nombre) && Objects.equals(direccion, that.direccion) && Objects.equals(telefono, that.telefono) && Objects.equals(correo, that.correo) && Objects.equals(idProveedor, that.idProveedor);
+        return idCliente == that.idCliente && Objects.equals(nombre, that.nombre) && Objects.equals(identificacion, that.identificacion) && Objects.equals(telefono, that.telefono) && Objects.equals(correo, that.correo) && Objects.equals(idProveedor, that.idProveedor);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idCliente, nombre, direccion, telefono, correo, idProveedor);
+        return Objects.hash(idCliente, nombre, identificacion, telefono, correo, idProveedor);
     }
 
     @Override
@@ -93,7 +93,7 @@ public class ClienteEntity {
         return "ClienteEntity{" +
                 "idCliente=" + idCliente +
                 ", nombre='" + nombre + '\'' +
-                ", direccion='" + direccion + '\'' +
+                ", identificacion='" + identificacion + '\'' +
                 ", telefono='" + telefono + '\'' +
                 ", correo='" + correo + '\'' +
                 ", idProveedor=" + idProveedor +
