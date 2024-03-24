@@ -2,7 +2,6 @@ package com.facturas.Facturas_Electronicas.Clientes.controller;
 
 import com.facturas.Facturas_Electronicas.Clientes.model.ClienteEntity;
 import com.facturas.Facturas_Electronicas.Clientes.service.ClienteService;
-import com.facturas.Facturas_Electronicas.Productos.model.ProductoEntity;
 import com.facturas.Facturas_Electronicas.Proveedores.model.ProveedorEntity;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +16,7 @@ import java.util.ArrayList;
 @Controller
 @SessionAttributes({"userLogged", "currentPage", "currentClient", "currentClientList"})
 public class ClienteController {
-    @ModelAttribute("currentClient") public ProductoEntity currentProduct() { return new ProductoEntity(); }
+    @ModelAttribute("currentClient") public ClienteEntity currentClient() { return new ClienteEntity(); }
     private final ClienteService clienteService;
 
     @Autowired
