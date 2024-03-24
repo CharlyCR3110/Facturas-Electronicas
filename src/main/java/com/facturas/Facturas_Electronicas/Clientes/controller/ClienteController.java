@@ -83,7 +83,7 @@ public class ClienteController {
         return "redirect:/clients";  // redirigir a la pagina de clientes
     }
 
-    // Metodo para eliminar un producto
+    // Metodo para eliminar un cliente
     @GetMapping("/clients/delete/{id}")
     public String deleteClient(@PathVariable("id") Integer clienteId, Model model) {
         // obtener el usuario loggeado (se obtiene de la sesion)
@@ -105,7 +105,7 @@ public class ClienteController {
     }
 
 
-    // metodo para editar un producto
+    // metodo para editar un cliente
     @PostMapping("/clients/edit")
     public String editClient(@ModelAttribute("currentClient") ClienteEntity cliente, Model model) {
         // obtener el usuario loggeado (se obtiene de la sesion)
@@ -134,6 +134,29 @@ public class ClienteController {
 
         System.out.println("EDITANDO CLIENTE...");
         System.out.println(cliente);
+
+        return "redirect:/clients";  // redirigir a la pagina de clientes
+    }
+
+    // metodo para buscar clientes
+    @PostMapping("/clients/search")
+    public String searchClients(@RequestParam("searchName") String searchName, Model model) {
+        // obtener el usuario loggeado (se obtiene de la sesion)
+        ProveedorEntity userLogged = (ProveedorEntity) httpSession.getAttribute("userLogged");
+        if (userLogged == null) {
+            return "redirect:/login";
+        }
+        // buscar clientes por el término de búsqueda
+        ArrayList<ClienteEntity> clientes = clienteService.searchClientsByName(userLogged, searchName);
+
+        if (clientes != null) {
+            model.addAttribute("currentClientList", clientes);  // agregar al model la lista de clientes
+        }
+
+        // agregar el error al modelo (viene desde httpSession)
+        model.addAttribute("errorMessage", httpSession.getAttribute("errorMessage"));
+        // eliminar el error de la sesión
+        httpSession.removeAttribute("errorMessage");
 
         return "redirect:/clients";  // redirigir a la pagina de clientes
     }
