@@ -127,7 +127,7 @@
 }
 
 /* labels dentro de la tabla que contengan la palabra "delete" en el atributo for */
-.table td>label[for*="edit" i] {
+.table td > label[for*="edit" i] {
   background-color: var(--edit-color);
 }
 
@@ -169,7 +169,8 @@ input[type="checkbox"] {
 }
 
 .popup-body input[type="text"],
-.popup-body input[type="number"] {
+.popup-body input[type="number"],
+.popup-body input[type="email"] {
   width: 100%;
   padding: 10px;
   border: 1px solid #ccc;
@@ -178,7 +179,8 @@ input[type="checkbox"] {
 }
 
 .popup-body input[type="text"]:hover,
-.popup-body input[type="number"]:hover {
+.popup-body input[type="number"]:hover,
+.popup-body input[type="email"]:hover {
   border-color: var(--primary-color);
 }
 
