@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Login</title>
+  <link rel="stylesheet" type="text/css" href="css/global.css">
+  <link rel="stylesheet" type="text/css" href="css/products.css">
+  <link rel="stylesheet" type="text/css" href="css/fragments/header.css">
+  <link rel="stylesheet" type="text/css" href="css/fragments/nav.css">
+</head>
+
+<body>
+  <!--  incluir el fragmento header-->
+  <div th:replace="~{fragments/header :: header}"></div>
+  <!--  incluir el fragmento nav-->
+  <div th:replace="~{fragments/nav :: nav}"></div>
+
+
+  <div class="container">
+    <h1>Productos</h1>
+    <div class="crud-table">
+      <div class="forms">
+        <div class="form-inline pull-left">
+          <input type="checkbox" id="toggle-popup" class="toggle-popup">
+          <div class="popup">
+            <div class="popup-content">
+              <div class="popup-header">
+                <h2>Agregar Producto</h2>
+              </div>
+              <div class="popup-body">
+                <form method="post" action="/products/add">
+                  <div class="form-group">
+                    <label for="nombre">Nombre</label>
+                    <input type="text" name="nombre" id="nombre" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="descripcion">Descripción</label>
+                    <input type="text" name="descripcion" id="descripcion" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="precioUnitario">Precio Unitario</label>
+                    <input type="text" name="precioUnitario" id="precioUnitario" pattern="[0-9]+([\.|,][0-9]+)?"
+                      title="Ingrese un número válido, puede incluir decimales" required>
+                  </div>
+                  <button type="submit" class="action-btn">Agregar</button>
+                  <label for="toggle-popup" class="close-btn">Cancelar</label>
+                </form>
+              </div>
+            </div>
+          </div>
+          <label for="toggle-popup" class="action-btn">Agregar Producto</label>
+        </div>
+        <div class="form-inline pull-right">
+          <form method="post" action="/products/search">
+            <input type="text" name="searchName" placeholder="Buscar producto">
+            <button class="action-btn" type="submit">Buscar</button>
+          </form>
+        </div>
+      </div>
+
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Descripción</th>
+            <th>Precio Unitario</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="product : ${currentProductList}">
+            <td th:text="${product.getNombre()}"></td>
+            <td th:text="${product.getDescripcion()}"></td>
+            <td th:text="${product.getPrecioUnitario()}"></td>
+            <td>
+              <input type="checkbox" th:id="'toggle-edit-popup-' + ${product.getIdProducto()}" class="toggle-popup">
+              <label th:for="'toggle-edit-popup-' + ${product.getIdProducto()}" class="action-btn"
+                th:id="'edit-btn-' + ${product.getIdProducto()}">Editar</label>
+              <div class="popup" th:id="'edit-popup-' + ${product.getIdProducto()}">
+                <div class="popup-content">
+                  <div class="popup-header">
+                    <h2>Editar Producto</h2>
+                  </div>
+                  <div class="popup-body">
+                    <!-- Formulario de edición -->
+                    <form method="post" action="/products/edit">
+                      <input type="hidden" name="idProducto" th:value="${product.getIdProducto()}">
+                      <div class="form-group">
+                        <label for="nombre-edit">Nombre</label>
+                        <input type="text" name="nombre" id="nombre-edit" th:value="${product.getNombre()}" required>
+                      </div>
+                      <div class="form-group">
+                        <label for="descripcion-edit">Descripción</label>
+                        <input type="text" name="descripcion" id="descripcion-edit"
+                          th:value="${product.getDescripcion()}" required>
+                      </div>
+                      <div class="form-group">
+                        <label for="precioUnitario-edit">Precio Unitario</label>
+                        <input type="text" name="precioUnitario" id="precioUnitario-edit"
+                          pattern="[0-9]+([\.|,][0-9]+)?" title="Ingrese un número válido, puede incluir decimales"
+                          th:value="${product.getPrecioUnitario()}" required>
+                      </div>
+                      <button type="submit" class="action-btn">Actualizar</button>
+                      <label th:for="'toggle-edit-popup-' + ${product.getIdProducto()}"
+                        class="close-btn">Cancelar</label>
+                    </form>
+                  </div>
+                </div>
+              </div>
+              <a th:href="@{/products/delete/{id}(id=${product.getIdProducto()})}" class="action-btn">Eliminar</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="popup-div" th:if="${errorMessage}">
+    <input type="checkbox" id="errorToggle" class="toggle" th:checked="${errorMessage}">
+    <div class="overlay">
+      <div class="error-popup error">
+        <label for="errorToggle" class="error-close-btn">&times;</label>
+        <p class="message" id="errorMessage" th:text="${errorMessage}"></p>
+      </div>
+    </div>
+  </div>
+
+</body>
+
+</html>

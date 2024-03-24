@@ -104,7 +104,8 @@ public class ProveedorController {
     // cerrar sesion
     @GetMapping("/logout")
     public String logout() {
-        httpSession.removeAttribute("userLogged");
+        // eliminar todos los atributos de la sesion
+        httpSession.invalidate();
         return "redirect:/login";   // redirige al view de login
     }
 

@@ -15,10 +15,9 @@
 
 <body>
   <!--  incluir el fragmento header-->
-  <div th:replace="fragments/header :: header"></div>
-
+  <div th:replace="~{fragments/header :: header}"></div>
   <!--  incluir el fragmento nav-->
-  <div th:replace="fragments/nav :: nav"></div>
+  <div th:replace="~{fragments/nav :: nav}"></div>
 
   <section class="account-info">
     <h2>Información de la Cuenta</h2>
