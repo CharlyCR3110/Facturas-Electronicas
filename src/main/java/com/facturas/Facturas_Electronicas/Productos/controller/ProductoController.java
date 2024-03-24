@@ -9,7 +9,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 @Controller
@@ -26,6 +25,7 @@ public class ProductoController {
         this.productoService = productoService;
     }
 
+    @SuppressWarnings("unchecked")
     @GetMapping("/products")
     public String getProductsPage(Model model) {
         // obtener el usuario loggeado (se obtiene de la sesion)
