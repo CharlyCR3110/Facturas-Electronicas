@@ -16,7 +16,7 @@ import java.util.ArrayList;
 
 @Controller
 @SessionAttributes({"userLogged", "currentPage", "currentInvoice", "currentInvoicesList"})
-public class FacturaEntityController {
+public class FacturasController {
     @ModelAttribute("currentFactura") public FacturaEntity currentFactura() { return new FacturaEntity(); }
 
     @Autowired
@@ -24,7 +24,7 @@ public class FacturaEntityController {
 
     private final FacturaEntityService facturaEntityService;
 
-    public FacturaEntityController(FacturaEntityService facturaEntityService) {
+    public FacturasController(FacturaEntityService facturaEntityService) {
         this.facturaEntityService = facturaEntityService;
     }
 
