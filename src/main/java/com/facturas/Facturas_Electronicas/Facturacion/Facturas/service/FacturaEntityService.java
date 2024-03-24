@@ -36,4 +36,7 @@ public class FacturaEntityService {
         return facturas;
     }
 
+    public void deleteFactura(Integer id) {
+        facturaEntityRepository.deleteById(id);
+    }
 }
