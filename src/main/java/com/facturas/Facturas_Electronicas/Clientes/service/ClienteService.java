@@ -53,4 +53,12 @@ public class ClienteService {
 
         clienteRepository.save(cliente);
     }
+
+    public ArrayList<ClienteEntity> searchClientsByName(ProveedorEntity userLogged, String searchName) {
+        if (searchName == null || searchName.isEmpty()) {
+            return clienteRepository.findAllByIdProveedor(userLogged.getIdProveedor());
+        }
+
+        return clienteRepository.findAllByIdProveedorAndNombreContaining(userLogged.getIdProveedor(), searchName);
+    }
 }
