@@ -40,4 +40,17 @@ public class ClienteService {
             throw new RuntimeException("No se pudo eliminar el cliente");
         }
     }
+
+    public void editCliente(ClienteEntity cliente) {
+        // validar que el proveedor no tenga otro cliente con la misma identificación
+        ArrayList<ClienteEntity> clientes = clienteRepository.findAllByIdProveedor(cliente.getIdProveedor());
+        for (ClienteEntity c : clientes) {
+            if (c.getIdentificacion().equals(cliente.getIdentificacion()) && c.getIdCliente() != cliente.getIdCliente()) {
+                throw new RuntimeException("Ya existe un cliente con la misma identificación");
+            }
+        }
+        // Ademas la base de datos no permite que se repita el correo (entonces no es necesario validar) (tira excepción)
+
+        clienteRepository.save(cliente);
+    }
 }
