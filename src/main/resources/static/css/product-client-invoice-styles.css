@@ -131,8 +131,11 @@
   background-color: var(--edit-color);
 }
 
-/* pop-up */
+.table td>label[for*="details" i] {
+  background-color: var(--details-color);
+}
 
+/* pop-up */
 /* ocultar el checkbox  */
 input[type="checkbox"] {
   display: none;
