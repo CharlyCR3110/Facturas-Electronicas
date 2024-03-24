@@ -39,4 +39,15 @@ public class ProductoService {
             throw new RuntimeException("No se pudo eliminar el producto");
         }
     }
+
+    public void editProduct(ProductoEntity producto) {
+        // verificar que el proveedor no tenga un producto con el mismo nombre
+        ArrayList<ProductoEntity> productos = productoRepository.findAllByIdProveedor(producto.getIdProveedor());
+        for (ProductoEntity p : productos) {
+            if (p.getNombre().equals(producto.getNombre()) && p.getIdProducto() != producto.getIdProducto()) {
+                throw new RuntimeException("Ya existe un producto con el mismo nombre");
+            }
+        }
+        productoRepository.save(producto);
+    }
 }
