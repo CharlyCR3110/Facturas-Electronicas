@@ -27,7 +27,8 @@
         </div>
         <ul class="menu-group-label">
           <li>
-            <a href="/account_info" th:class="${currentPage == 'account_info' ? 'active' : ''}">Información de la Cuenta</a>
+            <a href="/account_info" th:class="${currentPage == 'account_info' ? 'active' : ''}">Información de la
+              Cuenta</a>
           </li>
           <li>
             <a href="/clients" th:class="${currentPage == 'clients' ? 'active' : ''}">Clientes</a>
@@ -37,6 +38,10 @@
           </li>
           <li>
             <a href="/invoice" th:class="${currentPage == 'invoice' ? 'active' : ''}">Facturar</a>
+          </li>
+          <li>
+            <a href="/invoice/history" th:class="${currentPage == 'invoiceHistory' ? 'active' : ''}">Historial de
+              Facturas</a>
           </li>
           <li>
             <a href="/logout">Cerrar Sesión</a>
