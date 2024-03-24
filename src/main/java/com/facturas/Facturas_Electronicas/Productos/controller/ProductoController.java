@@ -90,4 +90,30 @@ public class ProductoController {
         }
         return "redirect:/products";  // redirigir a la pagina de productos
     }
+
+    // metodo para editar un producto
+    @PostMapping("/products/edit")
+    public String editProduct(@ModelAttribute("currentProduct") ProductoEntity producto) {
+        // obtener el usuario loggeado (se obtiene de la sesion)
+        ProveedorEntity userLogged = (ProveedorEntity) httpSession.getAttribute("userLogged");
+        if (userLogged == null) {
+            return "redirect:/login";
+        }
+
+        try {
+            // agregar el id del proveedor al producto
+            producto.setIdProveedor(userLogged.getIdProveedor());
+            // editar el producto en la base de datos
+            productoService.editProduct(producto);
+        } catch (Exception e) {
+            // si hay un error, guardar el mensaje en la sesion
+            httpSession.setAttribute("errorMessage", e.getMessage());
+        }
+
+        System.out.println("EDITANDO PRODUCTO");
+        System.out.println(producto);
+
+        return "redirect:/products";  // redirigir a la pagina de productos
+    }
+
 }
