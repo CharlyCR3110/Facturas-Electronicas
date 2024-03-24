@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Facturas</title>
+  <link rel="stylesheet" type="text/css" href="../css/global.css">
+  <link rel="stylesheet" type="text/css" href="../css/product-client-styles.css">
+  <link rel="stylesheet" type="text/css" href="../css/fragments/header.css">
+  <link rel="stylesheet" type="text/css" href="../css/fragments/nav.css">
+</head>
+
+<body>
+  <!--  incluir el fragmento header-->
+  <div th:replace="~{fragments/header :: header}"></div>
+  <!--  incluir el fragmento nav-->
+  <div th:replace="~{fragments/nav :: nav}"></div>
+
+  <div class="container">
+    <h1>Facturas</h1>
+    <div class="crud-table">
+      <div class="forms">
+        <div class="form-inline pull-right">
+          <form method="post" action="/products/search">
+            <input type="text" name="searchDate" placeholder="2024-03">
+            <button class="action-btn" type="submit">Buscar</button>
+          </form>
+        </div>
+      </div>
+
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Fecha de Emisión</th>
+            <th>ID Proveedor</th>
+            <th>ID Cliente</th>
+            <th>Subtotal</th>
+            <th>Impuesto</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="factura : ${currentInvoicesList}">
+            <td th:text="${factura.fechaEmision}"></td>
+            <td th:text="${factura.idProveedor}"></td>
+            <td th:text="${factura.idCliente}"></td>
+            <td th:text="${factura.subtotal}"></td>
+            <td th:text="${factura.impuesto}"></td>
+            <td th:text="${factura.total}"></td>
+            <td>
+              <a class="action-btn">Expandir</a>
+              <a class="action-btn">Eliminar</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Popup y mensaje de error -->
+  <div class="popup-div" th:if="${errorMessage}">
+    <input type="checkbox" id="errorToggle" class="toggle" th:checked="${errorMessage}">
+    <div class="overlay">
+      <div class="error-popup error">
+        <label for="errorToggle" class="error-close-btn">&times;</label>
+        <p class="message" id="errorMessage" th:text="${errorMessage}"></p>
+      </div>
+    </div>
+  </div>
+
+</body>
+
+</html>
