@@ -150,7 +150,19 @@ public class FacturasController {
             cart = new ArrayList<>();
         }
 
-        cart.add(productOnCart);
+        // verificar que en el carrito no haya un producto con el mismo id
+        boolean found = false;
+        for (ProductOnCart p : cart) {
+            if (p.getProduct().getIdProducto() == productID) {
+                p.setQuantity(p.getQuantity() + quantity);
+                found = true;
+                break;
+            }
+        }
+
+        if (!found) {
+            cart.add(productOnCart);
+        }
 
         model.addAttribute("cart", cart);
         //total
@@ -162,6 +174,8 @@ public class FacturasController {
         }
 
         model.addAttribute("total", total);
+
+        System.out.println("cart: " + cart);
 
         return "redirect:/invoice_creator";
     }
