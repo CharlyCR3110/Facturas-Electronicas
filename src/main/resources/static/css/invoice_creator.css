@@ -1,0 +1,125 @@
+.invoice-info {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 4rem;
+  text-align: center;
+}
+
+.invoice-creator {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.invoice-creator h3 {
+  text-align: left;
+  margin-bottom: 20px;
+}
+
+.invoice-creator label {
+  display: block;
+  text-align: left;
+  margin-bottom: 8px;
+}
+
+.invoice-creator input,
+.invoice-creator select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.invoice-creator .form-group {
+  position: relative;
+  padding-bottom: 50px;
+}
+
+.invoice-creator .action-btn {
+  width: auto;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 5px;
+  background-color: var(--primary-color);
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  margin-bottom: 0;
+  margin-top: 2rem;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.5rem;
+  white-space: nowrap;
+  touch-action: manipulation;
+  user-select: none;
+  background-image: none;
+}
+
+.invoice-creator .product-field .action-btn {
+  margin-top: 0;
+  /* moverlo a la derecha */
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.invoice-creator .action-btn:hover {
+  background-color: var(--primary-color-hover);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+li {
+  list-style-type: none;
+}
+
+.action-btn a {
+  text-decoration: none;
+  color: #fff;
+}
+
+.close-btn:hover {
+  background-color: var(--primary-color-dark);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.cart {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.cart table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.cart table th {
+  background-color: #f2f2f2;
+  padding: 8px;
+  text-align: left;
+}
+
+.cart table td {
+  padding: 8px;
+  text-align: left;
+}
+
+.cart table tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.cart table a {
+  text-decoration: none;
+  color: var(--primary-color);
+  /* utilizar el icon (svg) de eliminar */
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background-image: url(../icons/trash-bin-minimalistic-svgrepo-com.svg);
+}
