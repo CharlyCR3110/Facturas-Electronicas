@@ -103,4 +103,21 @@ public class FacturasController {
         model.addAttribute("currentPage", "invoicesHistory");
         return "redirect:/invoices/history";
     }
+    
+    // relacionados con la creacion de una factura
+    @GetMapping("/invoice_creator")
+    public String getInvoiceCreator(Model model) {
+        // obtener el usuario loggeado (se obtiene de la sesion)
+        ProveedorEntity userLogged = (ProveedorEntity) httpSession.getAttribute("userLogged");
+        if (userLogged == null) {
+            return "redirect:/login";
+        }
+        // Para agregar una factura se necesita la lista de clientes del proveedor
+        model.addAttribute("currentClientsList", clienteService.getClientesByProveedor(userLogged));
+        // Para agregar una factura se necesita la lista de productos del proveedor
+        model.addAttribute("currentProductsList", productoService.getProductosByProveedor(userLogged));
+
+        model.addAttribute("currentPage", "invoiceCreator");
+        return "invoices/invoice_creator";
+    }
 }
