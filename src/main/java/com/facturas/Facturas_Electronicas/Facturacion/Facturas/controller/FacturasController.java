@@ -1,8 +1,10 @@
 package com.facturas.Facturas_Electronicas.Facturacion.Facturas.controller;
 
+import com.facturas.Facturas_Electronicas.Clientes.service.ClienteService;
 import com.facturas.Facturas_Electronicas.Facturacion.DTO.FacturaConDetallesDTO;
 import com.facturas.Facturas_Electronicas.Facturacion.Facturas.model.FacturaEntity;
 import com.facturas.Facturas_Electronicas.Facturacion.Facturas.service.FacturaEntityService;
+import com.facturas.Facturas_Electronicas.Productos.service.ProductoService;
 import com.facturas.Facturas_Electronicas.Proveedores.model.ProveedorEntity;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 
 @Controller
-@SessionAttributes({"userLogged", "currentPage", "currentInvoice", "currentInvoicesList"})
+@SessionAttributes({"userLogged", "currentPage", "currentInvoice", "currentInvoicesList", "currentClientsList", "currentProductsList"})
 public class FacturasController {
     @ModelAttribute("currentFactura") public FacturaEntity currentFactura() { return new FacturaEntity(); }
 
@@ -21,9 +23,13 @@ public class FacturasController {
     HttpSession httpSession;
 
     private final FacturaEntityService facturaEntityService;
+    private final ClienteService clienteService;
+    private final ProductoService productoService;
 
-    public FacturasController(FacturaEntityService facturaEntityService) {
+    public FacturasController(FacturaEntityService facturaEntityService, ClienteService clienteService, ProductoService productoService) {
         this.facturaEntityService = facturaEntityService;
+        this.clienteService = clienteService;
+        this.productoService = productoService;
     }
 
     @GetMapping("/invoices/history")
