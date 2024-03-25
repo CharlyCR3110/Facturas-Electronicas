@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Facturar</title>
+  <link rel="stylesheet" type="text/css" href="css/global.css">
+  <link rel="stylesheet" type="text/css" href="css/invoice_creator.css">
+  <link rel="stylesheet" type="text/css" href="css/fragments/header.css">
+  <link rel="stylesheet" type="text/css" href="css/fragments/nav.css">
+</head>
+
+<body>
+  <!--  incluir el fragmento header-->
+  <div th:replace="~{fragments/header :: header}"></div>
+  <!--  incluir el fragmento nav-->
+  <div th:replace="~{fragments/nav :: nav}"></div>
+
+  <section class="invoice-info">
+    <h2>Facturar</h2>
+    <div class="invoice-creator">
+      <form action="/invoice_creator/addToCart" method="post">
+        <div class="form-group">
+          <div class="client-selection">
+            <h3>Cliente</h3>
+            <label for="client">Cliente</label>
+            <select id="client" name="client">
+              <option value="">Selecciona un cliente</option>
+              <option th:each="client : ${currentClientsList}" th:value="${client.getIdCliente()}"
+                th:text="${client.getNombre()}"></option>
+            </select>
+          </div>
+
+          <div id="product-fields">
+            <div class="product-field">
+              <h3>Detalles del Producto</h3>
+              <form action="/addToCart" method="post">
+                <label for="product">Producto</label>
+                <select id="product" name="product">
+                  <option value="">Selecciona un producto</option>
+                  <option th:each="product : ${currentProductsList}" th:value="${product.getIdProducto()}"
+                    th:text="${product.getNombre()}"></option>
+                </select>
+                <label for="quantity">Cantidad</label>
+                <input type="number" id="quantity" name="quantity" min="1" required>
+                <button type="submit" class="action-btn">Agregar</button>
+              </form>
+            </div>
+          </div>
+
+          <div class="cart">
+            <h3>Carrito</h3>
+            <table>
+              <thead>
+                <tr>
+                  <th>Producto</th>
+                  <th>Cantidad</th>
+                  <th>Precio Unitario</th>
+                  <th>Subtotal</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr th:each="item : ${cart}">
+                  <td th:text="${item.getProduct().getNombre()}"></td>
+                  <td th:text="${item.getQuantity()}"></td>
+                  <td th:text="'$' + ${item.getProduct().getPrecioUnitario()}"></td>
+                  <td th:text="'$' + ${item.getProduct().getPrecioUnitario() * item.quantity}"></td>
+                  <td>
+                    <a th:href="@{'/removeFromCart/' + ${item.getProduct().getIdProducto()}}"></a>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="3">Total</td>
+                  <td th:text="'$' + ${total}"></td>
+                </tr>
+              </tbody>
+            </table>
+        </div>
+        <button type="submit" class="action-btn">Guardar Factura</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Popup y mensaje de error -->
+  <div class="popup-div" th:if="${errorMessage}">
+    <input type="checkbox" id="errorToggle" class="toggle" th:checked="${errorMessage}">
+    <div class="overlay">
+      <div class="error-popup error">
+        <label for="errorToggle" class="error-close-btn">&times;</label>
+        <p class="message" id="errorMessage" th:text="${errorMessage}"></p>
+      </div>
+    </div>
+  </div>
+
+</body>
+
+</html>
