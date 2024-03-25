@@ -8,10 +8,7 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 
@@ -78,6 +75,26 @@ public class FacturasController {
             httpSession.setAttribute("errorMessage", "No se pudo eliminar la factura");
         }
 
+        return "redirect:/invoices/history";
+    }
+
+    // para buscar una factura con base searchClientID
+    @PostMapping("/invoices/search")
+    public String searchInvoice(@RequestParam(name = "searchClientID", required = false) Integer searchClientID, Model model) {
+        // obtener el usuario loggeado (se obtiene de la sesion)
+        ProveedorEntity userLogged = (ProveedorEntity) httpSession.getAttribute("userLogged");
+        if (userLogged == null) {
+            return "redirect:/login";
+        }
+
+        // buscar la factura
+
+        ArrayList<FacturaConDetallesDTO> invoices = facturaEntityService.getFacturasByProveedorAndClientID(userLogged, searchClientID);
+        if (invoices != null) {
+            model.addAttribute("currentInvoicesList", invoices);  // agregar al model la lista de facturas
+        }
+
+        model.addAttribute("currentPage", "invoicesHistory");
         return "redirect:/invoices/history";
     }
 }
