@@ -2,6 +2,7 @@ package com.facturas.Facturas_Electronicas.Facturacion.Facturas.controller;
 
 import com.facturas.Facturas_Electronicas.Clientes.service.ClienteService;
 import com.facturas.Facturas_Electronicas.Facturacion.DTO.FacturaConDetallesDTO;
+import com.facturas.Facturas_Electronicas.Facturacion.DTO.ProductOnCart;
 import com.facturas.Facturas_Electronicas.Facturacion.Facturas.model.FacturaEntity;
 import com.facturas.Facturas_Electronicas.Facturacion.Facturas.service.FacturaEntityService;
 import com.facturas.Facturas_Electronicas.Productos.service.ProductoService;
@@ -12,12 +13,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 @Controller
-@SessionAttributes({"userLogged", "currentPage", "currentInvoice", "currentInvoicesList", "currentClientsList", "currentProductsList"})
+@SessionAttributes({"userLogged", "currentPage", "currentInvoice", "currentInvoicesList", "currentClientsList", "currentProductsList", "cart", "total"})
 public class FacturasController {
     @ModelAttribute("currentFactura") public FacturaEntity currentFactura() { return new FacturaEntity(); }
+    @ModelAttribute("cart") public ArrayList<ProductOnCart> cart() { return new ArrayList<>(); }
+    @ModelAttribute("total") public BigDecimal total() { return BigDecimal.ZERO; }
 
     @Autowired
     HttpSession httpSession;
@@ -120,4 +124,46 @@ public class FacturasController {
         model.addAttribute("currentPage", "invoiceCreator");
         return "invoices/invoice_creator";
     }
+
+    @PostMapping("/invoice_creator/addToCart")
+    public String addToCart(@RequestParam(name = "product") Integer productID, @RequestParam(name = "quantity") Integer quantity, Model model) {
+        // obtener el usuario loggeado (se obtiene de la sesion)
+        ProveedorEntity userLogged = (ProveedorEntity) httpSession.getAttribute("userLogged");
+        if (userLogged == null) {
+            return "redirect:/login";
+        }
+
+        // obtener la factura actual
+        FacturaEntity currentInvoice = (FacturaEntity) model.getAttribute("currentInvoice");
+        if (currentInvoice == null) {
+            currentInvoice = new FacturaEntity();
+        }
+
+        // obtener el producto
+        ProductOnCart productOnCart = new ProductOnCart();
+        productOnCart.setProduct(productoService.getProductoByID(productID));
+        productOnCart.setQuantity(quantity);
+
+        // agregar el producto al carrito
+        ArrayList<ProductOnCart> cart = (ArrayList<ProductOnCart>) model.getAttribute("cart");
+        if (cart == null) {
+            cart = new ArrayList<>();
+        }
+
+        cart.add(productOnCart);
+
+        model.addAttribute("cart", cart);
+        //total
+        BigDecimal total = BigDecimal.ZERO;
+        for (ProductOnCart p : cart) {
+            BigDecimal price = p.getProduct().getPrecioUnitario();
+            BigDecimal quantityP = BigDecimal.valueOf(p.getQuantity());
+            total = total.add(price.multiply(quantityP));
+        }
+
+        model.addAttribute("total", total);
+
+        return "redirect:/invoice_creator";
+    }
+
 }
