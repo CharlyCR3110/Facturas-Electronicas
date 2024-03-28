@@ -1,5 +1,6 @@
 package com.facturas.Facturas_Electronicas.Facturacion.Facturas.controller;
 
+import com.facturas.Facturas_Electronicas.Clientes.model.ClienteEntity;
 import com.facturas.Facturas_Electronicas.Clientes.service.ClienteService;
 import com.facturas.Facturas_Electronicas.Facturacion.DTO.FacturaConDetallesDTO;
 import com.facturas.Facturas_Electronicas.Facturacion.DTO.ProductOnCart;
@@ -17,11 +18,12 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 
 @Controller
-@SessionAttributes({"userLogged", "currentPage", "currentInvoice", "currentInvoicesList", "currentClientsList", "currentProductsList", "cart", "total"})
+@SessionAttributes({"userLogged", "currentPage", "currentInvoice", "currentInvoicesList", "currentClientsList", "currentProductsList", "cart", "total", "currentClientSelected"})
 public class FacturasController {
     @ModelAttribute("currentFactura") public FacturaEntity currentFactura() { return new FacturaEntity(); }
     @ModelAttribute("cart") public ArrayList<ProductOnCart> cart() { return new ArrayList<>(); }
     @ModelAttribute("total") public BigDecimal total() { return BigDecimal.ZERO; }
+    @ModelAttribute("currentClientSelected") public ClienteEntity currentClientSelected() { return new ClienteEntity(); }
 
     @Autowired
     HttpSession httpSession;
@@ -210,6 +212,21 @@ public class FacturasController {
         }
 
         model.addAttribute("total", total);
+
+        return "redirect:/invoice_creator";
+    }
+
+    @PostMapping("/invoice_creator/selectClient")
+    public String selectClient(@RequestParam(name = "client") Integer clientID, Model model) {
+        // obtener el usuario loggeado (se obtiene de la sesion)
+        ProveedorEntity userLogged = (ProveedorEntity) httpSession.getAttribute("userLogged");
+        if (userLogged == null) {
+            return "redirect:/login";
+        }
+
+        // obtener el cliente
+        ClienteEntity client = clienteService.getClientByID(clientID);
+        model.addAttribute("currentClientSelected", client);
 
         return "redirect:/invoice_creator";
     }
