@@ -51,7 +51,7 @@
             </div>
           </div>
 
-          <div class="cart">
+          <div class="cart" th:if="${cart.size() > 0}">
             <h3>Carrito</h3>
             <table>
               <thead>
@@ -79,8 +79,8 @@
               </tbody>
             </table>
           </div>
-          <button type="submit" class="action-btn">Guardar Factura</button>
         </div>
+        <button type="submit" class="action-btn" th:if="${cart.size() > 0}">Facturar</button>
       </form>
     </div>
   </section>
