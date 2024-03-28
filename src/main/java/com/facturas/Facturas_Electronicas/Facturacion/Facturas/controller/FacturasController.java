@@ -242,13 +242,15 @@ public class FacturasController {
 
         // obtener el cliente
         ClienteEntity client = (ClienteEntity) model.getAttribute("currentClientSelected");
-        if (client == null) {
+        // Verificar que el cliente no sea null, es poco probable que sea null, pero por si acaso
+        if (client == null || client.getIdentificacion() == null || client.getIdentificacion().isEmpty()) {
             httpSession.setAttribute("errorMessage", "Debe seleccionar un cliente");
             return "redirect:/invoice_creator";
         }
 
         // obtener el carrito
         ArrayList<ProductOnCart> cart = (ArrayList<ProductOnCart>) model.getAttribute("cart");
+        // Verificar que el carrito no sea null o este vacio, igualmente es poco probable que sea null o vacio
         if (cart == null || cart.isEmpty()) {
             httpSession.setAttribute("errorMessage", "Debe agregar productos al carrito");
             return "redirect:/invoice_creator";
