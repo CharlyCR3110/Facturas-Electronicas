@@ -60,4 +60,8 @@ public class ClienteService {
 
         return clienteRepository.findAllByIdProveedorAndNombreContaining(userLogged.getIdProveedor(), searchName);
     }
+
+    public ClienteEntity getClientByID(Integer clientID) {
+        return clienteRepository.findById(clientID).orElse(null);
+    }
 }
