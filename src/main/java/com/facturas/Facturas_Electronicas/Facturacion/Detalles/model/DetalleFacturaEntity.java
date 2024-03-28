@@ -9,7 +9,6 @@ import java.util.Objects;
 @jakarta.persistence.Table(name = "tbl_detalle_facturas", schema = "facturas_electronicas", catalog = "")
 @IdClass(com.facturas.Facturas_Electronicas.Facturacion.Detalles.model.DetalleFacturaEntityPK.class)
 public class DetalleFacturaEntity {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @jakarta.persistence.Column(name = "id_factura")
     private int idFactura;
@@ -22,7 +21,6 @@ public class DetalleFacturaEntity {
         this.idFactura = idFactura;
     }
 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @jakarta.persistence.Column(name = "id_producto")
     private int idProducto;
