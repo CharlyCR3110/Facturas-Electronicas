@@ -90,6 +90,17 @@
           </tbody>
         </table>
       </div>
+
+      <!-- Botón para enviar la información de la factura -->
+      <form action="/invoice_creator/createInvoice" method="get"
+        th:if="${cart.size() > 0} and ${currentClientSelected}">
+        <div class="form-group">
+          <div class="invoice-actions">
+            <button type="submit" class="action-btn">Facturar</button>
+          </div>
+        </div>
+      </form>
+
     </div>
   </section>
 
