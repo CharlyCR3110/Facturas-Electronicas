@@ -230,4 +230,62 @@ public class FacturasController {
 
         return "redirect:/invoice_creator";
     }
+
+    @GetMapping("/invoice_creator/createInvoice")
+    public String createInvoice(Model model) {
+        // OBTENER DATOS
+        // obtener el usuario loggeado (se obtiene de la sesion)
+        ProveedorEntity userLogged = (ProveedorEntity) httpSession.getAttribute("userLogged");
+        if (userLogged == null) {
+            return "redirect:/login";
+        }
+
+        // obtener el cliente
+        ClienteEntity client = (ClienteEntity) model.getAttribute("currentClientSelected");
+        if (client == null) {
+            httpSession.setAttribute("errorMessage", "Debe seleccionar un cliente");
+            return "redirect:/invoice_creator";
+        }
+
+        // obtener el carrito
+        ArrayList<ProductOnCart> cart = (ArrayList<ProductOnCart>) model.getAttribute("cart");
+        if (cart == null || cart.isEmpty()) {
+            httpSession.setAttribute("errorMessage", "Debe agregar productos al carrito");
+            return "redirect:/invoice_creator";
+        }
+
+//        2024-03-19 10:00:00
+        // Obteniendo la fecha actual
+        java.util.Date date = new java.util.Date();
+        java.sql.Timestamp todaysDate = new java.sql.Timestamp(date.getTime());
+
+        // crear la factura
+        FacturaEntity factura = new FacturaEntity();
+        factura.setFechaEmision(todaysDate);
+        factura.setIdProveedor(userLogged.getIdProveedor());
+        factura.setIdCliente(client.getIdCliente());
+        factura.setImpuesto(BigDecimal.valueOf(13)); // 13% -> en el trigger -> SET total = subtotal + (subtotal * impuesto / 100)
+        // se calculan al agregar los detalles, pero se ponen aqui para que no sean null
+        factura.setSubtotal(BigDecimal.ZERO);
+        factura.setTotal(BigDecimal.ZERO);
+
+        // Guardar la factura y obtener la factura con el id
+        factura = facturaEntityService.saveFactura(factura);
+
+        // Guardar los detalles de la factura
+        for (ProductOnCart p : cart) {
+            facturaEntityService.saveDetalleFactura(factura.getIdFactura(), p.getProduct().getIdProducto(), p.getQuantity());
+        }
+
+        // LIMPIAR DATOS
+        // limpiar el carrito
+        model.addAttribute("cart", new ArrayList<>());
+        model.addAttribute("total", BigDecimal.ZERO);
+
+        // limpiar el cliente seleccionado
+        model.addAttribute("currentClientSelected", new ClienteEntity());
+
+        // redirigir a la lista de facturas
+        return "redirect:/invoices/history";
+    }
 }
