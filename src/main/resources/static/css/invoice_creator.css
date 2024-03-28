@@ -59,7 +59,8 @@
   background-image: none;
 }
 
-.invoice-creator .product-field .action-btn {
+.invoice-creator .product-field .action-btn,
+.invoice-creator .client-selection .action-btn {
   margin-top: 0;
   /* moverlo a la derecha */
   position: relative;

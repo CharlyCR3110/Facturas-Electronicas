@@ -22,68 +22,77 @@
   <section class="invoice-info">
     <h2>Facturar</h2>
     <div class="invoice-creator">
-      <form action="/invoice_creator/addToCart" method="post">
+      <!-- Formulario para seleccionar cliente -->
+      <form action="/invoice_creator/selectClient" method="post">
         <div class="form-group">
           <div class="client-selection">
             <h3>Cliente</h3>
             <label for="client">Cliente</label>
-            <select id="client" name="client">
+            <select id="client" name="client" required>
               <option value="">Selecciona un cliente</option>
               <option th:each="client : ${currentClientsList}" th:value="${client.getIdCliente()}"
-                th:text="${client.getNombre()}"></option>
+                th:text="${client.getNombre()}"
+                th:selected="${client.getIdCliente() == currentClientSelected.getIdCliente()}">Cliente
+              </option>
             </select>
+            <button type="submit" class="action-btn">Fijar Cliente</button>
           </div>
+        </div>
+        <!-- Botón para enviar la información del cliente -->
+      </form>
 
+      <!-- Formulario para agregar productos al carrito -->
+      <form action="/invoice_creator/addToCart" method="post">
+        <div class="form-group">
           <div id="product-fields">
             <div class="product-field">
               <h3>Detalles del Producto</h3>
-              <form action="/addToCart" method="post">
-                <label for="product">Producto</label>
-                <select id="product" name="product" required>
-                  <option value="">Selecciona un producto</option>
-                  <option th:each="product : ${currentProductsList}" th:value="${product.getIdProducto()}"
-                    th:text="${product.getNombre()}"></option>
-                </select>
-                <label for="quantity">Cantidad</label>
-                <input type="number" id="quantity" name="quantity" min="1" required>
-                <button type="submit" class="action-btn">Agregar</button>
-              </form>
+              <label for="product">Producto</label>
+              <select id="product" name="product" required>
+                <option value="">Selecciona un producto</option>
+                <option th:each="product : ${currentProductsList}" th:value="${product.getIdProducto()}"
+                  th:text="${product.getNombre()}"></option>
+              </select>
+              <label for="quantity">Cantidad</label>
+              <input type="number" id="quantity" name="quantity" min="1" required>
+              <button type="submit" class="action-btn">Agregar</button>
             </div>
           </div>
-
-          <div class="cart" th:if="${cart.size() > 0}">
-            <h3>Carrito</h3>
-            <table>
-              <thead>
-                <tr>
-                  <th>Producto</th>
-                  <th>Cantidad</th>
-                  <th>Precio Unitario</th>
-                  <th>Subtotal</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr th:each="item : ${cart}">
-                  <td th:text="${item.getProduct().getNombre()}"></td>
-                  <td th:text="${item.getQuantity()}"></td>
-                  <td th:text="'$' + ${item.getProduct().getPrecioUnitario()}"></td>
-                  <td th:text="'$' + ${item.getProduct().getPrecioUnitario() * item.quantity}"></td>
-                  <td>
-                    <a th:href="@{'/removeFromCart/' + ${item.getProduct().getIdProducto()}}"></a>
-                  </td>
-                </tr>
-                <tr>
-                  <td colspan="3">Total</td>
-                  <td th:text="'$' + ${total}"></td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
         </div>
-        <button type="submit" class="action-btn" th:if="${cart.size() > 0}">Facturar</button>
       </form>
+
+      <!-- Sección para mostrar el carrito -->
+      <div class="cart" th:if="${cart.size() > 0}">
+        <h3>Carrito</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Producto</th>
+              <th>Cantidad</th>
+              <th>Precio Unitario</th>
+              <th>Subtotal</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="item : ${cart}">
+              <td th:text="${item.getProduct().getNombre()}"></td>
+              <td th:text="${item.getQuantity()}"></td>
+              <td th:text="'$' + ${item.getProduct().getPrecioUnitario()}"></td>
+              <td th:text="'$' + ${item.getProduct().getPrecioUnitario() * item.quantity}"></td>
+              <td>
+                <a th:href="@{'/removeFromCart/' + ${item.getProduct().getIdProducto()}}"></a>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="3">Total</td>
+              <td th:text="'$' + ${total}"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </section>
+
 
   <!-- Popup y mensaje de error -->
   <div class="popup-div" th:if="${errorMessage}">
