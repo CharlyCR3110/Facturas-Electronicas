@@ -133,11 +133,6 @@ public class FacturasController {
             return "redirect:/login";
         }
 
-// obtener la factura actual
-        FacturaEntity currentInvoice = (FacturaEntity) model.getAttribute("currentInvoice");
-        if (currentInvoice == null) {
-            currentInvoice = new FacturaEntity();
-        }
 
         // obtener el producto
         ProductOnCart productOnCart = new ProductOnCart();
