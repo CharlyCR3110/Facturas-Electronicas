@@ -61,4 +61,16 @@ public class FacturaEntityService {
 
         return facturas;
     }
+
+    public FacturaEntity saveFactura(FacturaEntity factura) {
+        return facturaEntityRepository.save(factura);
+    }
+
+    public void saveDetalleFactura(int idFactura, int idProducto, int quantity) {
+        DetalleFacturaEntity detalleFacturaEntity = new DetalleFacturaEntity();
+        detalleFacturaEntity.setIdFactura(idFactura);
+        detalleFacturaEntity.setIdProducto(idProducto);
+        detalleFacturaEntity.setCantidad(quantity);
+        detalleFacturaEntityRepository.save(detalleFacturaEntity);
+    }
 }
