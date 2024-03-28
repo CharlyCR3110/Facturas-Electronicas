@@ -133,7 +133,7 @@ public class FacturasController {
             return "redirect:/login";
         }
 
-        // obtener la factura actual
+// obtener la factura actual
         FacturaEntity currentInvoice = (FacturaEntity) model.getAttribute("currentInvoice");
         if (currentInvoice == null) {
             currentInvoice = new FacturaEntity();
@@ -180,4 +180,42 @@ public class FacturasController {
         return "redirect:/invoice_creator";
     }
 
+    @GetMapping("/removeFromCart/{id}")
+    public String removeFromCart(@PathVariable("id") Integer productID, Model model) {
+        // obtener el usuario loggeado (se obtiene de la sesion)
+        ProveedorEntity userLogged = (ProveedorEntity) httpSession.getAttribute("userLogged");
+        if (userLogged == null) {
+            return "redirect:/login";
+        }
+
+        // obtener el producto
+        ProductOnCart productOnCart = new ProductOnCart();
+        productOnCart.setProduct(productoService.getProductoByID(productID));
+
+        // eliminar el producto del carrito
+        ArrayList<ProductOnCart> cart = (ArrayList<ProductOnCart>) model.getAttribute("cart");
+        if (cart == null) {
+            cart = new ArrayList<>();
+        }
+
+        for (ProductOnCart p : cart) {
+            if (p.getProduct().getIdProducto() == productID) {
+                cart.remove(p);
+                break;
+            }
+        }
+
+        model.addAttribute("cart", cart);
+        //total
+        BigDecimal total = BigDecimal.ZERO;
+        for (ProductOnCart p : cart) {
+            BigDecimal price = p.getProduct().getPrecioUnitario();
+            BigDecimal quantityP = BigDecimal.valueOf(p.getQuantity());
+            total = total.add(price.multiply(quantityP));
+        }
+
+        model.addAttribute("total", total);
+
+        return "redirect:/invoice_creator";
+    }
 }
