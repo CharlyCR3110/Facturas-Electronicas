@@ -39,7 +39,7 @@
               <h3>Detalles del Producto</h3>
               <form action="/addToCart" method="post">
                 <label for="product">Producto</label>
-                <select id="product" name="product">
+                <select id="product" name="product" required>
                   <option value="">Selecciona un producto</option>
                   <option th:each="product : ${currentProductsList}" th:value="${product.getIdProducto()}"
                     th:text="${product.getNombre()}"></option>
