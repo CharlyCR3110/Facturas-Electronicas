@@ -17,8 +17,7 @@ import java.util.ArrayList;
 public class AdminController {
     @ModelAttribute("currentProvider") public ProveedorEntity currentProvider() { return new ProveedorEntity(); }
     @ModelAttribute("currentProviderList") public ArrayList<ProveedorEntity> currentProviderList() { return new ArrayList<>(); }
-
-
+    
     private final AdminService adminService;
     private final ProveedorService proveedorService;
 
@@ -60,7 +59,6 @@ public class AdminController {
         return "admins/adminDashboard";
     }
 
-//    /provider/changeState/{id}(id=${provider.getIdProveedor()})
     @GetMapping("/provider/changeState/{id}")
     public String changeProviderState(@PathVariable("id") Integer providerId) {
         proveedorService.changeProviderState(providerId);
