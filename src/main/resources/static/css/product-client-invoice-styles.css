@@ -129,13 +129,23 @@
   background-color: var(--danger-color-hover);
 }
 
+
 /* lo mismo para los exportar */
-.table a[href*="export" i] {
-  background-color: var(--export-color);
+.table a[href*="pdf" i] {
+  background-color: var(--pdf-export-color);
 }
 
-.table a[href*="export" i]:hover {
-  background-color: var(--export-color-hover);
+.table a[href*="pdf" i]:hover {
+  background-color: var(--pdf-export-color-hover);
+}
+
+/* lo mismo para los exportar */
+.table a[href*="xml" i] {
+  background-color: var(--xml-export-color);
+}
+
+.table a[href*="xml" i]:hover {
+  background-color: var(--xml-export-color-hover);
 }
 
 /* labels dentro de la tabla que contengan la palabra "delete" en el atributo for */
@@ -154,6 +164,15 @@
 
 .table td>label[for*="details" i]:hover {
   background-color: var(--details-color-hover);
+}
+
+/* lo mismo para los exportar */
+.table td>label[for*="export" i] {
+  background-color: var(--export-color);
+}
+
+.table td>label[for*="export" i]:hover {
+  background-color: var(--export-color-hover);
 }
 
 /* pop-up */
@@ -306,3 +325,9 @@ input[type="checkbox"] {
 .details-popup span {
   font-weight: normal;
 }
+
+/* estilos para la opcion de exportar pdf o xml */
+.export-btns .action-btn {
+  width: 48%;
+}
+
