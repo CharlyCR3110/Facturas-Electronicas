@@ -19,110 +19,115 @@
   <!-- Incluir el fragmento nav -->
   <div th:replace="~{fragments/nav :: nav}"></div>
 
-  <div class="container">
-    <h1>Clientes</h1>
-    <div class="crud-table">
-      <div class="forms">
-        <div class="form-inline pull-left">
-          <input type="checkbox" id="toggle-popup" class="toggle-popup toggle-add-popup">
-          <div class="popup add-popup">
-            <div class="popup-content">
-              <div class="popup-header">
-                <h2>Agregar Cliente</h2>
-              </div>
-              <div class="popup-body">
-                <form method="post" action="/clients/add">
-                  <div class="form-group">
-                    <label for="nombre">Nombre</label>
-                    <input type="text" name="nombre" id="nombre" required>
-                  </div>
-                  <div class="form-group">
-                    <label for="identificacion">Identificación</label>
-                    <input type="text" name="identificacion" id="identificacion" required>
-                  </div>
-                  <div class="form-group">
-                    <label for="telefono">Teléfono</label>
-                    <input type="text" name="telefono" id="telefono" required>
-                  </div>
-                  <div class="form-group">
-                    <label for="correo">Correo</label>
-                    <input type="email" name="correo" id="correo" required>
-                  </div>
-                  <button type="submit" class="action-btn">Agregar</button>
-                  <label for="toggle-popup" class="close-btn">Cancelar</label>
-                </form>
-              </div>
-            </div>
-          </div>
-          <label for="toggle-popup" class="action-btn">Agregar Cliente</label>
-        </div>
-        <div class="form-inline pull-right">
-          <form method="post" action="/clients/search">
-            <input type="text" name="searchName" placeholder="Buscar cliente">
-            <button class="action-btn" type="submit">Buscar</button>
-          </form>
-        </div>
-      </div>
-
-      <table class="table">
-        <thead>
-          <tr>
-            <th>Nombre</th>
-            <th>Identificación</th>
-            <th>Teléfono</th>
-            <th>Correo</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr th:each="client : ${currentClientList}">
-            <td th:text="${client.getNombre()}"></td>
-            <td th:text="${client.getIdentificacion()}"></td>
-            <td th:text="${client.getTelefono()}"></td>
-            <td th:text="${client.getCorreo()}"></td>
-            <td>
-              <input type="checkbox" th:id="'toggle-edit-popup-' + ${client.getIdCliente()}" class="toggle-popup toggle-edit-popup">
-              <label th:for="'toggle-edit-popup-' + ${client.getIdCliente()}" class="action-btn"
-                th:id="'edit-btn-' + ${client.getIdCliente()}">Editar</label>
-              <div class="popup edit-popup" th:id="'edit-popup-' + ${client.getIdCliente()}">
-                <div class="popup-content">
-                  <div class="popup-header">
-                    <h2>Editar Cliente</h2>
-                  </div>
-                  <div class="popup-body">
-                    <!-- Formulario de edición -->
-                    <form method="post" action="/clients/edit">
-                      <input type="hidden" name="idCliente" th:value="${client.getIdCliente()}">
-                      <div class="form-group">
-                        <label for="nombre-edit">Nombre</label>
-                        <input type="text" name="nombre" id="nombre-edit" th:value="${client.getNombre()}" required>
-                      </div>
-                      <div class="form-group">
-                        <label for="identificacion-edit">Identificación</label>
-                        <input type="text" name="identificacion" id="identificacion-edit"
-                          th:value="${client.getIdentificacion()}" required>
-                      </div>
-                      <div class="form-group">
-                        <label for="telefono-edit">Teléfono</label>
-                        <input type="text" name="telefono" id="telefono-edit" th:value="${client.getTelefono()}"
-                          required>
-                      </div>
-                      <div class="form-group">
-                        <label for="correo-edit">Correo</label>
-                        <input type="email" name="correo" id="correo-edit" th:value="${client.getCorreo()}" required>
-                      </div>
-                      <button type="submit" class="action-btn">Actualizar</button>
-                      <label th:for="'toggle-edit-popup-' + ${client.getIdCliente()}" class="close-btn">Cancelar</label>
-                    </form>
-                  </div>
+  <div class="container-container">
+    <div class="container">
+      <h1>Clientes</h1>
+      <div class="crud-table">
+        <div class="forms">
+          <div class="form-inline pull-left">
+            <input type="checkbox" id="toggle-popup" class="toggle-popup toggle-add-popup">
+            <div class="popup add-popup">
+              <div class="popup-content">
+                <div class="popup-header">
+                  <h2>Agregar Cliente</h2>
+                </div>
+                <div class="popup-body">
+                  <form method="post" action="/clients/add">
+                    <div class="form-group">
+                      <label for="nombre">Nombre</label>
+                      <input type="text" name="nombre" id="nombre" required>
+                    </div>
+                    <div class="form-group">
+                      <label for="identificacion">Identificación</label>
+                      <input type="text" name="identificacion" id="identificacion" required>
+                    </div>
+                    <div class="form-group">
+                      <label for="telefono">Teléfono</label>
+                      <input type="text" name="telefono" id="telefono" required>
+                    </div>
+                    <div class="form-group">
+                      <label for="correo">Correo</label>
+                      <input type="email" name="correo" id="correo" required>
+                    </div>
+                    <button type="submit" class="action-btn">Agregar</button>
+                    <label for="toggle-popup" class="close-btn">Cancelar</label>
+                  </form>
                 </div>
               </div>
-              <a th:href="@{/clients/delete/{id}(id=${client.getIdCliente()})}" class="action-btn">Eliminar</a>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+            </div>
+            <label for="toggle-popup" class="action-btn">Agregar Cliente</label>
+          </div>
+          <div class="form-inline pull-right">
+            <form method="post" action="/clients/search">
+              <input type="text" name="searchName" placeholder="Buscar cliente">
+              <button class="action-btn" type="submit">Buscar</button>
+            </form>
+          </div>
+        </div>
+
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Identificación</th>
+              <th>Teléfono</th>
+              <th>Correo</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="client : ${currentClientList}">
+              <td th:text="${client.getNombre()}"></td>
+              <td th:text="${client.getIdentificacion()}"></td>
+              <td th:text="${client.getTelefono()}"></td>
+              <td th:text="${client.getCorreo()}"></td>
+              <td>
+                <input type="checkbox" th:id="'toggle-edit-popup-' + ${client.getIdCliente()}"
+                  class="toggle-popup toggle-edit-popup">
+                <label th:for="'toggle-edit-popup-' + ${client.getIdCliente()}" class="action-btn"
+                  th:id="'edit-btn-' + ${client.getIdCliente()}">Editar</label>
+                <div class="popup edit-popup" th:id="'edit-popup-' + ${client.getIdCliente()}">
+                  <div class="popup-content">
+                    <div class="popup-header">
+                      <h2>Editar Cliente</h2>
+                    </div>
+                    <div class="popup-body">
+                      <!-- Formulario de edición -->
+                      <form method="post" action="/clients/edit">
+                        <input type="hidden" name="idCliente" th:value="${client.getIdCliente()}">
+                        <div class="form-group">
+                          <label for="nombre-edit">Nombre</label>
+                          <input type="text" name="nombre" id="nombre-edit" th:value="${client.getNombre()}" required>
+                        </div>
+                        <div class="form-group">
+                          <label for="identificacion-edit">Identificación</label>
+                          <input type="text" name="identificacion" id="identificacion-edit"
+                            th:value="${client.getIdentificacion()}" required>
+                        </div>
+                        <div class="form-group">
+                          <label for="telefono-edit">Teléfono</label>
+                          <input type="text" name="telefono" id="telefono-edit" th:value="${client.getTelefono()}"
+                            required>
+                        </div>
+                        <div class="form-group">
+                          <label for="correo-edit">Correo</label>
+                          <input type="email" name="correo" id="correo-edit" th:value="${client.getCorreo()}" required>
+                        </div>
+                        <button type="submit" class="action-btn">Actualizar</button>
+                        <label th:for="'toggle-edit-popup-' + ${client.getIdCliente()}"
+                          class="close-btn">Cancelar</label>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+                <a th:href="@{/clients/delete/{id}(id=${client.getIdCliente()})}" class="action-btn">Eliminar</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
+
 
   <div class="popup-div" th:if="${errorMessage}">
     <input type="checkbox" id="errorToggle" class="toggle" th:checked="${errorMessage}">
