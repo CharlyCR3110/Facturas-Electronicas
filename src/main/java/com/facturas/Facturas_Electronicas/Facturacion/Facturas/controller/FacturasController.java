@@ -51,7 +51,7 @@ public class FacturasController {
             return "redirect:/login";
         }
 
-        if (model.getAttribute("currentInvoicesList") == null) {
+        if (model.getAttribute("currentInvoicesList") == null || model.getAttribute("currentInvoicesList").equals("searchAgain")) {
             // obtener la lista de facturas del proveedor loggeado
             ArrayList<FacturaConDetallesDTO> invoices = facturaEntityService.getFacturasByProveedor(userLogged);
             if (invoices != null) {
@@ -291,6 +291,8 @@ public class FacturasController {
 
         // limpiar el cliente seleccionado
         model.addAttribute("currentClientSelected", new ClienteEntity());
+
+        model.addAttribute("currentInvoicesList", "searchAgain"); // null para que cuando entre al invoice/history se tomen los datos desde la base de datos
 
         // redirigir a la lista de facturas
         return "redirect:/invoices/history";
