@@ -8,10 +8,7 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 
@@ -61,5 +58,12 @@ public class AdminController {
 
         model.addAttribute("currentProviderList", proveedorService.getAllProviders());
         return "admins/adminDashboard";
+    }
+
+//    /provider/changeState/{id}(id=${provider.getIdProveedor()})
+    @GetMapping("/provider/changeState/{id}")
+    public String changeProviderState(@PathVariable("id") Integer providerId) {
+        proveedorService.changeProviderState(providerId);
+        return "redirect:/admins/dashboard";
     }
 }
