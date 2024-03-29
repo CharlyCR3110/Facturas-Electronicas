@@ -251,9 +251,25 @@ input[type="checkbox"] {
 }
 
 /* Mostrar el popup cuando el checkbox está marcado */
-.toggle-popup[type="checkbox"]:checked~.popup {
+
+/* uno por cada tipo de popup para evitar que se muestren todos a la vez */
+
+.toggle-add-popup[type="checkbox"]:checked~.add-popup {
   display: block;
 }
+
+.toggle-edit-popup[type="checkbox"]:checked~.edit-popup {
+  display: block;
+}
+
+.toggle-details-popup[type="checkbox"]:checked~.details-popup {
+  display: block;
+}
+
+.toggle-export-popup[type="checkbox"]:checked~.export-popup {
+  display: block;
+}
+
 
 /*Error Pop-Up*/
 .overlay {
@@ -330,4 +346,3 @@ input[type="checkbox"] {
 .export-btns .action-btn {
   width: 48%;
 }
-
