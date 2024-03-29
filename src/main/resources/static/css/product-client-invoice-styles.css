@@ -185,6 +185,15 @@
   background-color: var(--export-color-hover);
 }
 
+/* lo mismo para los state */
+.table td>label[for*="state" i] {
+  background-color: var(--edit-color);
+}
+
+.table td>label[for*="state" i]:hover {
+  background-color: var(--edit-color-hover);
+}
+
 /* pop-up */
 /* ocultar el checkbox  */
 input[type="checkbox"] {
@@ -280,6 +289,9 @@ input[type="checkbox"] {
   display: block;
 }
 
+.toggle-state-popup[type="checkbox"]:checked~.state-popup {
+  display: block;
+}
 
 /*Error Pop-Up*/
 .overlay {
@@ -353,6 +365,6 @@ input[type="checkbox"] {
 }
 
 /* estilos para la opcion de exportar pdf o xml */
-.export-btns .action-btn {
+.inline-btns .action-btn {
   width: 48%;
 }
