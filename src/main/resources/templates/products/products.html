@@ -25,8 +25,8 @@
     <div class="crud-table">
       <div class="forms">
         <div class="form-inline pull-left">
-          <input type="checkbox" id="toggle-popup" class="toggle-popup">
-          <div class="popup">
+          <input type="checkbox" id="toggle-popup" class="toggle-popup toggle-add-popup">
+          <div class="popup add-popup">
             <div class="popup-content">
               <div class="popup-header">
                 <h2>Agregar Producto</h2>
@@ -76,10 +76,10 @@
             <td th:text="${product.getDescripcion()}"></td>
             <td th:text="${product.getPrecioUnitario()}"></td>
             <td>
-              <input type="checkbox" th:id="'toggle-edit-popup-' + ${product.getIdProducto()}" class="toggle-popup">
+              <input type="checkbox" th:id="'toggle-edit-popup-' + ${product.getIdProducto()}" class="toggle-popup toggle-edit-popup">
               <label th:for="'toggle-edit-popup-' + ${product.getIdProducto()}" class="action-btn"
                 th:id="'edit-btn-' + ${product.getIdProducto()}">Editar</label>
-              <div class="popup" th:id="'edit-popup-' + ${product.getIdProducto()}">
+              <div class="popup edit-popup" th:id="'edit-popup-' + ${product.getIdProducto()}">
                 <div class="popup-content">
                   <div class="popup-header">
                     <h2>Editar Producto</h2>
