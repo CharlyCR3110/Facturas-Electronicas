@@ -185,19 +185,19 @@
   background-color: var(--export-color-hover);
 }
 
-.table td >.activate-btn {
+.table td>.activate-btn {
   background-color: var(--export-color);
 }
 
-.table td >.activate-btn:hover {
+.table td>.activate-btn:hover {
   background-color: var(--export-color-hover);
 }
 
-.table td >.deactivate-btn {
+.table td>.deactivate-btn {
   background-color: var(--danger-color);
 }
 
-.table td >.deactivate-btn:hover {
+.table td>.deactivate-btn:hover {
   background-color: var(--danger-color-hover);
 }
 
@@ -370,4 +370,14 @@ input[type="checkbox"] {
 /* estilos para la opcion de exportar pdf o xml */
 .inline-btns .action-btn {
   width: 48%;
+}
+
+/* usar un svg */
+.admin-logout-btn .logout-btn {
+  background-image: url(../icons/logout-3-svgrepo-com.svg);
+  width: 40px;
+  height: 40px;
+  background-repeat: no-repeat;
+  background-position: center;
+  display: inline-block;
 }
