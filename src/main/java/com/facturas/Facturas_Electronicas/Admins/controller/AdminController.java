@@ -32,7 +32,7 @@ public class AdminController {
         this.proveedorService = proveedorService;
     }
 
-    @GetMapping("/admins")
+    @GetMapping("/admins/login")
     public String getAdminLoginPage(Model model) {
         model.addAttribute("adminLoginRequest", new AdminEntity());
         return "admins/adminLogin";
