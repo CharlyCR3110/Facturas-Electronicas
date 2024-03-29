@@ -93,6 +93,31 @@
               </div>
               <a th:href="@{/invoices/delete/{id}(id=${factura.getFactura().getIdFactura()})}"
                 class="action-btn">Eliminar</a>
+              <!-- para exportar en pdf o xml dependiendo de la opcion  OTRO POPUP -->
+              <input type="checkbox" th:id="'toggle-export-popup-' + ${factura.getFactura().getIdFactura()}"
+                class="toggle-popup toggle-export-popup">
+              <label th:for="'toggle-export-popup-' + ${factura.getFactura().getIdFactura()}"
+                class="action-btn">Exportar</label>
+              <div th:id="'export-popup-' + ${factura.getFactura().getIdFactura()}" class="popup export-popup">
+                <div class="popup-content">
+                  <div class="popup-header">
+                    <h2>Exportar Factura</h2>
+                  </div>
+
+                  <div class="popup-body">
+                    <div class="export-btns">
+
+                      <a th:href=" @{/invoices/export/pdf/{id}(id=${factura.getFactura().getIdFactura()})}"
+                        class="action-btn">PDF</a>
+                      <a th:href="@{/invoices/export/xml/{id}(id=${factura.getFactura().getIdFactura()})}"
+                        class="action-btn">XML</a>
+
+                    </div>
+                    <label th:for="'toggle-export-popup-' + ${factura.getFactura().getIdFactura()}"
+                      class="close-btn">Cancelar</label>
+                  </div>
+                </div>
+              </div>
             </td>
           </tr>
         </tbody>
