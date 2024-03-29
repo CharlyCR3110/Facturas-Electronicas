@@ -25,6 +25,13 @@
   /*Export button color*/
   --export-color: #27ae60;
   --export-color-hover: #2ecc71;
+  /*PDF export button color*/
+  /* rojo para el pdf y naranja para el xml */
+  --pdf-export-color: #e74c3c;
+  --pdf-export-color-hover: #c0392b;
+  /*XML export button color*/
+  --xml-export-color: #EF9E46;
+  --xml-export-color-hover: #E08E3A;
 }
 
 html {
