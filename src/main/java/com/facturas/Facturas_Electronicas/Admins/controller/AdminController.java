@@ -31,4 +31,10 @@ public class AdminController {
         this.adminService = adminService;
         this.proveedorService = proveedorService;
     }
+
+    @GetMapping("/admins")
+    public String getAdminLoginPage(Model model) {
+        model.addAttribute("adminLoginRequest", new AdminEntity());
+        return "admins/adminLogin";
+    }
 }
