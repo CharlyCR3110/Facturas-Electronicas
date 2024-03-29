@@ -1,8 +1,19 @@
+.container-container {
+  display: flex;
+  width: calc(100% - 235px);
+  margin-left: 235px;
+  margin-bottom: 30px;
+  flex-direction: column;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+}
+
 .container {
+  width: 100%;
   max-width: 1200px;
-  margin: 0px auto;
+  margin: 0 auto;
   padding: 4rem;
-  text-align: center;
 }
 
 .container h1 {
