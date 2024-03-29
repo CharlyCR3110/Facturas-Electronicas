@@ -114,7 +114,6 @@
 
 .table a {
   text-decoration: none;
-  margin-right: 10px;
 }
 
 .table .action-btn:hover {
@@ -126,13 +125,35 @@
   background-color: var(--danger-color);
 }
 
+.table a[href*="delete" i]:hover {
+  background-color: var(--danger-color-hover);
+}
+
+/* lo mismo para los exportar */
+.table a[href*="export" i] {
+  background-color: var(--export-color);
+}
+
+.table a[href*="export" i]:hover {
+  background-color: var(--export-color-hover);
+}
+
 /* labels dentro de la tabla que contengan la palabra "delete" en el atributo for */
 .table td>label[for*="edit" i] {
   background-color: var(--edit-color);
 }
 
+.table td>label[for*="edit" i]:hover {
+  background-color: var(--edit-color-hover);
+}
+
+/* lo mismo para los detalles */
 .table td>label[for*="details" i] {
   background-color: var(--details-color);
+}
+
+.table td>label[for*="details" i]:hover {
+  background-color: var(--details-color-hover);
 }
 
 /* pop-up */
