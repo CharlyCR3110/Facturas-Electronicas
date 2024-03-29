@@ -50,4 +50,16 @@ public class AdminController {
             return "admins/adminLogin";
         }
     }
+
+    @GetMapping("/admins/dashboard")
+    public String getAdminDashboard(Model model) {
+        AdminEntity admin = (AdminEntity) httpSession.getAttribute("adminLogged");
+        if (admin == null) {
+            return "redirect:/admins/login";
+        }
+        model.addAttribute("admin", admin);
+
+        model.addAttribute("currentProviderList", proveedorService.getAllProviders());
+        return "admins/adminDashboard";
+    }
 }
