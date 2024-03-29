@@ -1,12 +1,19 @@
+.wrap {
+  height: 60px;
+}
+
 #minimal-header {
   background-color: var(--primary-color);
   color: #fff;
-  padding: 10px;
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 60px;
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  padding: 0px 16px;
   z-index: 1000;
 }
 
