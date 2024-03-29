@@ -322,4 +322,30 @@ public class FacturasController {
 
         return null;
     }
+
+    @GetMapping("/invoices/export/xml/{id}")
+    public ResponseEntity<ByteArrayResource> exportInvoiceXML(@PathVariable("id") Integer id) {
+        // exportar la factura
+        try {
+            byte[] xmlBytes = facturaEntityService.exportInvoice(id, "xml");
+
+            // crear un ByteArrayResource con los bytes del xml
+            ByteArrayResource resource = new ByteArrayResource(xmlBytes);
+
+            // configurar el response
+            HttpHeaders headers = new HttpHeaders();
+            headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=factura.xml");
+            headers.add(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_XML_VALUE);
+
+            // Devolver una respuesta con el recurso ByteArrayResource y las cabeceras configuradas
+            return ResponseEntity.ok()
+                    .headers(headers)
+                    .contentType(MediaType.APPLICATION_XML)
+                    .body(resource);
+        } catch (Exception e) {
+            httpSession.setAttribute("errorMessage", "No se pudo exportar la factura");
+        }
+
+        return null;
+    }
 }
