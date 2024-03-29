@@ -108,9 +108,9 @@
                     <div class="export-btns">
 
                       <a th:href=" @{/invoices/export/pdf/{id}(id=${factura.getFactura().getIdFactura()})}"
-                        class="action-btn">PDF</a>
+                        class="action-btn" download="factura.pdf">PDF</a>
                       <a th:href="@{/invoices/export/xml/{id}(id=${factura.getFactura().getIdFactura()})}"
-                        class="action-btn">XML</a>
+                        class="action-btn" download="factura.xml">XML</a>
 
                     </div>
                     <label th:for="'toggle-export-popup-' + ${factura.getFactura().getIdFactura()}"
