@@ -3,6 +3,7 @@ package com.facturas.Facturas_Electronicas.Facturacion.Facturas.service;
 import com.facturas.Facturas_Electronicas.Facturacion.DTO.FacturaConDetallesDTO;
 import com.facturas.Facturas_Electronicas.Facturacion.Detalles.model.DetalleFacturaEntity;
 import com.facturas.Facturas_Electronicas.Facturacion.Detalles.repository.DetalleFacturaEntityRepository;
+import com.facturas.Facturas_Electronicas.Facturacion.Facturas.exportRelated.InvoiceExporter;
 import com.facturas.Facturas_Electronicas.Facturacion.Facturas.model.FacturaEntity;
 import com.facturas.Facturas_Electronicas.Facturacion.Facturas.repository.FacturaEntityRepository;
 import com.facturas.Facturas_Electronicas.Proveedores.model.ProveedorEntity;
@@ -84,6 +85,23 @@ public class FacturaEntityService {
         facturaConDetallesDTO.setDetalles(detalles);
 
         return facturaConDetallesDTO;
+    }
+
+    // format => "pdf" o "xml"
+    public byte[] exportInvoice(Integer facturaId, String format) {
+        FacturaConDetallesDTO facturaConDetallesDTO = getFacturaById(facturaId);
+
+        InvoiceExporter invoiceExporter = new InvoiceExporter();
+        try {
+            switch (format) {
+                case "pdf":
+                    return invoiceExporter.exportToPDF(facturaConDetallesDTO);
+                default:
+                    throw new RuntimeException("Formato no soportado");
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
+        }
     }
 
 }
