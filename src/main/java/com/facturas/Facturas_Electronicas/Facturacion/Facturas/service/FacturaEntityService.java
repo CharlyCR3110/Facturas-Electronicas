@@ -73,4 +73,17 @@ public class FacturaEntityService {
         detalleFacturaEntity.setCantidad(quantity);
         detalleFacturaEntityRepository.save(detalleFacturaEntity);
     }
+
+    public FacturaConDetallesDTO getFacturaById(Integer facturaId) {
+        FacturaEntity factura = facturaEntityRepository.findById(facturaId).
+                orElseThrow(() -> new RuntimeException("Factura no encontrada"));
+
+        List<DetalleFacturaEntity> detalles = detalleFacturaEntityRepository.getDetallesByIdFactura(facturaId);
+        FacturaConDetallesDTO facturaConDetallesDTO = new FacturaConDetallesDTO();
+        facturaConDetallesDTO.setFactura(factura);
+        facturaConDetallesDTO.setDetalles(detalles);
+
+        return facturaConDetallesDTO;
+    }
+
 }
