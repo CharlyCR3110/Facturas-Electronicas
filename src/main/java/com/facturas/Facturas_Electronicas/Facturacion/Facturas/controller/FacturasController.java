@@ -8,8 +8,13 @@ import com.facturas.Facturas_Electronicas.Facturacion.Facturas.model.FacturaEnti
 import com.facturas.Facturas_Electronicas.Facturacion.Facturas.service.FacturaEntityService;
 import com.facturas.Facturas_Electronicas.Productos.service.ProductoService;
 import com.facturas.Facturas_Electronicas.Proveedores.model.ProveedorEntity;
+import com.itextpdf.text.pdf.qrcode.ByteArray;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -289,5 +294,32 @@ public class FacturasController {
 
         // redirigir a la lista de facturas
         return "redirect:/invoices/history";
+    }
+
+//    para exportar una factura PDF o XML
+    @GetMapping("/invoices/export/pdf/{id}")
+    public ResponseEntity<ByteArrayResource> exportInvoicePDF(@PathVariable("id") Integer id) {
+        // exportar la factura
+        try {
+            byte[] pdfBytes = facturaEntityService.exportInvoice(id, "pdf");
+
+            // crear un ByteArrayResource con los bytes del pdf
+            ByteArrayResource resource = new ByteArrayResource(pdfBytes);
+
+            // configurar el response
+            HttpHeaders headers = new HttpHeaders();
+            headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=factura.pdf");
+            headers.add(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_PDF_VALUE);
+
+            // Devolver una respuesta con el recurso ByteArrayResource y las cabeceras configuradas
+            return ResponseEntity.ok()
+                    .headers(headers)
+                    .contentType(MediaType.APPLICATION_PDF)
+                    .body(resource);
+        } catch (Exception e) {
+            httpSession.setAttribute("errorMessage", "No se pudo exportar la factura");
+        }
+
+        return null;
     }
 }
