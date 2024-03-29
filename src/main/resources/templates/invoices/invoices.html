@@ -19,110 +19,111 @@
   <!--  incluir el fragmento nav-->
   <div th:replace="~{fragments/nav :: nav}"></div>
 
-  <div class="container">
-    <h1>Facturas</h1>
-    <div class="crud-table">
-      <div class="forms">
-        <div class="form-inline pull-right">
-          <form method="post" action="/invoices/search">
-            <input type="text" name="searchClientID" placeholder="ID del Cliente">
-            <button class="action-btn" type="submit">Buscar</button>
-          </form>
+  <div class="container-container">
+    <div class="container">
+      <h1>Facturas</h1>
+      <div class="crud-table">
+        <div class="forms">
+          <div class="form-inline pull-right">
+            <form method="post" action="/invoices/search">
+              <input type="text" name="searchClientID" placeholder="ID del Cliente">
+              <button class="action-btn" type="submit">Buscar</button>
+            </form>
+          </div>
         </div>
-      </div>
 
-      <table class="table">
-        <thead>
-          <tr>
-            <th>Fecha de Emisión</th>
-            <th>ID Cliente</th>
-            <th>Subtotal</th>
-            <th>Impuesto</th>
-            <th>Total</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr th:each="factura : ${currentInvoicesList}">
-            <td th:text="${factura.getFactura().getFechaEmision()}"></td>
-            <td th:text="${factura.getFactura().getIdCliente()}"></td>
-            <td th:text="${factura.getFactura().getSubtotal()}"></td>
-            <td th:text="${factura.getFactura().getImpuesto()}"></td>
-            <td th:text="${factura.getFactura().getTotal()}"></td>
-            <td>
-              <input type="checkbox" th:id="'toggle-details-popup-' + ${factura.getFactura().getIdFactura()}"
-                class="toggle-popup toggle-details-popup">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Fecha de Emisión</th>
+              <th>ID Cliente</th>
+              <th>Subtotal</th>
+              <th>Impuesto</th>
+              <th>Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="factura : ${currentInvoicesList}">
+              <td th:text="${factura.getFactura().getFechaEmision()}"></td>
+              <td th:text="${factura.getFactura().getIdCliente()}"></td>
+              <td th:text="${factura.getFactura().getSubtotal()}"></td>
+              <td th:text="${factura.getFactura().getImpuesto()}"></td>
+              <td th:text="${factura.getFactura().getTotal()}"></td>
+              <td>
+                <input type="checkbox" th:id="'toggle-details-popup-' + ${factura.getFactura().getIdFactura()}"
+                  class="toggle-popup toggle-details-popup">
 
-              <label th:for="'toggle-details-popup-' + ${factura.getFactura().getIdFactura()}"
-                th:id="'expand-btn-' + ${factura.getFactura().getIdFactura()}" class="action-btn">Expandir</label>
-              <div th:id="'details-popup-' + ${factura.getFactura().getIdFactura()}" class="popup details-popup">
-                <div class="popup-content">
-                  <div class="popup-header">
-                    <h2>Detalles de la Factura</h2>
-                  </div>
-                  <div class="popup-body">
-                    <p>Fecha de Emisión: <span th:text="${factura.getFactura().getFechaEmision()}"></span></p>
-                    <p>ID Proveedor: <span th:text="${factura.getFactura().getIdProveedor()}"></span></p>
-                    <p>ID Cliente: <span th:text="${factura.getFactura().getIdCliente()}"></span></p>
-                    <p>Subtotal: <span th:text="${factura.getFactura().getSubtotal()}"></span></p>
-                    <p>Impuesto: <span th:text="${factura.getFactura().getImpuesto()}"></span></p>
-                    <p>Total: <span th:text="${factura.getFactura().getTotal()}"></span></p>
-                    <!--                    lista de productos-->
-                    <table class="table details-table">
-                      <thead>
-                        <tr>
-                          <th>ID Producto</th>
-                          <th>Cantidad</th>
-                          <th>Precio Unitario</th>
-                          <th>Total</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr th:each="detalle : ${factura.getDetalles()}">
-                          <td th:text="${detalle.getIdProducto()}"></td>
-                          <td th:text="${detalle.getCantidad()}"></td>
-                          <td th:text="${detalle.getPrecioUnitario()}"></td>
-                          <td th:text="${detalle.getTotal()}"></td>
-                        </tr>
-                      </tbody>
-                    </table>
-                    <label th:for="'toggle-details-popup-' + ${factura.getFactura().getIdFactura()}"
-                      class="close-btn">Retroceder</label>
-                  </div>
-                </div>
-
-              </div>
-              <a th:href="@{/invoices/delete/{id}(id=${factura.getFactura().getIdFactura()})}"
-                class="action-btn">Eliminar</a>
-              <!-- para exportar en pdf o xml dependiendo de la opcion  OTRO POPUP -->
-              <input type="checkbox" th:id="'toggle-export-popup-' + ${factura.getFactura().getIdFactura()}"
-                class="toggle-popup toggle-export-popup">
-              <label th:for="'toggle-export-popup-' + ${factura.getFactura().getIdFactura()}"
-                class="action-btn">Exportar</label>
-              <div th:id="'export-popup-' + ${factura.getFactura().getIdFactura()}" class="popup export-popup">
-                <div class="popup-content">
-                  <div class="popup-header">
-                    <h2>Exportar Factura</h2>
-                  </div>
-
-                  <div class="popup-body">
-                    <div class="export-btns">
-
-                      <a th:href=" @{/invoices/export/pdf/{id}(id=${factura.getFactura().getIdFactura()})}"
-                        class="action-btn" download="factura.pdf">PDF</a>
-                      <a th:href="@{/invoices/export/xml/{id}(id=${factura.getFactura().getIdFactura()})}"
-                        class="action-btn" download="factura.xml">XML</a>
-
+                <label th:for="'toggle-details-popup-' + ${factura.getFactura().getIdFactura()}"
+                  th:id="'expand-btn-' + ${factura.getFactura().getIdFactura()}" class="action-btn">Expandir</label>
+                <div th:id="'details-popup-' + ${factura.getFactura().getIdFactura()}" class="popup details-popup">
+                  <div class="popup-content">
+                    <div class="popup-header">
+                      <h2>Detalles de la Factura</h2>
                     </div>
-                    <label th:for="'toggle-export-popup-' + ${factura.getFactura().getIdFactura()}"
-                      class="close-btn">Cancelar</label>
+                    <div class="popup-body">
+                      <p>Fecha de Emisión: <span th:text="${factura.getFactura().getFechaEmision()}"></span></p>
+                      <p>ID Proveedor: <span th:text="${factura.getFactura().getIdProveedor()}"></span></p>
+                      <p>ID Cliente: <span th:text="${factura.getFactura().getIdCliente()}"></span></p>
+                      <p>Subtotal: <span th:text="${factura.getFactura().getSubtotal()}"></span></p>
+                      <p>Impuesto: <span th:text="${factura.getFactura().getImpuesto()}"></span></p>
+                      <p>Total: <span th:text="${factura.getFactura().getTotal()}"></span></p>
+                      <!--                    lista de productos-->
+                      <table class="table details-table">
+                        <thead>
+                          <tr>
+                            <th>ID Producto</th>
+                            <th>Cantidad</th>
+                            <th>Precio Unitario</th>
+                            <th>Total</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr th:each="detalle : ${factura.getDetalles()}">
+                            <td th:text="${detalle.getIdProducto()}"></td>
+                            <td th:text="${detalle.getCantidad()}"></td>
+                            <td th:text="${detalle.getPrecioUnitario()}"></td>
+                            <td th:text="${detalle.getTotal()}"></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                      <label th:for="'toggle-details-popup-' + ${factura.getFactura().getIdFactura()}"
+                        class="close-btn">Retroceder</label>
+                    </div>
+                  </div>
+
+                </div>
+                <a th:href="@{/invoices/delete/{id}(id=${factura.getFactura().getIdFactura()})}"
+                  class="action-btn">Eliminar</a>
+                <!-- para exportar en pdf o xml dependiendo de la opcion  OTRO POPUP -->
+                <input type="checkbox" th:id="'toggle-export-popup-' + ${factura.getFactura().getIdFactura()}"
+                  class="toggle-popup toggle-export-popup">
+                <label th:for="'toggle-export-popup-' + ${factura.getFactura().getIdFactura()}"
+                  class="action-btn">Exportar</label>
+                <div th:id="'export-popup-' + ${factura.getFactura().getIdFactura()}" class="popup export-popup">
+                  <div class="popup-content">
+                    <div class="popup-header">
+                      <h2>Exportar Factura</h2>
+                    </div>
+
+                    <div class="popup-body">
+                      <div class="export-btns">
+
+                        <a th:href=" @{/invoices/export/pdf/{id}(id=${factura.getFactura().getIdFactura()})}"
+                          class="action-btn" download="factura.pdf">PDF</a>
+                        <a th:href="@{/invoices/export/xml/{id}(id=${factura.getFactura().getIdFactura()})}"
+                          class="action-btn" download="factura.xml">XML</a>
+
+                      </div>
+                      <label th:for="'toggle-export-popup-' + ${factura.getFactura().getIdFactura()}"
+                        class="close-btn">Cancelar</label>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 

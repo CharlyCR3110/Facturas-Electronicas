@@ -19,54 +19,56 @@
   <!--  incluir el fragmento nav-->
   <div th:replace="~{fragments/nav :: nav}"></div>
 
-  <section class="account-info">
-    <h2>Información de la Cuenta</h2>
-    <!-- Cambiar el correo -->
-    <div class="account-info-form">
-      <h3>Correo</h3>
-      <form method="post" action="/account_info/change-email" th:object="${changeEmailRequest}">
-        <label for="email">Cambiar Correo</label>
-        <input class="rounded" id="email" name="correo" th:placeholder="${session.userLogged.getCorreo()}" type="email"
-          value="" required>
-        <input class="btn btn-primary" name="submit" type="submit" value="Guardar Cambios">
-      </form>
-    </div>
-    <!-- Cambiar la contrasena -->
-    <div class="account-info-form">
-      <h3>Contraseña</h3>
-      <form method="post" action="/account_info/change-password">
-        <label for="current-password">Contraseña Actual</label>
-        <input id="current-password" type="password" placeholder="Contraseña actual" name="currentPassword"
-          class="rounded" autocomplete="new-password" value="" required>
+  <div class="account-info-container">
+    <section class="account-info">
+      <h2>Información de la Cuenta</h2>
+      <!-- Cambiar el correo -->
+      <div class="account-info-form">
+        <h3>Correo</h3>
+        <form method="post" action="/account_info/change-email" th:object="${changeEmailRequest}">
+          <label for="email">Cambiar Correo</label>
+          <input class="rounded" id="email" name="correo" th:placeholder="${session.userLogged.getCorreo()}"
+            type="email" value="" required>
+          <input class="btn btn-primary" name="submit" type="submit" value="Guardar Cambios">
+        </form>
+      </div>
+      <!-- Cambiar la contrasena -->
+      <div class="account-info-form">
+        <h3>Contraseña</h3>
+        <form method="post" action="/account_info/change-password">
+          <label for="current-password">Contraseña Actual</label>
+          <input id="current-password" type="password" placeholder="Contraseña actual" name="currentPassword"
+            class="rounded" autocomplete="new-password" value="" required>
 
-        <label for="new-password">Nueva Contraseña</label>
-        <input id="new-password" type="password" placeholder="Contraseña nueva" name="newPassword" class="rounded"
-          autocomplete="new-password" value="" required>
+          <label for="new-password">Nueva Contraseña</label>
+          <input id="new-password" type="password" placeholder="Contraseña nueva" name="newPassword" class="rounded"
+            autocomplete="new-password" value="" required>
 
-        <label for="confirm-password">Confirmar Contraseña</label>
-        <input id="confirm-password" type="password" placeholder="Confirmar contraseña" name="confirmPassword"
-          class="rounded" autocomplete="new-password" value="" required>
+          <label for="confirm-password">Confirmar Contraseña</label>
+          <input id="confirm-password" type="password" placeholder="Confirmar contraseña" name="confirmPassword"
+            class="rounded" autocomplete="new-password" value="" required>
 
-        <input class="btn btn-primary" name="submit" type="submit" value="Guardar Cambios">
-      </form>
-    </div>
-    <!-- Cambiar los datos del proveedor -->
-    <div class="account-info-form">
-      <h3>Datos del Proveedor</h3>
-      <form method="post" action="/account_info/change-provider-info" th:object="${changeProviderInfoRequest}">
-        <label for="nombre">Nombre</label>
-        <input class="rounded" id="nombre" name="nombre" th:placeholder="${session.userLogged.getNombre()}" type="text"
-          th:value="${session.userLogged.getNombre()}" required>
-        <label for="direccion">Dirección</label>
-        <input class="rounded" id="direccion" name="direccion" th:placeholder="${session.userLogged.getDireccion()}"
-          type="text" th:value="${session.userLogged.getDireccion()}" required>
-        <label for="telefono">Teléfono</label>
-        <input class="rounded" id="telefono" name="telefono" th:placeholder="${session.userLogged.getTelefono()}"
-          type="text" th:value="${session.userLogged.getTelefono()}" required>
-        <input class="btn btn-primary" name="submit" type="submit" value="Guardar Cambios">
-      </form>
-    </div>
-  </section>
+          <input class="btn btn-primary" name="submit" type="submit" value="Guardar Cambios">
+        </form>
+      </div>
+      <!-- Cambiar los datos del proveedor -->
+      <div class="account-info-form">
+        <h3>Datos del Proveedor</h3>
+        <form method="post" action="/account_info/change-provider-info" th:object="${changeProviderInfoRequest}">
+          <label for="nombre">Nombre</label>
+          <input class="rounded" id="nombre" name="nombre" th:placeholder="${session.userLogged.getNombre()}"
+            type="text" th:value="${session.userLogged.getNombre()}" required>
+          <label for="direccion">Dirección</label>
+          <input class="rounded" id="direccion" name="direccion" th:placeholder="${session.userLogged.getDireccion()}"
+            type="text" th:value="${session.userLogged.getDireccion()}" required>
+          <label for="telefono">Teléfono</label>
+          <input class="rounded" id="telefono" name="telefono" th:placeholder="${session.userLogged.getTelefono()}"
+            type="text" th:value="${session.userLogged.getTelefono()}" required>
+          <input class="btn btn-primary" name="submit" type="submit" value="Guardar Cambios">
+        </form>
+      </div>
+    </section>
+  </div>
 
   <div class="confirmatino-popup-div" th:if="${confirmation}">
     <input type="checkbox" id="confirmationToggle" class="toggle" th:checked="${confirmation}">

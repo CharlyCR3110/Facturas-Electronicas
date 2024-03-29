@@ -1,3 +1,9 @@
+.invoice-info-container {
+  width: calc(100% - 235px);
+  margin-left: 235px;
+  margin-bottom: 30px;
+}
+
 .invoice-info {
   max-width: 800px;
   margin: 0 auto;
