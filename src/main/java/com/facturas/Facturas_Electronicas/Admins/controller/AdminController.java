@@ -64,4 +64,10 @@ public class AdminController {
         proveedorService.changeProviderState(providerId);
         return "redirect:/admins/dashboard";
     }
+
+    @GetMapping("/admins/logout")
+    public String logoutAdmin() {
+        httpSession.removeAttribute("adminLogged");
+        return "redirect:/admins/login";
+    }
 }
