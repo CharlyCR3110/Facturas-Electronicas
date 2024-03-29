@@ -5,6 +5,7 @@ import com.facturas.Facturas_Electronicas.Proveedores.repository.ProveedorReposi
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -81,6 +82,10 @@ public class ProveedorService {
         userLogged.setTelefono(proveedorEntity.getTelefono());
         userLogged.setDireccion(proveedorEntity.getDireccion());
         return proveedorRepository.save(userLogged);
+    }
+
+    public List<ProveedorEntity> getAllProviders() {
+        return proveedorRepository.findAll();
     }
 }
 
