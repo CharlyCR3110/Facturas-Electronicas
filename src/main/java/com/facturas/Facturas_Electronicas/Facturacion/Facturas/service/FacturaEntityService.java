@@ -96,6 +96,8 @@ public class FacturaEntityService {
             switch (format) {
                 case "pdf":
                     return invoiceExporter.exportToPDF(facturaConDetallesDTO);
+                case "xml":
+                    return invoiceExporter.exportToXML(facturaConDetallesDTO);
                 default:
                     throw new RuntimeException("Formato no soportado");
             }
