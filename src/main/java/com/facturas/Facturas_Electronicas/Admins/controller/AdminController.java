@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import java.util.ArrayList;
@@ -36,5 +37,17 @@ public class AdminController {
     public String getAdminLoginPage(Model model) {
         model.addAttribute("adminLoginRequest", new AdminEntity());
         return "admins/adminLogin";
+    }
+
+    @PostMapping("/admins/login")
+    public String loginAdmin(@ModelAttribute("adminLoginRequest") AdminEntity adminEntity, Model model) {
+        try {
+            AdminEntity admin = adminService.loginAdmin(adminEntity.getNombre(), adminEntity.getContrasena());
+            httpSession.setAttribute("adminLogged", admin);
+            return "redirect:/admins/dashboard";
+        } catch (IllegalArgumentException e) {
+            model.addAttribute("error", e.getMessage());
+            return "admins/adminLogin";
+        }
     }
 }
