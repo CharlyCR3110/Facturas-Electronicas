@@ -185,6 +185,22 @@
   background-color: var(--export-color-hover);
 }
 
+.table td >.activate-btn {
+  background-color: var(--export-color);
+}
+
+.table td >.activate-btn:hover {
+  background-color: var(--export-color-hover);
+}
+
+.table td >.deactivate-btn {
+  background-color: var(--danger-color);
+}
+
+.table td >.deactivate-btn:hover {
+  background-color: var(--danger-color-hover);
+}
+
 /* pop-up */
 /* ocultar el checkbox  */
 input[type="checkbox"] {
