@@ -36,6 +36,9 @@ public class ProveedorService {
         if (proveedorOptional.isPresent()) {
             ProveedorEntity proveedor = proveedorOptional.get();
             if (proveedor.getContrasena().equals(contrasena)) {
+                if (!proveedor.getEstado().equals("activo")) {
+                    throw new IllegalArgumentException("Tu cuenta no se encuentra activa. Contacta con el administrador.");
+                }
                 return proveedor;
             } else {
                 throw new IllegalArgumentException("La contraseña proporcionada no es válida.");
