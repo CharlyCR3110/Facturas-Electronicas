@@ -35,7 +35,6 @@
         <thead>
           <tr>
             <th>Fecha de Emisión</th>
-            <th>ID Proveedor</th>
             <th>ID Cliente</th>
             <th>Subtotal</th>
             <th>Impuesto</th>
@@ -45,14 +44,14 @@
         <tbody>
           <tr th:each="factura : ${currentInvoicesList}">
             <td th:text="${factura.getFactura().getFechaEmision()}"></td>
-            <td th:text="${factura.getFactura().getIdProveedor()}"></td>
             <td th:text="${factura.getFactura().getIdCliente()}"></td>
             <td th:text="${factura.getFactura().getSubtotal()}"></td>
             <td th:text="${factura.getFactura().getImpuesto()}"></td>
             <td th:text="${factura.getFactura().getTotal()}"></td>
             <td>
               <input type="checkbox" th:id="'toggle-details-popup-' + ${factura.getFactura().getIdFactura()}"
-                class="toggle-popup">
+                class="toggle-popup toggle-details-popup">
+
               <label th:for="'toggle-details-popup-' + ${factura.getFactura().getIdFactura()}"
                 th:id="'expand-btn-' + ${factura.getFactura().getIdFactura()}" class="action-btn">Expandir</label>
               <div th:id="'details-popup-' + ${factura.getFactura().getIdFactura()}" class="popup details-popup">
