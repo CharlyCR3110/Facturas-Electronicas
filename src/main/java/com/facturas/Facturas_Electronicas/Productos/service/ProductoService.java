@@ -58,4 +58,8 @@ public class ProductoService {
 
         return productoRepository.findAllByIdProveedorAndNombreContaining(userLogged.getIdProveedor(), searchName);
     }
+
+    public ProductoEntity getProductoByID(Integer productID) {
+        return productoRepository.findById(productID).orElse(null);
+    }
 }

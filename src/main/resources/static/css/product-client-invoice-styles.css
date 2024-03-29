@@ -1,5 +1,5 @@
 .container {
-  max-width: 1000px;
+  max-width: 1200px;
   margin: 0px auto;
   padding: 4rem;
   text-align: center;
@@ -114,7 +114,6 @@
 
 .table a {
   text-decoration: none;
-  margin-right: 10px;
 }
 
 .table .action-btn:hover {
@@ -126,13 +125,57 @@
   background-color: var(--danger-color);
 }
 
+.table a[href*="delete" i]:hover {
+  background-color: var(--danger-color-hover);
+}
+
+
+/* lo mismo para los exportar */
+.table a[href*="pdf" i] {
+  background-color: var(--pdf-export-color);
+}
+
+.table a[href*="pdf" i]:hover {
+  background-color: var(--pdf-export-color-hover);
+}
+
+/* lo mismo para los exportar */
+.table a[href*="xml" i] {
+  background-color: var(--xml-export-color);
+}
+
+.table a[href*="xml" i]:hover {
+  background-color: var(--xml-export-color-hover);
+}
+
 /* labels dentro de la tabla que contengan la palabra "delete" en el atributo for */
 .table td>label[for*="edit" i] {
   background-color: var(--edit-color);
 }
 
-/* pop-up */
+.table td>label[for*="edit" i]:hover {
+  background-color: var(--edit-color-hover);
+}
 
+/* lo mismo para los detalles */
+.table td>label[for*="details" i] {
+  background-color: var(--details-color);
+}
+
+.table td>label[for*="details" i]:hover {
+  background-color: var(--details-color-hover);
+}
+
+/* lo mismo para los exportar */
+.table td>label[for*="export" i] {
+  background-color: var(--export-color);
+}
+
+.table td>label[for*="export" i]:hover {
+  background-color: var(--export-color-hover);
+}
+
+/* pop-up */
 /* ocultar el checkbox  */
 input[type="checkbox"] {
   display: none;
@@ -208,9 +251,25 @@ input[type="checkbox"] {
 }
 
 /* Mostrar el popup cuando el checkbox está marcado */
-.toggle-popup[type="checkbox"]:checked~.popup {
+
+/* uno por cada tipo de popup para evitar que se muestren todos a la vez */
+
+.toggle-add-popup[type="checkbox"]:checked~.add-popup {
   display: block;
 }
+
+.toggle-edit-popup[type="checkbox"]:checked~.edit-popup {
+  display: block;
+}
+
+.toggle-details-popup[type="checkbox"]:checked~.details-popup {
+  display: block;
+}
+
+.toggle-export-popup[type="checkbox"]:checked~.export-popup {
+  display: block;
+}
+
 
 /*Error Pop-Up*/
 .overlay {
@@ -254,4 +313,36 @@ input[type="checkbox"] {
 
 .toggle:checked+.overlay {
   display: block;
+}
+
+/* Estilos extra para la pagina del historial de facturas */
+.details-table {
+  margin-bottom: 20px;
+}
+
+.details-table th {
+  background-color: var(--primary-color);
+  color: white;
+  text-align: left;
+}
+
+.details-table tbody tr:nth-child(even) {
+  background-color: var(--primary-background-color);
+}
+
+.details-popup {
+  text-align: left;
+}
+
+.details-popup p {
+  font-weight: bold;
+}
+
+.details-popup span {
+  font-weight: normal;
+}
+
+/* estilos para la opcion de exportar pdf o xml */
+.export-btns .action-btn {
+  width: 48%;
 }

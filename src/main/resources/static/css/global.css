@@ -3,7 +3,9 @@
 
 :root {
   --primary-color: #0C1A26;
+  --primary-color-hover: #0A1720;
   --primary-color-dark: #071119;
+  
   --secondary-color: #C6BEA8;
   --primary-background-color: #F2F2F2;
   --accent-color: #BC6868;
@@ -11,9 +13,25 @@
   --neutral-light: #F2ECEB;
   --neutral-color: #bdc3c7;
   --success-color: #4CAF50;
-  --primary-color-hover: #0A1720;
+  /*Delete button color*/
   --danger-color: #E74C3C;
-  --edit-color: #3498db; /* Azul claro */
+  --danger-color-hover: #C0392B;
+  /*Edit button color*/
+  --edit-color: #3498db;
+  --edit-color-hover: #2980b9;
+  /*Details button color*/
+  --details-color: #f39c12;
+  --details-color-hover: #f1c40f;
+  /*Export button color*/
+  --export-color: #27ae60;
+  --export-color-hover: #2ecc71;
+  /*PDF export button color*/
+  /* rojo para el pdf y naranja para el xml */
+  --pdf-export-color: #e74c3c;
+  --pdf-export-color-hover: #c0392b;
+  /*XML export button color*/
+  --xml-export-color: #EF9E46;
+  --xml-export-color-hover: #E08E3A;
 }
 
 html {
