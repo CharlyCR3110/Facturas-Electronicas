@@ -52,7 +52,7 @@
                 <select id="product" name="product" required>
                   <option value="">Selecciona un producto</option>
                   <option th:each="product : ${currentProductsList}" th:value="${product.getIdProducto()}"
-                    th:text="${product.getNombre()}"></option>
+                    th:text="${product.getNombre()} + ' - ' + '$' + ${product.getPrecioUnitario()}">Producto
                 </select>
                 <label for="quantity">Cantidad</label>
                 <input type="number" id="quantity" name="quantity" min="1" required>
