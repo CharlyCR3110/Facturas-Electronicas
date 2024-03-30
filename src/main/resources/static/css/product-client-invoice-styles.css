@@ -318,7 +318,7 @@ input[type="checkbox"] {
   border-radius: 5px;
   z-index: 10000;
   background-color: var(--accent-color);
-
+  max-width: 400px;
 }
 
 .message {
