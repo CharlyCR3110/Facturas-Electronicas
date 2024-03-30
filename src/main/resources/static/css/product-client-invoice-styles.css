@@ -185,6 +185,22 @@
   background-color: var(--export-color-hover);
 }
 
+.table td>.activate-btn {
+  background-color: var(--export-color);
+}
+
+.table td>.activate-btn:hover {
+  background-color: var(--export-color-hover);
+}
+
+.table td>.deactivate-btn {
+  background-color: var(--danger-color);
+}
+
+.table td>.deactivate-btn:hover {
+  background-color: var(--danger-color-hover);
+}
+
 /* pop-up */
 /* ocultar el checkbox  */
 input[type="checkbox"] {
@@ -280,7 +296,6 @@ input[type="checkbox"] {
   display: block;
 }
 
-
 /*Error Pop-Up*/
 .overlay {
   display: none;
@@ -353,6 +368,16 @@ input[type="checkbox"] {
 }
 
 /* estilos para la opcion de exportar pdf o xml */
-.export-btns .action-btn {
+.inline-btns .action-btn {
   width: 48%;
+}
+
+/* usar un svg */
+.admin-logout-btn .logout-btn {
+  background-image: url(../icons/logout-3-svgrepo-com.svg);
+  width: 40px;
+  height: 40px;
+  background-repeat: no-repeat;
+  background-position: center;
+  display: inline-block;
 }

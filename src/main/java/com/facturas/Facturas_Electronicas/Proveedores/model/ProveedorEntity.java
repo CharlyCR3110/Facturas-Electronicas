@@ -26,6 +26,9 @@ public class ProveedorEntity {
     @Basic
     @Column(name = "contrasena")
     private String contrasena;
+    @Basic
+    @Column(name = "estado")
+    private String estado;
 
     public int getIdProveedor() {
         return idProveedor;
@@ -73,6 +76,14 @@ public class ProveedorEntity {
 
     public void setContrasena(String contrasena) {
         this.contrasena = contrasena;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
 
     @Override

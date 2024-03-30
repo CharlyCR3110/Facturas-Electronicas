@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Admins</title>
+  <link rel="stylesheet" type="text/css" href="../css/global.css">
+  <link rel="stylesheet" type="text/css" href="../css/product-client-invoice-styles.css">
+  <link rel="stylesheet" href="">
+</head>
+
+<body>
+  <div class="admin-logout-btn">
+    <a href="/admins/logout" class="logout-btn"></a>
+  </div>
+
+  <div class="container">
+    <h1>Proveedores</h1>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Identificación</th>
+          <th>Teléfono</th>
+          <th>Correo</th>
+          <th>Direccion</th>
+          <th>Estado</th>
+          <th>Cambiar Estado</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="provider : ${currentProviderList}">
+          <td th:text="${provider.getNombre()}"></td>
+          <td th:text="${provider.getIdProveedor()}"></td>
+          <td th:text="${provider.getTelefono()}"></td>
+          <td th:text="${provider.getCorreo()}"></td>
+          <td th:text="${provider.getDireccion()}"></td>
+          <td th:text="${provider.getEstado()}" style="text-transform: capitalize;"></td>
+          <td>
+            <!-- // button dinamico para activar o desactivar un proveedor -->
+            <a th:href="@{/provider/changeState/{id}(id=${provider.getIdProveedor()})}" class="action-btn activate-btn"
+              th:if="${provider.getEstado() == 'inactivo' or provider.getEstado() == 'en espera'}">Activar</a>
+            <a th:href="@{/provider/changeState/{id}(id=${provider.getIdProveedor()})}"
+              class="action-btn deactivate-btn" th:if="${provider.getEstado()} == 'activo'">Desactivar</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  </div>
+</body>
+
+</html>

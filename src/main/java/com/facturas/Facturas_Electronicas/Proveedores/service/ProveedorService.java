@@ -5,6 +5,7 @@ import com.facturas.Facturas_Electronicas.Proveedores.repository.ProveedorReposi
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -35,6 +36,9 @@ public class ProveedorService {
         if (proveedorOptional.isPresent()) {
             ProveedorEntity proveedor = proveedorOptional.get();
             if (proveedor.getContrasena().equals(contrasena)) {
+                if (!proveedor.getEstado().equals("activo")) {
+                    throw new IllegalArgumentException("Tu cuenta no se encuentra activa. Contacta con el administrador.");
+                }
                 return proveedor;
             } else {
                 throw new IllegalArgumentException("La contraseña proporcionada no es válida.");
@@ -81,6 +85,25 @@ public class ProveedorService {
         userLogged.setTelefono(proveedorEntity.getTelefono());
         userLogged.setDireccion(proveedorEntity.getDireccion());
         return proveedorRepository.save(userLogged);
+    }
+
+    public List<ProveedorEntity> getAllProviders() {
+        return proveedorRepository.findAll();
+    }
+
+    public void changeProviderState(int idProveedor) {
+        Optional<ProveedorEntity> proveedorOptional = proveedorRepository.findById(idProveedor);
+        if (proveedorOptional.isPresent()) {
+            ProveedorEntity proveedor = proveedorOptional.get();
+            if (proveedor.getEstado().equals("activo")) {
+                proveedor.setEstado("inactivo");
+            } else {
+                proveedor.setEstado("activo");
+            }
+            proveedorRepository.save(proveedor);
+        } else {
+            throw new IllegalArgumentException("No se encontró un proveedor con el ID proporcionado.");
+        }
     }
 }
 
