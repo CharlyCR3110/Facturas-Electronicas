@@ -123,10 +123,6 @@ public class FacturasController {
         if (userLogged == null) {
             return "redirect:/login";
         }
-        // Para agregar una factura se necesita la lista de clientes del proveedor
-        model.addAttribute("currentClientsList", clienteService.getClientesByProveedor(userLogged));
-        // Para agregar una factura se necesita la lista de productos del proveedor
-        model.addAttribute("currentProductsList", productoService.getProductosByProveedor(userLogged));
 
         // error message
         model.addAttribute("errorMessage", httpSession.getAttribute("errorMessage"));
