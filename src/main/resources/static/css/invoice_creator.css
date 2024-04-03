@@ -40,6 +40,26 @@
   box-sizing: border-box;
 }
 
+.invoice-creator .client-selection p,
+.invoice-creator .product-selection p
+
+{
+  margin-top: 10px;
+  font-style: italic;
+  color: #666;
+}
+
+.invoice-creator .client-selection a,
+.invoice-creator .product-selection a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.invoice-creator .client-selection a:hover,
+.invoice-creator .product-selection a:hover {
+  text-decoration: underline;
+}
+
 .invoice-creator .client-info {
   text-align: left;
 }
