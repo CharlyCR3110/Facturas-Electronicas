@@ -23,24 +23,33 @@
     <section class="invoice-info">
       <h2>Facturar</h2>
       <div class="invoice-creator">
-        <!-- Formulario para seleccionar cliente -->
+        <!-- Formulario para buscar a un cliente por identificacion -->
         <form action="/invoice_creator/selectClient" method="post">
-          <div class="form-group">
+          <div class="form-group" th:if="${currentClientSelected.getIdProveedor() == null}">
             <div class="client-selection">
-              <h3>Cliente</h3>
-              <label for="client">Cliente</label>
-              <select id="client" name="client" required>
-                <option value="">Selecciona un cliente</option>
-                <option th:each="client : ${currentClientsList}" th:value="${client.getIdCliente()}"
-                  th:text="${client.getNombre()}"
-                  th:selected="${client.getIdCliente() == currentClientSelected.getIdCliente()}">Cliente
-                </option>
-              </select>
-              <button type="submit" class="action-btn">Fijar Cliente</button>
+              <h3>Seleccionar Cliente</h3>
+              <label for="client">Identificación del Cliente</label>
+              <input type="text" id="client" name="client" required>
+              <button type="submit" class="action-btn">Buscar</button>
             </div>
           </div>
-          <!-- Botón para enviar la información del cliente -->
         </form>
+
+        <!-- div para mostrar la información del cliente -->
+        <div class="client-info" th:if="${currentClientSelected.getIdProveedor() != null}">
+          <h3>Cliente</h3>
+          <!-- avisar al usuario cual cliente se selecciono -->
+          <p th:text="'Cliente Seleccionado: ' + ${currentClientSelected.getNombre()}"></p>
+
+          <form action="/invoice_creator/clearClient" method="post">
+            <div class="form-group">
+              <div class="client-actions">
+                <button type="submit" class="action-btn">Cambiar Cliente</button>
+              </div>
+            </div>
+          </form>
+        </div>
+
 
         <!-- Formulario para agregar productos al carrito -->
         <form action="/invoice_creator/addToCart" method="post">
