@@ -222,7 +222,7 @@ public class FacturasController {
     }
 
     @PostMapping("/invoice_creator/selectClient")
-    public String selectClient(@RequestParam(name = "client") Integer clientID, Model model) {
+    public String selectClient(@RequestParam(name = "client") String clientIdentification, Model model) {
         // obtener el usuario loggeado (se obtiene de la sesion)
         ProveedorEntity userLogged = (ProveedorEntity) httpSession.getAttribute("userLogged");
         if (userLogged == null) {
@@ -230,8 +230,12 @@ public class FacturasController {
         }
 
         // obtener el cliente
-        ClienteEntity client = clienteService.getClientByID(clientID);
-        model.addAttribute("currentClientSelected", client);
+        try {
+            ClienteEntity client = clienteService.getClientByIdentificationAndProveedor(clientIdentification, userLogged);
+            model.addAttribute("currentClientSelected", client);
+        } catch (Exception e) {
+            model.addAttribute("errorMessage", "No se pudo seleccionar el cliente");
+        }
 
         return "redirect:/invoice_creator";
     }
