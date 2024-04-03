@@ -35,11 +35,11 @@
         <form method="post" action="/login" th:object="${loginRequest}">
           <label for="email">Email</label>
           <input class="rounded" id="email" name="correo" placeholder="email@example.com" type="email" value=""
-            autocomplete="on">
+            autocomplete="on" required autofocus>
 
           <label for="password">Password</label>
           <input class="rounded" id="password" name="contrasena" placeholder="Tu contraseña segura" type="password"
-            value="" autocomplete="off">
+            value="" autocomplete="off" required>
 
           <input class="btn btn-primary" name="submit" type="submit" value="Iniciar Sesión">
         </form>
