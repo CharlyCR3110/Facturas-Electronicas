@@ -67,4 +67,18 @@ public class ClienteService {
     public ClienteEntity getClientByID(Integer clientID) {
         return clienteRepository.findById(clientID).orElse(null);
     }
+
+    public ClienteEntity getClientByIdentificationAndProveedor(String clientIdentification, ProveedorEntity userLogged) {
+        try {
+            return clienteRepository.findByIdentificacionAndIdProveedor(clientIdentification, userLogged.getIdProveedor());
+        } catch (Exception e) {
+            if (e.getMessage().contains("NonUniqueResultException")) {
+                throw new RuntimeException("Existe más de un cliente con la misma identificación. Por favor, contacte al administrador del sistema.");
+            } else if (e.getMessage().contains("NoResultException")) {
+                throw new RuntimeException("No se encontró el cliente con la identificación ingresada");
+            } else {
+                throw new RuntimeException("Error al buscar el cliente");
+            }
+        }
+    }
 }
