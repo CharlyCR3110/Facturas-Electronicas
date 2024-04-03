@@ -19,8 +19,12 @@
 
       <!-- Login Form -->
       <form action="/admins/login" method="post">
-        <input type="text" id="login" name="nombre" placeholder="Tu Usuario" required>
-        <input type="password" id="password" name="contrasena" placeholder="Tu Contraseña" required>
+        <input type="text" id="login" name="nombre" placeholder="Tu Usuario"
+          oninvalid="this.setCustomValidity('Por favor, ingrese el nombre de usuario')" oninput="setCustomValidity('')"
+          required />
+        <input type="password" id="password" name="contrasena" placeholder="Tu Contraseña"
+          oninvalid="this.setCustomValidity('Por favor, ingrese la contraseña')" oninput="setCustomValidity('')"
+          required />
         <input type="submit" value="Iniciar Sesion">
       </form>
 

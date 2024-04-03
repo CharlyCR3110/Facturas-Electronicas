@@ -29,36 +29,43 @@
         <p th:text="${confirmation}"></p>
         <a class="btn btn-secondary" href="/login">Iniciar Sesión</a>
       </div>
-      
+
       <div class="form" th:classappend="${confirmation} ? hidden : ''">
         <h2>Registro</h2>
         <form method="post" action="/register" th:object="${registerRequest}">
           <label for="name">Name</label>
-          <input class="rounded" id="name" name="nombre" placeholder="EPA" type="text" value="" required>
+          <input class="rounded" id="name" name="nombre" placeholder="EPA" type="text" value=""
+            oninvalid="this.setCustomValidity('Por favor, ingrese el nombre')" oninput="setCustomValidity('')"
+            required />
 
           <label for="address">Address</label>
           <input class="rounded" id="address" name="direccion" placeholder="C. 104, Heredia, Belén, 40703" type="text"
-            value="" required>
+            value="" oninvalid="this.setCustomValidity('Por favor, ingrese la dirección')"
+            oninput="setCustomValidity('')" required />
 
           <label for="phone">Phone</label>
-          <input class="rounded" id="phone" name="telefono" placeholder="800-372-8253" type="tel" value="" required>
+          <input class="rounded" id="phone" name="telefono" placeholder="800-372-8253" type="tel" value=""
+            oninvalid="this.setCustomValidity('Por favor, ingrese el teléfono')" oninput="setCustomValidity('')"
+            required />
 
           <label for="email">Email</label>
           <input class="rounded" id="email" name="correo" placeholder="email@example.com" type="email" value=""
-            required>
+            oninvalid="this.setCustomValidity('Por favor, ingrese el correo')" oninput="setCustomValidity('')"
+            required />
 
           <label for="password">Password</label>
           <input class="rounded" id="password" name="contrasena" placeholder="Your secure password" type="password"
-            value="" required>
+            value="" oninvalid="this.setCustomValidity('Por favor, ingrese la contraseña')"
+            oninput="setCustomValidity('')" required />
 
           <input class="btn btn-primary" name="submit" type="submit" value="Registrarse">
         </form>
-      
-      <a class="btn btn-secondary" href="/login">Iniciar Sesión</a>
 
-      <div class="copyright">
-        <p>Copyright &copy; 2024. Todos los derechos reservados.</p>
-</div>
+        <a class="btn btn-secondary" href="/login">Iniciar Sesión</a>
+
+        <div class="copyright">
+          <p>Copyright &copy; 2024. Todos los derechos reservados.</p>
+        </div>
       </div>
 
       <input type="checkbox" id="errorToggle" class="error-toggle" th:checked="${error}">

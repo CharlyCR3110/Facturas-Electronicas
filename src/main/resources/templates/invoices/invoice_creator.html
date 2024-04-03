@@ -29,7 +29,9 @@
             <div class="client-selection">
               <h3>Seleccionar Cliente</h3>
               <label for="client">Identificación del Cliente</label>
-              <input type="text" id="client" name="client" placeholder="Identificación del Cliente" required>
+              <input type="text" id="client" name="client" placeholder="Identificación del Cliente"
+                oninvalid="this.setCustomValidity('Por favor, ingrese la identificación del cliente')"
+                oninput="setCustomValidity('')" required />
               <button type="submit" class="action-btn">Buscar</button>
               <p>¿No conoces la identificación del cliente? <a href="/clients">Ir a la página de clientes</a></p>
             </div>
@@ -58,9 +60,13 @@
             <div class="product-selection">
               <h3>Agregar Producto al Carrito</h3>
               <label for="product">Nombre del Producto</label>
-              <input type="text" id="product" name="product" placeholder="Producto a buscar" required>
+              <input type="text" id="product" name="product" placeholder="Producto a buscar"
+                oninvalid="this.setCustomValidity('Por favor, ingrese el nombre del producto')"
+                oninput="setCustomValidity('')" required />
               <label for="quantity">Cantidad</label>
-              <input type="number" id="quantity" name="quantity" min="1" placeholder="Cantidad deseada" required>
+              <input type="number" id="quantity" name="quantity" min="1" placeholder="Cantidad deseada"
+                oninvalid="this.setCustomValidity('Por favor, ingrese la cantidad')" oninput="setCustomValidity('')"
+                required />
               <button type="submit" class="action-btn">Agregar</button>
               <p>¿No conoces el nombre del producto? <a href="/products">Ir a la página de productos</a></p>
             </div>
