@@ -65,4 +65,13 @@ public class ProductoService {
     public ProductoEntity getProductoByID(Integer productID) {
         return productoRepository.findById(productID).orElse(null);
     }
+
+    public ProductoEntity getProductoByNombreAndProveedor(String productName, ProveedorEntity userLogged) {
+        ProductoEntity returnValue = productoRepository.findByNombreAndIdProveedor(productName, userLogged.getIdProveedor());
+        if (returnValue == null) {
+            throw new RuntimeException("Parece que el producto no existe");
+        }
+
+        return returnValue;
+    }
 }
