@@ -35,11 +35,13 @@
         <form method="post" action="/login" th:object="${loginRequest}">
           <label for="email">Email</label>
           <input class="rounded" id="email" name="correo" placeholder="email@example.com" type="email" value=""
-            autocomplete="on" required autofocus>
+            autocomplete="on" required autofocus oninvalid="this.setCustomValidity('Por favor, ingresa tu correo')"
+            oninput="setCustomValidity('')" />
 
           <label for="password">Password</label>
           <input class="rounded" id="password" name="contrasena" placeholder="Tu contraseña segura" type="password"
-            value="" autocomplete="off" required>
+            value="" autocomplete="off" required
+            oninvalid="this.setCustomValidity('Por favor, ingresa tu contraseña')" oninput="setCustomValidity('')" />
 
           <input class="btn btn-primary" name="submit" type="submit" value="Iniciar Sesión">
         </form>
