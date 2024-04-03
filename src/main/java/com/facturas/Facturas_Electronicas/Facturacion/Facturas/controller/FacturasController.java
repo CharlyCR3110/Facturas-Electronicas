@@ -240,6 +240,12 @@ public class FacturasController {
         return "redirect:/invoice_creator";
     }
 
+    @PostMapping("/invoice_creator/clearClient")
+    public String clearClient(Model model) {
+        model.addAttribute("currentClientSelected", new ClienteEntity());
+        return "redirect:/invoice_creator";
+    }
+
     @GetMapping("/invoice_creator/createInvoice")
     public String createInvoice(Model model) {
         // OBTENER DATOS
