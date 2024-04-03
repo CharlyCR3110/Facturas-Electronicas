@@ -30,8 +30,7 @@
   margin-bottom: 8px;
 }
 
-.invoice-creator input,
-.invoice-creator select {
+.invoice-creator input {
   width: 100%;
   padding: 10px;
   margin-bottom: 16px;
