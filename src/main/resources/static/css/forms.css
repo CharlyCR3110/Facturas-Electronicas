@@ -347,6 +347,26 @@ a {
   outline: none !important;
 }
 
+.right-column .admin-login {
+  display: block;
+  margin-top: 1rem;
+  text-align: center;
+  text-decoration: none;
+  transition: color 0.2s ease-out;
+}
+
+.right-column .admin-login:hover {
+  color: var(--primary-color-dark);
+}
+
+.right-column .admin-login:active,
+.right-column .admin-login:focus,
+.right-column .admin-login:target,
+.right-column .admin-login:active:focus {
+  box-shadow: 0 0 0 3px #fff, 0 0 0 5px var(--primary-background-color);
+  outline: none !important;
+}
+
 /* Pop-up */
 .error-overlay {
   display: none;
