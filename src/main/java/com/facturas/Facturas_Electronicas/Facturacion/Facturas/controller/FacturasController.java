@@ -128,6 +128,11 @@ public class FacturasController {
         // Para agregar una factura se necesita la lista de productos del proveedor
         model.addAttribute("currentProductsList", productoService.getProductosByProveedor(userLogged));
 
+        // error message
+        model.addAttribute("errorMessage", httpSession.getAttribute("errorMessage"));
+        // eliminar el error de la sesión
+        httpSession.removeAttribute("errorMessage");
+
         model.addAttribute("currentPage", "invoiceCreator");
         return "invoices/invoice_creator";
     }
@@ -234,7 +239,8 @@ public class FacturasController {
             ClienteEntity client = clienteService.getClientByIdentificationAndProveedor(clientIdentification, userLogged);
             model.addAttribute("currentClientSelected", client);
         } catch (Exception e) {
-            model.addAttribute("errorMessage", "No se pudo seleccionar el cliente");
+            System.out.println("Error: " + e.getMessage());
+            httpSession.setAttribute("errorMessage", e.getMessage());
         }
 
         return "redirect:/invoice_creator";
