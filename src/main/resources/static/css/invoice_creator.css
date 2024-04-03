@@ -40,10 +40,15 @@
   box-sizing: border-box;
 }
 
-.invoice-creator .form-group {
-  position: relative;
-  padding-bottom: 50px;
+.invoice-creator .client-info{
+  text-align: left;
 }
+
+.invoice-creator .client-info .form-group .client-actions {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row-reverse !important;
+} 
 
 .invoice-creator .action-btn {
   width: auto;
