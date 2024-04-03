@@ -8,7 +8,6 @@ import com.facturas.Facturas_Electronicas.Facturacion.Facturas.model.FacturaEnti
 import com.facturas.Facturas_Electronicas.Facturacion.Facturas.service.FacturaEntityService;
 import com.facturas.Facturas_Electronicas.Productos.service.ProductoService;
 import com.facturas.Facturas_Electronicas.Proveedores.model.ProveedorEntity;
-import com.itextpdf.text.pdf.qrcode.ByteArray;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
@@ -21,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Objects;
 
 @Controller
 @SessionAttributes({"userLogged", "currentPage", "currentInvoice", "currentInvoicesList", "currentClientsList", "currentProductsList", "cart", "total", "currentClientSelected"})
@@ -138,7 +138,7 @@ public class FacturasController {
     }
 
     @PostMapping("/invoice_creator/addToCart")
-    public String addToCart(@RequestParam(name = "product") Integer productID, @RequestParam(name = "quantity") Integer quantity, Model model) {
+    public String addToCart(@RequestParam(name = "product") String productName, @RequestParam(name = "quantity") Integer quantity, Model model) {
         // obtener el usuario loggeado (se obtiene de la sesion)
         ProveedorEntity userLogged = (ProveedorEntity) httpSession.getAttribute("userLogged");
         if (userLogged == null) {
@@ -148,8 +148,13 @@ public class FacturasController {
 
         // obtener el producto
         ProductOnCart productOnCart = new ProductOnCart();
-        productOnCart.setProduct(productoService.getProductoByID(productID));
-        productOnCart.setQuantity(quantity);
+        try {
+            productOnCart.setProduct(productoService.getProductoByNombreAndProveedor(productName, userLogged));
+            productOnCart.setQuantity(quantity);
+        } catch (Exception e) {
+            httpSession.setAttribute("errorMessage", e.getMessage());
+            return "redirect:/invoice_creator";
+        }
 
         // agregar el producto al carrito
         ArrayList<ProductOnCart> cart = (ArrayList<ProductOnCart>) model.getAttribute("cart");
@@ -160,7 +165,7 @@ public class FacturasController {
         // verificar que en el carrito no haya un producto con el mismo id
         boolean found = false;
         for (ProductOnCart p : cart) {
-            if (p.getProduct().getIdProducto() == productID) {
+            if (Objects.equals(p.getProduct().getNombre(), productName)) {
                 p.setQuantity(p.getQuantity() + quantity);
                 found = true;
                 break;
