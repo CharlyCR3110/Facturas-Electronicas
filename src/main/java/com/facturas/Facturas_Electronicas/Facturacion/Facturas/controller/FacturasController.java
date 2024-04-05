@@ -382,4 +382,52 @@ public class FacturasController {
 
         return "redirect:/invoice_creator";
     }
+
+    @PostMapping("/sendProductToInvoiceCreator")
+    public String sendProductToInvoiceCreator(@RequestParam(name = "idProducto") Integer idProducto, Model model) {
+        // obtener el usuario loggeado (se obtiene de la sesion)
+        ProveedorEntity userLogged = (ProveedorEntity) httpSession.getAttribute("userLogged");
+        if (userLogged == null) {
+            return "redirect:/login";
+        }
+
+        // obtener el producto
+        ProductOnCart productOnCart = new ProductOnCart();
+        productOnCart.setProduct(productoService.getProductoByID(idProducto));
+        productOnCart.setQuantity(1);
+
+        // agregar el producto al carrito
+        ArrayList<ProductOnCart> cart = (ArrayList<ProductOnCart>) model.getAttribute("cart");
+        if (cart == null) {
+            cart = new ArrayList<>();
+        }
+
+        // verificar que en el carrito no haya un producto con el mismo id
+        boolean found = false;
+        for (ProductOnCart p : cart) {
+            if (p.getProduct().getIdProducto() == idProducto) {
+                p.setQuantity(p.getQuantity() + 1);
+                found = true;
+                break;
+            }
+        }
+
+        if (!found) {
+            cart.add(productOnCart);
+        }
+
+        model.addAttribute("cart", cart);
+        //total
+        BigDecimal total = BigDecimal.ZERO;
+        for (ProductOnCart p : cart) {
+            BigDecimal price = p.getProduct().getPrecioUnitario();
+            BigDecimal quantityP = BigDecimal.valueOf(p.getQuantity());
+            total = total.add(price.multiply(quantityP));
+        }
+
+        model.addAttribute("total", total);
+
+        return "redirect:/invoice_creator";
+    }
+
 }
