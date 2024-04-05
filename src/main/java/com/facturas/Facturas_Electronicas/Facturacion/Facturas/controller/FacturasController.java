@@ -367,4 +367,19 @@ public class FacturasController {
 
         return null;
     }
+
+    @PostMapping("/sendToInvoiceCreator")
+    public String sendToInvoiceCreator(@RequestParam(name = "idCliente") Integer idCliente, Model model) {
+        // obtener el usuario loggeado (se obtiene de la sesion)
+        ProveedorEntity userLogged = (ProveedorEntity) httpSession.getAttribute("userLogged");
+        if (userLogged == null) {
+            return "redirect:/login";
+        }
+
+        // obtener el cliente
+        ClienteEntity client = clienteService.getClientById(idCliente);
+        model.addAttribute("currentClientSelected", client);
+
+        return "redirect:/invoice_creator";
+    }
 }
