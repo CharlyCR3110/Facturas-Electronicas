@@ -129,7 +129,7 @@
                 </div>
                 <a th:href="@{/clients/delete/{id}(id=${client.getIdCliente()})}" class="action-btn">Eliminar</a>
 
-                <form method="post" action="/sendToInvoiceCreator">
+                <form method="post" action="/sendClientToInvoiceCreator">
                   <input type="hidden" name="idCliente" th:value="${client.getIdCliente()}">
                   <button type="submit" class="action-btn">Facturar</button>
                 </form>

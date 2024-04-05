@@ -368,7 +368,7 @@ public class FacturasController {
         return null;
     }
 
-    @PostMapping("/sendToInvoiceCreator")
+    @PostMapping("/sendClientToInvoiceCreator")
     public String sendToInvoiceCreator(@RequestParam(name = "idCliente") Integer idCliente, Model model) {
         // obtener el usuario loggeado (se obtiene de la sesion)
         ProveedorEntity userLogged = (ProveedorEntity) httpSession.getAttribute("userLogged");
