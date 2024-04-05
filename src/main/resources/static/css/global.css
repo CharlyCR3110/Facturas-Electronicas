@@ -32,6 +32,9 @@
   /*XML export button color*/
   --xml-export-color: #EF9E46;
   --xml-export-color-hover: #E08E3A;
+  /* Send to invoice */
+  --send-invoice-color: #F1C40F;
+  --send-invoice-color-hover: #F39C12;
 }
 
 html {
