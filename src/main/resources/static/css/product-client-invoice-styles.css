@@ -201,6 +201,18 @@
   background-color: var(--danger-color-hover);
 }
 
+.table td>form {
+  display: inline-block;
+}
+
+.table td>form .action-btn {
+  background-color: var(--send-invoice-color);
+}
+
+.table td>form .action-btn:hover {
+  background-color: var(--send-invoice-color-hover);
+}
+
 /* pop-up */
 /* ocultar el checkbox  */
 input[type="checkbox"] {
