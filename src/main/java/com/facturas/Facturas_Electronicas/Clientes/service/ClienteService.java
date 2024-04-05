@@ -76,4 +76,8 @@ public class ClienteService {
 
         return clienteEntityReturn;
     }
+
+    public ClienteEntity getClientById(Integer idCliente) {
+        return clienteRepository.findById(idCliente).orElse(null);
+    }
 }
