@@ -125,6 +125,12 @@
                   </div>
                 </div>
                 <a th:href="@{/products/delete/{id}(id=${product.getIdProducto()})}" class="action-btn">Eliminar</a>
+
+                <form method="post" action="/sendProductToInvoiceCreator">
+                  <input type="hidden" name="idProducto" th:value="${product.getIdProducto()}">
+                  <button type="submit" class="action-btn">Enviar a Factura</button>
+                </form>
+
               </td>
             </tr>
           </tbody>
