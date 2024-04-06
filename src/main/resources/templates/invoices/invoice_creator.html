@@ -88,7 +88,13 @@
             <tbody>
               <tr th:each="item : ${cart}">
                 <td th:text="${item.getProduct().getNombre()}"></td>
-                <td th:text="${item.getQuantity()}"></td>
+                <td class="quantity-cell">
+                  <a th:href="@{'/updateQuantity/' + ${item.getProduct().getIdProducto()} + '/-1'}"
+                    class="quantity-controller-btn">-</a>
+                  <span th:text="${item.getQuantity()}" class="quantity-number"></span>
+                  <a th:href="@{'/updateQuantity/' + ${item.getProduct().getIdProducto()} + '/1'}"
+                    class="quantity-controller-btn">+</a>
+                </td>
                 <td th:text="'$' + ${item.getProduct().getPrecioUnitario()}"></td>
                 <td th:text="'$' + ${item.getProduct().getPrecioUnitario() * item.quantity}"></td>
                 <td>
