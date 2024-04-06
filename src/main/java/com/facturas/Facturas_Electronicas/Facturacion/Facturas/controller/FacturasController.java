@@ -59,6 +59,7 @@ public class FacturasController {
             }
         }
 
+        @SuppressWarnings("unchecked")
         ArrayList<FacturaEntity> invoices = ArrayList.class.cast(model.getAttribute("currentInvoicesList"));
         model.addAttribute("currentInvoicesList", invoices);  // agregar al model la lista de facturas
 
@@ -153,6 +154,7 @@ public class FacturasController {
         }
 
         // agregar el producto al carrito
+        @SuppressWarnings("unchecked")
         ArrayList<ProductOnCart> cart = (ArrayList<ProductOnCart>) model.getAttribute("cart");
         if (cart == null) {
             cart = new ArrayList<>();
@@ -201,6 +203,7 @@ public class FacturasController {
         productOnCart.setProduct(productoService.getProductoByID(productID));
 
         // eliminar el producto del carrito
+        @SuppressWarnings("unchecked")
         ArrayList<ProductOnCart> cart = (ArrayList<ProductOnCart>) model.getAttribute("cart");
         if (cart == null) {
             cart = new ArrayList<>();
@@ -271,6 +274,7 @@ public class FacturasController {
         }
 
         // obtener el carrito
+        @SuppressWarnings("unchecked")
         ArrayList<ProductOnCart> cart = (ArrayList<ProductOnCart>) model.getAttribute("cart");
         // Verificar que el carrito no sea null o este vacio, igualmente es poco probable que sea null o vacio
         if (cart == null || cart.isEmpty()) {
@@ -397,6 +401,7 @@ public class FacturasController {
         productOnCart.setQuantity(1);
 
         // agregar el producto al carrito
+        @SuppressWarnings("unchecked")
         ArrayList<ProductOnCart> cart = (ArrayList<ProductOnCart>) model.getAttribute("cart");
         if (cart == null) {
             cart = new ArrayList<>();
@@ -443,6 +448,7 @@ public class FacturasController {
         productOnCart.setProduct(productoService.getProductoByID(idProducto));
 
         // actualizar la cantidad del producto en el carrito
+        @SuppressWarnings("unchecked")
         ArrayList<ProductOnCart> cart = (ArrayList<ProductOnCart>) model.getAttribute("cart");
         if (cart == null) {
             cart = new ArrayList<>();
