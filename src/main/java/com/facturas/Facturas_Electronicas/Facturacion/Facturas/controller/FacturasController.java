@@ -185,8 +185,6 @@ public class FacturasController {
 
         model.addAttribute("total", total);
 
-        System.out.println("cart: " + cart);
-
         return "redirect:/invoice_creator";
     }
 
@@ -243,7 +241,6 @@ public class FacturasController {
             ClienteEntity client = clienteService.getClientByIdentificationAndProveedor(clientIdentification, userLogged);
             model.addAttribute("currentClientSelected", client);
         } catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());
             httpSession.setAttribute("errorMessage", e.getMessage());
         }
 
