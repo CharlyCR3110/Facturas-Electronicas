@@ -65,7 +65,7 @@
                       <p>ID Proveedor: <span th:text="${factura.getFactura().getIdProveedor()}"></span></p>
                       <p>ID Cliente: <span th:text="${factura.getFactura().getIdCliente()}"></span></p>
                       <p>Subtotal: <span th:text="${factura.getFactura().getSubtotal()}"></span></p>
-                      <p>Impuesto: <span th:text="${factura.getFactura().getImpuesto()}"></span></p>
+                      <p>Impuesto: <span th:text="${factura.getFactura().getImpuesto()} + '%'"></span></p>
                       <p>Total: <span th:text="${factura.getFactura().getTotal()}"></span></p>
                       <!--                    lista de productos-->
                       <table class="table details-table">
