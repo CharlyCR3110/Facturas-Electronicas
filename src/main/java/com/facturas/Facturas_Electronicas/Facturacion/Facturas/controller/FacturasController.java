@@ -430,4 +430,48 @@ public class FacturasController {
         return "redirect:/invoice_creator";
     }
 
+    @GetMapping("/updateQuantity/{idProducto}/{increment}")
+    public String updateQuantity(@PathVariable("idProducto") Integer idProducto, @PathVariable("increment") Integer increment, Model model) {
+        // obtener el usuario loggeado (se obtiene de la sesion)
+        ProveedorEntity userLogged = (ProveedorEntity) httpSession.getAttribute("userLogged");
+        if (userLogged == null) {
+            return "redirect:/login";
+        }
+
+        // obtener el producto
+        ProductOnCart productOnCart = new ProductOnCart();
+        productOnCart.setProduct(productoService.getProductoByID(idProducto));
+
+        // actualizar la cantidad del producto en el carrito
+        ArrayList<ProductOnCart> cart = (ArrayList<ProductOnCart>) model.getAttribute("cart");
+        if (cart == null) {
+            cart = new ArrayList<>();
+        }
+
+        for (ProductOnCart p : cart) {
+            if (p.getProduct().getIdProducto() == idProducto) {
+                if (increment == -1 && p.getQuantity() == 1) {
+                    cart.remove(p);
+                    break;
+                }
+
+                p.setQuantity(p.getQuantity() + increment);
+                break;
+            }
+        }
+
+        model.addAttribute("cart", cart);
+        //total
+        BigDecimal total = BigDecimal.ZERO;
+        for (ProductOnCart p : cart) {
+            BigDecimal price = p.getProduct().getPrecioUnitario();
+            BigDecimal quantityP = BigDecimal.valueOf(p.getQuantity());
+            total = total.add(price.multiply(quantityP));
+        }
+
+        model.addAttribute("total", total);
+
+        return "redirect:/invoice_creator";
+    }
 }
+
