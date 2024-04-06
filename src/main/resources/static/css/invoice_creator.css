@@ -40,9 +40,7 @@
 }
 
 .invoice-creator .client-selection p,
-.invoice-creator .product-selection p
-
-{
+.invoice-creator .product-selection p {
   margin-top: 10px;
   font-style: italic;
   color: #666;
@@ -153,6 +151,43 @@ li {
   width: 20px;
   height: 20px;
   background-image: url(../icons/trash-bin-minimalistic-svgrepo-com.svg);
+}
+.quantity-cell {
+  text-align: center;
+}
+
+.quantity-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.quantity-cell .quantity-controller-btn {
+  text-align: center;
+  width: 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: var(--primary-color);
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  margin-bottom: 0;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.5rem;
+  white-space: nowrap;
+  touch-action: manipulation;
+  user-select: none;
+  background-image: none;
+}
+
+.quantity-cell .quantity-controller-btn{
+  text-decoration: none;
+  color: #fff;
+}
+
+.quantity-number {
+  margin: 0 10px;
 }
 
 /* pop up */
