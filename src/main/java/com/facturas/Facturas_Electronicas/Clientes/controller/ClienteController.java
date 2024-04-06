@@ -74,8 +74,6 @@ public class ClienteController {
         newClient.setIdProveedor(userLogged.getIdProveedor());
         // guardar el cliente en la base de datos
         try {
-            System.out.println("GUARDANDO CLIENTE...");
-            System.out.println(newClient);
             clienteService.saveClient(newClient);
             // Obtener la lista actualizada de clientes
             ArrayList<ClienteEntity> updatedClients = clienteService.getClientesByProveedor(userLogged);
@@ -146,9 +144,6 @@ public class ClienteController {
                 httpSession.setAttribute("errorMessage", e.getMessage());
             }
         }
-
-        System.out.println("EDITANDO CLIENTE...");
-        System.out.println(cliente);
 
         return "redirect:/clients";  // redirigir a la pagina de clientes
     }

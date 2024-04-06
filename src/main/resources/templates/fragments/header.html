@@ -15,7 +15,6 @@
   <div class="wrap" th:fragment="header">
     <div id="minimal-header">
       <div class="right-header">
-        <!--        el texto del ancho es el nombre del usuario-->
         <div class="btn">
           <a href="/account_info" th:text="${session.userLogged.getNombre()}"></a>
         </div>

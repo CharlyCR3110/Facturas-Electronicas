@@ -82,8 +82,6 @@ public class ProveedorController {
             return "redirect:/login";
         }
 
-        System.out.println(userLogged.getCorreo() + userLogged.getContrasena() + userLogged.getNombre());
-
         // agregar el mensaje de confirmación al modelo (viene desde httpSession)
         model.addAttribute("confirmation", httpSession.getAttribute("confirmation"));
         // eliminar el mensaje de confirmación de la sesión
