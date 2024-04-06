@@ -35,18 +35,14 @@ h2 {
   text-align: center;
 }
 
-/* TABS */
-
-h2.inactive {
-  color: #cccccc;
-}
+/* Tab */
 
 h2.active {
   color: #0d0d0d;
   border-bottom: 2px solid var(--primary-color);
 }
 
-/* FORM TYPOGRAPHY*/
+/* FORM*/
 
 input[type=button],
 input[type=submit],
@@ -86,7 +82,8 @@ input[type=password] {
   border-radius: 5px 5px 5px 5px;
 }
 
-input[type=text]:focus {
+input[type=text]:focus,
+input[type=password]:focus {
   background-color: #fff;
   border-bottom: 2px solid #5fbae9;
 }
@@ -95,33 +92,7 @@ input[type=text]:placeholder {
   color: #cccccc;
 }
 
-
-
-
-
-/* Simple CSS3 Fade-in Animation */
-.underlineHover:after {
-  display: block;
-  left: 0;
-  bottom: -10px;
-  width: 0;
-  height: 2px;
-  background-color: #56baed;
-  content: "";
-  transition: width 0.2s;
-}
-
-.underlineHover:hover {
-  color: #0d0d0d;
-}
-
-.underlineHover:hover:after {
-  width: 100%;
-}
-
-
-
-/* OTHERS */
+/* Otros */
 
 *:focus {
   outline: none;

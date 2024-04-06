@@ -1,6 +1,9 @@
 package com.facturas.Facturas_Electronicas.Clientes.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 
 import java.util.Objects;
 
@@ -11,18 +14,31 @@ public class ClienteEntity {
     @Id
     @Column(name = "id_cliente")
     private int idCliente;
+
     @Basic
+    @NotBlank(message = "El nombre es requerido")
+    @Size(min = 3, max = 100, message = "El nombre debe tener entre 3 y 100 caracteres")
     @Column(name = "nombre")
     private String nombre;
+
     @Basic
+    @NotBlank(message = "La identificación es requerida")
+    @Size(min = 3, max = 50, message = "La identificación debe tener entre 3 y 50 caracteres")
     @Column(name = "identificacion")
     private String identificacion;
+
     @Basic
+    @NotBlank(message = "El teléfono es requerido")
+    @Size(min = 3, max = 20, message = "El teléfono debe tener entre 3 y 20 caracteres")
     @Column(name = "telefono")
     private String telefono;
+
     @Basic
+    @NotBlank(message = "El correo es requerido")
+    @Size(min = 3, max = 100, message = "El correo debe tener entre 3 y 100 caracteres")
     @Column(name = "correo")
     private String correo;
+
     @Basic
     @Column(name = "id_proveedor")
     private Integer idProveedor;

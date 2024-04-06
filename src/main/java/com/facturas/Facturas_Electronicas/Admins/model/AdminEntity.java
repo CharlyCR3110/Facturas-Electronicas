@@ -1,6 +1,7 @@
 package com.facturas.Facturas_Electronicas.Admins.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
 
 import java.util.Objects;
 
@@ -12,9 +13,11 @@ public class AdminEntity {
     @Column(name = "id_admin")
     private int idAdmin;
     @Basic
+    @NotEmpty
     @Column(name = "nombre")
     private String nombre;
     @Basic
+    @NotEmpty
     @Column(name = "contrasena")
     private String contrasena;
 

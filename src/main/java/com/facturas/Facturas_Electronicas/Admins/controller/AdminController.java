@@ -5,9 +5,11 @@ import com.facturas.Facturas_Electronicas.Admins.service.AdminService;
 import com.facturas.Facturas_Electronicas.Proveedores.model.ProveedorEntity;
 import com.facturas.Facturas_Electronicas.Proveedores.service.ProveedorService;
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -36,7 +38,12 @@ public class AdminController {
     }
 
     @PostMapping("/admins/login")
-    public String loginAdmin(@ModelAttribute("adminLoginRequest") AdminEntity adminEntity, Model model) {
+    public String loginAdmin(@Valid @ModelAttribute("adminLoginRequest") AdminEntity adminEntity, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            return "admins/adminLogin";
+        }
+
+
         try {
             AdminEntity admin = adminService.loginAdmin(adminEntity.getNombre(), adminEntity.getContrasena());
             httpSession.setAttribute("adminLogged", admin);
