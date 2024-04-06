@@ -75,8 +75,6 @@ public class ProductoController {
         newProduct.setIdProveedor(userLogged.getIdProveedor());
         // guardar el producto en la base de datos
         try {
-            System.out.println("GUARDANDO PRODUCTO");
-            System.out.println(newProduct);
             productoService.saveProduct(newProduct);
             // Obtener la lista actualizada de productos
             ArrayList<ProductoEntity> updatedProductos = productoService.getProductosByProveedor(userLogged);
@@ -136,9 +134,6 @@ public class ProductoController {
             // si hay un error, guardar el mensaje en la sesion
             httpSession.setAttribute("errorMessage", e.getMessage());
         }
-
-        System.out.println("EDITANDO PRODUCTO");
-        System.out.println(producto);
 
         return "redirect:/products";  // redirigir a la pagina de productos
     }
