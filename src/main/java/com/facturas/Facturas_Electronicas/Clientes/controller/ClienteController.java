@@ -4,9 +4,11 @@ import com.facturas.Facturas_Electronicas.Clientes.model.ClienteEntity;
 import com.facturas.Facturas_Electronicas.Clientes.service.ClienteService;
 import com.facturas.Facturas_Electronicas.Proveedores.model.ProveedorEntity;
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -53,10 +55,16 @@ public class ClienteController {
     }
 
     @PostMapping("/clients/add")
-    public String addClient(@ModelAttribute("currentClient") ClienteEntity cliente, Model model) {
+    public String addClient(@Valid @ModelAttribute("currentClient") ClienteEntity cliente, BindingResult bindingResult, Model model) {
         ProveedorEntity userLogged = (ProveedorEntity) httpSession.getAttribute("userLogged");
         if (userLogged == null) {
             return "redirect:/login";
+        }
+
+        if (bindingResult.hasErrors()) {
+            // Si hay errores de validación, guardar los errores en la sesión
+            httpSession.setAttribute("errorMessage", bindingResult.getAllErrors().get(0).getDefaultMessage());
+            return "redirect:/clients";  // redirigir a la pagina de clientes
         }
 
         ClienteEntity newClient = new ClienteEntity(); // Crear nueva instancia de ClienteEntity para evitar errores
