@@ -4,9 +4,11 @@ import com.facturas.Facturas_Electronicas.Productos.model.ProductoEntity;
 import com.facturas.Facturas_Electronicas.Productos.service.ProductoService;
 import com.facturas.Facturas_Electronicas.Proveedores.model.ProveedorEntity;
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -54,10 +56,16 @@ public class ProductoController {
     }
 
     @PostMapping("/products/add")
-    public String addProduct(@ModelAttribute("currentProduct") ProductoEntity producto, Model model) {
+    public String addProduct(@Valid @ModelAttribute("currentProduct") ProductoEntity producto, BindingResult bindingResult, Model model) {
         ProveedorEntity userLogged = (ProveedorEntity) httpSession.getAttribute("userLogged");
         if (userLogged == null) {
             return "redirect:/login";
+        }
+
+        if (bindingResult.hasErrors()) {
+            // si hay errores de validacion, guardar el mensaje en la sesion
+            httpSession.setAttribute("errorMessage", bindingResult.getAllErrors().getFirst().getDefaultMessage());
+            return "redirect:/products";  // redirigir a la pagina de productos
         }
 
         ProductoEntity newProduct = new ProductoEntity(); // Crear nueva instancia de ProductoEntity para evitar errores
