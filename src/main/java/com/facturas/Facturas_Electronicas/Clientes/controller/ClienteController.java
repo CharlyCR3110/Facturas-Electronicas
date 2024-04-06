@@ -116,11 +116,17 @@ public class ClienteController {
 
     // metodo para editar un cliente
     @PostMapping("/clients/edit")
-    public String editClient(@ModelAttribute("currentClient") ClienteEntity cliente, Model model) {
+    public String editClient(@Valid @ModelAttribute("currentClient") ClienteEntity cliente, BindingResult bindingResult, Model model) {
         // obtener el usuario loggeado (se obtiene de la sesion)
         ProveedorEntity userLogged = (ProveedorEntity) httpSession.getAttribute("userLogged");
         if (userLogged == null) {
             return "redirect:/login";
+        }
+
+        if (bindingResult.hasErrors()) {
+            // Si hay errores de validación, guardar los errores en la sesión
+            httpSession.setAttribute("errorMessage", bindingResult.getAllErrors().getFirst().getDefaultMessage());
+            return "redirect:/clients";  // redirigir a la pagina de clientes
         }
 
         try {
