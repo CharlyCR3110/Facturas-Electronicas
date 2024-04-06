@@ -6,6 +6,9 @@
 --- uq_<table>_<column> ---
 --- es decir, la tabla seguido de la columna que debe ser unica ---
 
+CREATE OR REPLACE DATABASE facturas_electronicas;
+USE facturas_electronicas;
+
 -- proveedores --
 CREATE TABLE tbl_proveedores (
   id_proveedor INT AUTO_INCREMENT,
