@@ -111,11 +111,17 @@ public class ProductoController {
 
     // metodo para editar un producto
     @PostMapping("/products/edit")
-    public String editProduct(@ModelAttribute("currentProduct") ProductoEntity producto, Model model) {
+    public String editProduct(@Valid @ModelAttribute("currentProduct") ProductoEntity producto, BindingResult bindingResult, Model model) {
         // obtener el usuario loggeado (se obtiene de la sesion)
         ProveedorEntity userLogged = (ProveedorEntity) httpSession.getAttribute("userLogged");
         if (userLogged == null) {
             return "redirect:/login";
+        }
+
+        if (bindingResult.hasErrors()) {
+            // si hay errores de validacion, guardar el mensaje en la sesion
+            httpSession.setAttribute("errorMessage", bindingResult.getAllErrors().getFirst().getDefaultMessage());
+            return "redirect:/products";  // redirigir a la pagina de productos
         }
 
         try {
