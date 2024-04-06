@@ -36,7 +36,10 @@ public class ProductoService {
         try {
             productoRepository.deleteById(idProducto);
         } catch (Exception e) {
-            throw new RuntimeException("No se pudo eliminar el producto");
+            if (e.getMessage().contains("foreign key constraint fails")) {
+                throw new RuntimeException("No se pudo eliminar el producto con ID " + idProducto + ". Esto puede deberse a que hay facturas asociadas a este producto. Por favor, elimine primero las facturas asociadas y luego intente nuevamente.");
+            }
+            throw new RuntimeException("No se pudo eliminar el producto con ID " + idProducto);
         }
     }
 
@@ -61,5 +64,14 @@ public class ProductoService {
 
     public ProductoEntity getProductoByID(Integer productID) {
         return productoRepository.findById(productID).orElse(null);
+    }
+
+    public ProductoEntity getProductoByNombreAndProveedor(String productName, ProveedorEntity userLogged) {
+        ProductoEntity returnValue = productoRepository.findByNombreAndIdProveedor(productName, userLogged.getIdProveedor());
+        if (returnValue == null) {
+            throw new RuntimeException("Parece que el producto no existe");
+        }
+
+        return returnValue;
     }
 }

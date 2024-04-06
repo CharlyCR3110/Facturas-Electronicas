@@ -35,19 +35,27 @@
                   <form method="post" action="/clients/add">
                     <div class="form-group">
                       <label for="nombre">Nombre</label>
-                      <input type="text" name="nombre" id="nombre" required>
+                      <input type="text" name="nombre" id="nombre"
+                        oninvalid="this.setCustomValidity('Por favor, ingrese el nombre')"
+                        oninput="setCustomValidity('')" required />
                     </div>
                     <div class="form-group">
                       <label for="identificacion">Identificación</label>
-                      <input type="text" name="identificacion" id="identificacion" required>
+                      <input type="text" name="identificacion" id="identificacion"
+                        oninvalid="this.setCustomValidity('Por favor, ingrese la identificación')"
+                        oninput="setCustomValidity('')" required />
                     </div>
                     <div class="form-group">
                       <label for="telefono">Teléfono</label>
-                      <input type="text" name="telefono" id="telefono" required>
+                      <input type="text" name="telefono" id="telefono"
+                        oninvalid="this.setCustomValidity('Por favor, ingrese el teléfono')"
+                        oninput="setCustomValidity('')" required />
                     </div>
                     <div class="form-group">
                       <label for="correo">Correo</label>
-                      <input type="email" name="correo" id="correo" required>
+                      <input type="email" name="correo" id="correo"
+                        oninvalid="this.setCustomValidity('Por favor, ingrese el correo')"
+                        oninput="setCustomValidity('')" required />
                     </div>
                     <button type="submit" class="action-btn">Agregar</button>
                     <label for="toggle-popup" class="close-btn">Cancelar</label>
@@ -59,7 +67,7 @@
           </div>
           <div class="form-inline pull-right">
             <form method="post" action="/clients/search">
-              <input type="text" name="searchName" placeholder="Buscar cliente">
+              <input type="text" name="searchName" placeholder="Nombre del cliente">
               <button class="action-btn" type="submit">Buscar</button>
             </form>
           </div>
@@ -120,6 +128,12 @@
                   </div>
                 </div>
                 <a th:href="@{/clients/delete/{id}(id=${client.getIdCliente()})}" class="action-btn">Eliminar</a>
+
+                <form method="post" action="/sendClientToInvoiceCreator">
+                  <input type="hidden" name="idCliente" th:value="${client.getIdCliente()}">
+                  <button type="submit" class="action-btn">Enviar a Factura</button>
+                </form>
+
               </td>
             </tr>
           </tbody>

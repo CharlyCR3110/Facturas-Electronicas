@@ -44,7 +44,7 @@ public class ProveedorController {
             proveedorService.registerProveedor(proveedorEntity);
 
             // Agrega un mensaje de confirmación al modelo
-            model.addAttribute("confirmation", "¡Registro exitoso! Ahora puedes iniciar sesión.");
+            model.addAttribute("confirmation", "¡Registro exitoso! Debe esperar a que un administrador apruebe su cuenta.");
         } catch (IllegalArgumentException e) {
             // si falla el registro, se agregará un mensaje de error al modelo y luego devuelve al view de register con el mensaje (muestra el popup de error)
             model.addAttribute("error", e.getMessage());

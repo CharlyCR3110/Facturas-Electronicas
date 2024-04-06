@@ -8,7 +8,6 @@ import com.facturas.Facturas_Electronicas.Facturacion.Facturas.model.FacturaEnti
 import com.facturas.Facturas_Electronicas.Facturacion.Facturas.service.FacturaEntityService;
 import com.facturas.Facturas_Electronicas.Productos.service.ProductoService;
 import com.facturas.Facturas_Electronicas.Proveedores.model.ProveedorEntity;
-import com.itextpdf.text.pdf.qrcode.ByteArray;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
@@ -21,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Objects;
 
 @Controller
 @SessionAttributes({"userLogged", "currentPage", "currentInvoice", "currentInvoicesList", "currentClientsList", "currentProductsList", "cart", "total", "currentClientSelected"})
@@ -123,17 +123,18 @@ public class FacturasController {
         if (userLogged == null) {
             return "redirect:/login";
         }
-        // Para agregar una factura se necesita la lista de clientes del proveedor
-        model.addAttribute("currentClientsList", clienteService.getClientesByProveedor(userLogged));
-        // Para agregar una factura se necesita la lista de productos del proveedor
-        model.addAttribute("currentProductsList", productoService.getProductosByProveedor(userLogged));
+
+        // error message
+        model.addAttribute("errorMessage", httpSession.getAttribute("errorMessage"));
+        // eliminar el error de la sesión
+        httpSession.removeAttribute("errorMessage");
 
         model.addAttribute("currentPage", "invoiceCreator");
         return "invoices/invoice_creator";
     }
 
     @PostMapping("/invoice_creator/addToCart")
-    public String addToCart(@RequestParam(name = "product") Integer productID, @RequestParam(name = "quantity") Integer quantity, Model model) {
+    public String addToCart(@RequestParam(name = "product") String productName, @RequestParam(name = "quantity") Integer quantity, Model model) {
         // obtener el usuario loggeado (se obtiene de la sesion)
         ProveedorEntity userLogged = (ProveedorEntity) httpSession.getAttribute("userLogged");
         if (userLogged == null) {
@@ -143,8 +144,13 @@ public class FacturasController {
 
         // obtener el producto
         ProductOnCart productOnCart = new ProductOnCart();
-        productOnCart.setProduct(productoService.getProductoByID(productID));
-        productOnCart.setQuantity(quantity);
+        try {
+            productOnCart.setProduct(productoService.getProductoByNombreAndProveedor(productName, userLogged));
+            productOnCart.setQuantity(quantity);
+        } catch (Exception e) {
+            httpSession.setAttribute("errorMessage", e.getMessage());
+            return "redirect:/invoice_creator";
+        }
 
         // agregar el producto al carrito
         ArrayList<ProductOnCart> cart = (ArrayList<ProductOnCart>) model.getAttribute("cart");
@@ -155,7 +161,7 @@ public class FacturasController {
         // verificar que en el carrito no haya un producto con el mismo id
         boolean found = false;
         for (ProductOnCart p : cart) {
-            if (p.getProduct().getIdProducto() == productID) {
+            if (Objects.equals(p.getProduct().getNombre(), productName)) {
                 p.setQuantity(p.getQuantity() + quantity);
                 found = true;
                 break;
@@ -222,7 +228,7 @@ public class FacturasController {
     }
 
     @PostMapping("/invoice_creator/selectClient")
-    public String selectClient(@RequestParam(name = "client") Integer clientID, Model model) {
+    public String selectClient(@RequestParam(name = "client") String clientIdentification, Model model) {
         // obtener el usuario loggeado (se obtiene de la sesion)
         ProveedorEntity userLogged = (ProveedorEntity) httpSession.getAttribute("userLogged");
         if (userLogged == null) {
@@ -230,9 +236,20 @@ public class FacturasController {
         }
 
         // obtener el cliente
-        ClienteEntity client = clienteService.getClientByID(clientID);
-        model.addAttribute("currentClientSelected", client);
+        try {
+            ClienteEntity client = clienteService.getClientByIdentificationAndProveedor(clientIdentification, userLogged);
+            model.addAttribute("currentClientSelected", client);
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+            httpSession.setAttribute("errorMessage", e.getMessage());
+        }
 
+        return "redirect:/invoice_creator";
+    }
+
+    @PostMapping("/invoice_creator/clearClient")
+    public String clearClient(Model model) {
+        model.addAttribute("currentClientSelected", new ClienteEntity());
         return "redirect:/invoice_creator";
     }
 
@@ -350,4 +367,67 @@ public class FacturasController {
 
         return null;
     }
+
+    @PostMapping("/sendClientToInvoiceCreator")
+    public String sendToInvoiceCreator(@RequestParam(name = "idCliente") Integer idCliente, Model model) {
+        // obtener el usuario loggeado (se obtiene de la sesion)
+        ProveedorEntity userLogged = (ProveedorEntity) httpSession.getAttribute("userLogged");
+        if (userLogged == null) {
+            return "redirect:/login";
+        }
+
+        // obtener el cliente
+        ClienteEntity client = clienteService.getClientById(idCliente);
+        model.addAttribute("currentClientSelected", client);
+
+        return "redirect:/invoice_creator";
+    }
+
+    @PostMapping("/sendProductToInvoiceCreator")
+    public String sendProductToInvoiceCreator(@RequestParam(name = "idProducto") Integer idProducto, Model model) {
+        // obtener el usuario loggeado (se obtiene de la sesion)
+        ProveedorEntity userLogged = (ProveedorEntity) httpSession.getAttribute("userLogged");
+        if (userLogged == null) {
+            return "redirect:/login";
+        }
+
+        // obtener el producto
+        ProductOnCart productOnCart = new ProductOnCart();
+        productOnCart.setProduct(productoService.getProductoByID(idProducto));
+        productOnCart.setQuantity(1);
+
+        // agregar el producto al carrito
+        ArrayList<ProductOnCart> cart = (ArrayList<ProductOnCart>) model.getAttribute("cart");
+        if (cart == null) {
+            cart = new ArrayList<>();
+        }
+
+        // verificar que en el carrito no haya un producto con el mismo id
+        boolean found = false;
+        for (ProductOnCart p : cart) {
+            if (p.getProduct().getIdProducto() == idProducto) {
+                p.setQuantity(p.getQuantity() + 1);
+                found = true;
+                break;
+            }
+        }
+
+        if (!found) {
+            cart.add(productOnCart);
+        }
+
+        model.addAttribute("cart", cart);
+        //total
+        BigDecimal total = BigDecimal.ZERO;
+        for (ProductOnCart p : cart) {
+            BigDecimal price = p.getProduct().getPrecioUnitario();
+            BigDecimal quantityP = BigDecimal.valueOf(p.getQuantity());
+            total = total.add(price.multiply(quantityP));
+        }
+
+        model.addAttribute("total", total);
+
+        return "redirect:/invoice_creator";
+    }
+
 }

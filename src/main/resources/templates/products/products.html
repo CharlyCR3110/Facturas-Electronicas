@@ -36,16 +36,22 @@
                   <form method="post" action="/products/add">
                     <div class="form-group">
                       <label for="nombre">Nombre</label>
-                      <input type="text" name="nombre" id="nombre" required>
+                      <input type="text" name="nombre" id="nombre"
+                        oninvalid="this.setCustomValidity('Por favor, ingrese el nombre')"
+                        oninput="setCustomValidity('')" required />
                     </div>
                     <div class="form-group">
                       <label for="descripcion">Descripción</label>
-                      <input type="text" name="descripcion" id="descripcion" required>
+                      <input type="text" name="descripcion" id="descripcion"
+                        oninvalid="this.setCustomValidity('Por favor, ingrese la descripción')"
+                        oninput="setCustomValidity('')" required />
                     </div>
                     <div class="form-group">
                       <label for="precioUnitario">Precio Unitario</label>
                       <input type="text" name="precioUnitario" id="precioUnitario" pattern="[0-9]+([\.|,][0-9]+)?"
-                        title="Ingrese un número válido, puede incluir decimales" required>
+                        title="Ingrese un número válido, puede incluir decimales"
+                        oninvalid="this.setCustomValidity('Por favor, ingrese el precio unitario')"
+                        oninput="setCustomValidity('')" required />
                     </div>
                     <button type="submit" class="action-btn">Agregar</button>
                     <label for="toggle-popup" class="close-btn">Cancelar</label>
@@ -57,7 +63,7 @@
           </div>
           <div class="form-inline pull-right">
             <form method="post" action="/products/search">
-              <input type="text" name="searchName" placeholder="Buscar producto">
+              <input type="text" name="searchName" placeholder="Nombre del producto">
               <button class="action-btn" type="submit">Buscar</button>
             </form>
           </div>
@@ -92,18 +98,24 @@
                         <input type="hidden" name="idProducto" th:value="${product.getIdProducto()}">
                         <div class="form-group">
                           <label for="nombre-edit">Nombre</label>
-                          <input type="text" name="nombre" id="nombre-edit" th:value="${product.getNombre()}" required>
+                          <input type="text" name="nombre" id="nombre-edit" th:value="${product.getNombre()}"
+                            oninvalid="this.setCustomValidity('Por favor, ingrese el nombre')"
+                            oninput="setCustomValidity('')" required />
                         </div>
                         <div class="form-group">
                           <label for="descripcion-edit">Descripción</label>
                           <input type="text" name="descripcion" id="descripcion-edit"
-                            th:value="${product.getDescripcion()}" required>
+                            th:value="${product.getDescripcion()}"
+                            oninvalid="this.setCustomValidity('Por favor, ingrese la descripción')"
+                            oninput="setCustomValidity('')" required />
                         </div>
                         <div class="form-group">
                           <label for="precioUnitario-edit">Precio Unitario</label>
                           <input type="text" name="precioUnitario" id="precioUnitario-edit"
                             pattern="[0-9]+([\.|,][0-9]+)?" title="Ingrese un número válido, puede incluir decimales"
-                            th:value="${product.getPrecioUnitario()}" required>
+                            th:value="${product.getPrecioUnitario()}"
+                            oninvalid="this.setCustomValidity('Por favor, ingrese el precio unitario')"
+                            oninput="setCustomValidity('')" required />
                         </div>
                         <button type="submit" class="action-btn">Actualizar</button>
                         <label th:for="'toggle-edit-popup-' + ${product.getIdProducto()}"
@@ -113,6 +125,12 @@
                   </div>
                 </div>
                 <a th:href="@{/products/delete/{id}(id=${product.getIdProducto()})}" class="action-btn">Eliminar</a>
+
+                <form method="post" action="/sendProductToInvoiceCreator">
+                  <input type="hidden" name="idProducto" th:value="${product.getIdProducto()}">
+                  <button type="submit" class="action-btn">Enviar a Factura</button>
+                </form>
+
               </td>
             </tr>
           </tbody>

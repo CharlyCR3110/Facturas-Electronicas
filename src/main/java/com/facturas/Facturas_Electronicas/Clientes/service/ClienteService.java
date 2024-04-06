@@ -36,6 +36,9 @@ public class ClienteService {
         try {
             clienteRepository.deleteById(clienteId);
         } catch (Exception e) {
+            if (e.getMessage().contains("foreign key constraint fails")) {
+                throw new RuntimeException("No se pudo eliminar el cliente con ID " + clienteId + ". Esto puede deberse a que hay facturas asociadas a este cliente. Por favor, elimine primero las facturas asociadas y luego intente nuevamente.");
+            }
             throw new RuntimeException("No se pudo eliminar el cliente");
         }
     }
@@ -63,5 +66,18 @@ public class ClienteService {
 
     public ClienteEntity getClientByID(Integer clientID) {
         return clienteRepository.findById(clientID).orElse(null);
+    }
+
+    public ClienteEntity getClientByIdentificationAndProveedor(String clientIdentification, ProveedorEntity userLogged) {
+        ClienteEntity clienteEntityReturn = clienteRepository.findByIdentificacionAndIdProveedor(clientIdentification, userLogged.getIdProveedor());
+        if (clienteEntityReturn == null) {
+            throw new RuntimeException("No se encontró el cliente con la identificación ingresada");
+        }
+
+        return clienteEntityReturn;
+    }
+
+    public ClienteEntity getClientById(Integer idCliente) {
+        return clienteRepository.findById(idCliente).orElse(null);
     }
 }

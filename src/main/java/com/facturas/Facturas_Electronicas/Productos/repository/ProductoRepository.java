@@ -10,4 +10,6 @@ public interface ProductoRepository  extends JpaRepository<ProductoEntity, Integ
     ArrayList<ProductoEntity> findAllByIdProveedor(int idProveedor);
 
     ArrayList<ProductoEntity> findAllByIdProveedorAndNombreContaining(int idProveedor, String searchName);
+
+    ProductoEntity findByNombreAndIdProveedor(String productName, int idProveedor);
 }
