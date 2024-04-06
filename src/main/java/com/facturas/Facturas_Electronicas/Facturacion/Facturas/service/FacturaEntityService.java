@@ -42,12 +42,9 @@ public class FacturaEntityService {
     }
 
     public ArrayList<FacturaConDetallesDTO> getFacturasByProveedorAndClientID(ProveedorEntity userLogged, Integer searchClientID) {
-
-        System.out.println("searchClientID: " + searchClientID);
         if (searchClientID == null || searchClientID == -1) {
             return getFacturasByProveedor(userLogged);
         }
-
 
         ArrayList<FacturaConDetallesDTO> facturas = new ArrayList<>();
         List<FacturaEntity> facturasDelProveedor = facturaEntityRepository.getFacturasByIdProveedorAndIdCliente(userLogged.getIdProveedor(), searchClientID);
