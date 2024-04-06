@@ -1,4 +1,4 @@
-package com.facturas.Facturas_Electronicas.globals;
+package com.facturas.Facturas_Electronicas.Index.Controller;
 
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.stereotype.Controller;
