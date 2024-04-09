@@ -27,11 +27,11 @@ VALUES
 ('2024-03-30 12:00:00', 3, 3, 0.00, 13.00, 0.00);
 
 -- detalle_facturas --
-INSERT INTO tbl_detalle_facturas (id_factura, id_producto, cantidad)
+INSERT INTO tbl_detalle_facturas (id_factura, id_producto, cantidad, precio_unitario, total)
 VALUES 
-(1, 1, 2),
-(2, 2, 1),
-(3, 3, 3);
+(1, 1, 2, 0, 0),
+(2, 2, 1, 0, 0),
+(3, 3, 3, 0, 0);
 
 -- admins --
 INSERT INTO tbl_admins (nombre, contrasena)
