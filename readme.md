@@ -88,7 +88,7 @@ Certainly! Here's a step-by-step installation process for the Simplified Electro
    ```
 
 8. **Initial Setup**
-   - Follow the on-screen instructions to complete the initial setup of the system, including creating the admin account and configuring basic settings.
+   - Follow the on-screen instructions
 
 9. **Enjoy Using the Electronic Invoice System!**
    - You can now use the system to manage electronic invoices, register suppliers, customers, products, and more.
